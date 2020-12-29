@@ -27,6 +27,11 @@ namespace DEC_01
 
             string rootPath = string.Join(System.IO.Path.DirectorySeparatorChar, rootPathList);
 
+            // make sure it has ending path seperator
+            if( rootPath.TrimEnd().Last() != System.IO.Path.DirectorySeparatorChar){
+                rootPath = rootPath.TrimEnd() + System.IO.Path.DirectorySeparatorChar;
+            }
+
             return rootPath;
         }
     }
