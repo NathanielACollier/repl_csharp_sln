@@ -14,7 +14,11 @@
             "args": [],
             "cwd": "${fileDirname}",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
-            "console": "internalConsole",
+            /*
+                + The default "console" setting of "integratedConsole" won't take in Console.ReadLine.  
+                    + If you change it to "integratedTerminal" it will work alot better
+            */
+            "console": "integratedTerminal",
             "stopAtEntry": false
         },
         {
