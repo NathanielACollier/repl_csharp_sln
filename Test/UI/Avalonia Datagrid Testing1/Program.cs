@@ -30,8 +30,13 @@ namespace Avalonia_Datagrid_Testing1
                     Last = "Collier"
                 }
             };
-            f._Extend_AddBinding<ObservableCollection<models.Person>>("items", dg, Avalonia.Controls.DataGrid.ItemsProperty, false);
+            f.Model["items"] = people;
+            
+            f._Extend_AddBinding<ObservableCollection<models.Person>>("items", dg, Avalonia.Controls.DataGrid.ItemsProperty, 
+                                                            isTwoWayDataBinding: true);
             f._Extend_AddRowToHost(dg, rowAutoHeight: false);
+
+            
 
             f.Text("Below Datagrid");
             
