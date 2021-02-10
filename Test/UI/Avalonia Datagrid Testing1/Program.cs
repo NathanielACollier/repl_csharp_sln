@@ -14,8 +14,12 @@ namespace Avalonia_Datagrid_Testing1
             var app = Avalonia.AppBuilder.Configure<dotnetCoreAvaloniaNCForms.App>();
             app.AfterSetup((_app) =>
             {
-                app.Instance.Styles.Add(new StyleInclude(new Uri("avares://Avalonia.Controls.DataGrid/Themes/Default.xaml")));
-
+                // there is a bug in avalonia.  see: https://github.com/AvaloniaUI/Avalonia/issues/3788
+                var datagridStyleUri = new Uri("avares://Avalonia.Controls.DataGrid/Themes/Default.xaml");
+                var _style = new StyleInclude(datagridStyleUri) {
+                    Source = datagridStyleUri
+                };
+                app.Instance.Styles.Add(_style);
             });
             
             var f = app
