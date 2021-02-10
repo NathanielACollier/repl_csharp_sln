@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Styling;
 using dotnetCoreAvaloniaNCForms;
 
 namespace Avalonia_Datagrid_Testing1
@@ -9,7 +11,14 @@ namespace Avalonia_Datagrid_Testing1
     {
         static void Main(string[] args)
         {
-            var f = Avalonia.AppBuilder.Configure<dotnetCoreAvaloniaNCForms.App>()
+            var app = Avalonia.AppBuilder.Configure<dotnetCoreAvaloniaNCForms.App>();
+            app.AfterSetup((_app) =>
+            {
+                app.Instance.Styles.Add(new StyleInclude(new Uri("avares://Avalonia.Controls.DataGrid/Themes/Default.xaml")));
+
+            });
+            
+            var f = app
                 .NewForm();
 
             f.Text("Hello World!");
