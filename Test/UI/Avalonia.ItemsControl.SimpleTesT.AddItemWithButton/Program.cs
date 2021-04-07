@@ -9,7 +9,7 @@ namespace Avalonia.ItemsControl.SimpleTesT.AddItemWithButton
         {
             var app = getApp();
 
-            var win = new Avalonia.Controls.Window();
+            var win = new MainWindow();
             win.Show();
             app.Run(win);
         }
