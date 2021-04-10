@@ -1,5 +1,33 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Avalonia.ItemsControl.SimpleTesT.AddItemWithButton"
+        xmlns:viewmodels="clr-namespace:Avalonia.ItemsControl.SimpleTesT.AddItemWithButton.ViewModels"
+        xmlns:models="clr-namespace:Avalonia.ItemsControl.SimpleTesT.AddItemWithButton.models"
         x:Class="Avalonia.ItemsControl.SimpleTesT.AddItemWithButton.MainWindow">
-        <TextBlock>Hello World!!!</TextBlock>
+        <Window.DataContext>
+                <viewmodels:MainWindowViewModel />
+        </Window.DataContext>
+        <DockPanel>
+                <TextBlock DockPanel.Dock="Top">This is an items control test</TextBlock>
+                
+                <DockPanel Dock="Bottom">
+                        <StackPanel Orientation="Horizontal">
+                                <TextBlock>New Item: Name: </TextBlock>
+                                <TextBox Text="{Binding newItem.Name}"></TextBox>
+                                <Button Content="Add" Command="{Binding AddNewItemToMyListOfStuffCommand}"></Button>
+                        </StackPanel>
+                </DockPanel>
+                
+                <ItemsControl DockPanel.Dock="Top" Items="{Binding MyListofStuff}">
+                        <ItemsControl.DataTemplates>
+                                <!--
+                                Here is documentation on how DataTemplate work
+                                + see: https://stackoverflow.com/questions/44354149/two-different-datatemplate
+                                -->
+                                <DataTemplate DataType="{x:Type models:MyItemType}">
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                </DataTemplate>
+                        </ItemsControl.DataTemplates>
+                </ItemsControl>
+        </DockPanel>
 </Window>
