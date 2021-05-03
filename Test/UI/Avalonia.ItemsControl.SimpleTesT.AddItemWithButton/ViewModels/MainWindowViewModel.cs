@@ -23,8 +23,11 @@ namespace Avalonia.ItemsControl.SimpleTesT.AddItemWithButton.ViewModels
 
         void AddNewItemToMyListOfStuff()
         {
-            this.MyListofStuff.Add(this.newItem);
-            this.newItem = new MyItemType(); // point this to a new item
+            this.MyListofStuff.Add(new models.MyItemType()
+            {
+                Name = this.newItem.Name
+            });
+            this.newItem.Name = "";
         }
     }
 }

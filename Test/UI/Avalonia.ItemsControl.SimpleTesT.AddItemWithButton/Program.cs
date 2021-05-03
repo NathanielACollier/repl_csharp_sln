@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia.Controls;
+using Avalonia.Logging;
 using Avalonia.ReactiveUI;
 
 namespace Avalonia.ItemsControl.SimpleTesT.AddItemWithButton
@@ -20,13 +21,12 @@ namespace Avalonia.ItemsControl.SimpleTesT.AddItemWithButton
             var appBuilder = Avalonia.AppBuilder.Configure<App>();
 
             var builder = appBuilder
-                //.LogToDebug(Avalonia.Logging.LogEventLevel.Verbose)
                 .UsePlatformDetect()
-                .LogToTrace()
+                .LogToTrace(LogEventLevel.Debug)
                 .UseReactiveUI() // UseReactiveUI is required for being able to add Items to the list, and it update the ItemsControl; see: https://github.com/AvaloniaUI/Avalonia/issues/5144
                 .SetupWithoutStarting();
-                 
-
+            
+       
             return builder.Instance;
         }
         
