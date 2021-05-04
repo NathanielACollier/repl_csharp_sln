@@ -25,7 +25,12 @@
                                 + see: https://stackoverflow.com/questions/44354149/two-different-datatemplate
                                 -->
                                 <DataTemplate DataType="{x:Type models:MyItemType}">
-                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                       <StackPanel Orientation="Horizontal">
+                                               <TextBlock Text="{Binding Name}"></TextBlock>
+                                               <TextBlock> (</TextBlock>
+                                               <TextBlock Text="{Binding Index}"></TextBlock>
+                                               <TextBlock>)</TextBlock>
+                                        </StackPanel>
                                 </DataTemplate>
                         </ItemsControl.DataTemplates>
                 </ItemsControl>
