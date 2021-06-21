@@ -6,7 +6,7 @@ namespace blazor.desktop.Hello_World
     {
         static void Main(string[] args)
         {
-            WebWindows.Blazor.ComponentsDesktop.Run<Startup>("Hello World!", "wwroot/index.html");
+            WebWindows.Blazor.ComponentsDesktop.Run<Startup>("Hello World!", "wwwroot/index.html");
         }
     }
 }
