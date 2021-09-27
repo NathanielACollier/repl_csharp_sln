@@ -15,7 +15,11 @@
                         <TextBox DockPanel.Dock="Right" Text="{Binding Filter}"></TextBox>
                 </DockPanel>
                 
-                <DataGrid DockPanel.Dock="Bottom" Items="{Binding People}" AutoGenerateColumns="False">
+                <DataGrid DockPanel.Dock="Bottom" 
+                                Items="{Binding People}" 
+                                AutoGenerateColumns="False"
+                                x:Name="dg1"
+                                >
                         <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="First Name">
                                         <DataGridTemplateColumn.CellTemplate>
