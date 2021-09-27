@@ -7,7 +7,34 @@
                 <model:MainWindowViewModel />
         </Window.DataContext>
         <DockPanel>
-                <TextBlock DockPanel.Dock="Top">Hello World!</TextBlock>
+                <TextBlock DockPanel.Dock="Top">People Filterer</TextBlock>
 
+                <DockPanel DockPanel.Dock="Top">
+                        <Button DockPanel.Dock="Left" Command="{Binding onRandomizePeopleCommand}">Randomize</Button>
+                        <Button DockPanel.Dock="Left" Command="{Binding onFilterPeopleButtonClickCommand}">Filter</Button>
+                        <TextBox DockPanel.Dock="Right" Text="{Binding Filter}"></TextBox>
+                </DockPanel>
+                
+                <DataGrid DockPanel.Dock="Bottom" Items="{Binding People}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="First Name">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                        <TextBlock Text="{Binding Firstname}"></TextBlock>
+                                                </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Last Name">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                        <TextBlock Text="{Binding Lastname}"></TextBlock>
+                                                </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="First Name" Binding="{Binding Firstname}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Last Name" Binding="{Binding Lastname}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                </DataGrid>
+                
         </DockPanel>
 </Window>
