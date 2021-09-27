@@ -1,0 +1,13 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Avalonia_DataGrid_CellTemplateTesting"
+        xmlns:model="clr-namespace:Avalonia_DataGrid_CellTemplateTesting.model"
+        x:Class="Avalonia_DataGrid_CellTemplateTesting.Windows.MainWindow">
+        <Window.DataContext>
+                <model:MainWindowViewModel />
+        </Window.DataContext>
+        <DockPanel>
+                <TextBlock DockPanel.Dock="Top">Hello World!</TextBlock>
+
+        </DockPanel>
+</Window>
