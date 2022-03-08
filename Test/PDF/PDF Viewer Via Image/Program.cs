@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+
+using nac.Forms;
+
+var form = Avalonia.AppBuilder.Configure<nac.Forms.App>()
+    .NewForm();
+    
+form.Display();
