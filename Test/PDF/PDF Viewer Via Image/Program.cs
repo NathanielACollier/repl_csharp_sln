@@ -5,6 +5,7 @@ using nac.Forms;
 using nac.Forms.model;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 var form = Avalonia.AppBuilder.Configure<nac.Forms.App>()
     .NewForm();
@@ -52,9 +53,15 @@ byte[] convertPDFPageToImage(string pdfPath, int pageNumber){
             
             var width = pageReader.GetPageWidth();
             var height = pageReader.GetPageHeight();
+            
+            // THis is the best documentation I found on using ImageSharp and pdfium 
+            //   see: https://stackoverflow.com/questions/23905169/how-to-convert-pdf-files-to-images
 
             // use ImageSharp to interpret those raw bytes in B-G-R-A format into a bitmap that avalonia can understand
             var img = SixLabors.ImageSharp.Image.LoadPixelData<Bgra32>(rawBytes, width, height);
+            // Set the background to white, otherwise it's black. https://github.com/SixLabors/ImageSharp/issues/355#issuecomment-333133991
+            img.Mutate(x => x.BackgroundColor(Color.White));
+            
             using (var ms = new System.IO.MemoryStream())
             {
                 img.SaveAsBmp(ms);
