@@ -1,5 +1,6 @@
 ﻿
 
+using System.Drawing.Imaging;
 using Docnet.Core.Models;
 using nac.Forms;
 using nac.Forms.model;
@@ -41,12 +42,24 @@ form.Display();
 byte[] convertPDFPageToImage(string pdfPath, int pageNumber){
     // see example here: https://stackoverflow.com/questions/12831742/convert-pdf-to-image-without-using-ghostscript-dll
     // library is at: https://github.com/GowenGit/docnet
-    using (var docReader = Docnet.Core.DocLib.Instance.GetDocReader(pdfPath, new PageDimensions()))
+    // Examples are here: https://github.com/GowenGit/docnet/blob/master/examples/nuget-usage/NugetUsageAnyCpu/PdfToImageExamples.cs
+    using (var docReader = Docnet.Core.DocLib.Instance.GetDocReader(pdfPath, new PageDimensions(1080, 1920)))
     {
         using (var pageReader = docReader.GetPageReader(pageNumber))
         {
-            var bytes = pageReader.GetImage();
-            return bytes;
+            var rawBytes = pageReader.GetImage();
+            
+            var width = pageReader.GetPageWidth();
+            var height = pageReader.GetPageHeight();
+
+            var characters = pageReader.GetCharacters();
+
+            var bmp = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            using (var ms = new System.IO.MemoryStream())
+            {
+                bmp.Save(ms, ImageFormat.Bmp);
+                return ms.ToArray();
+            }
         }
     }
 }
