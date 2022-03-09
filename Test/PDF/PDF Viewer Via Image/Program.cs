@@ -1,9 +1,10 @@
 ﻿
 
-using System.Drawing.Imaging;
 using Docnet.Core.Models;
 using nac.Forms;
 using nac.Forms.model;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 var form = Avalonia.AppBuilder.Configure<nac.Forms.App>()
     .NewForm();
@@ -47,18 +48,21 @@ byte[] convertPDFPageToImage(string pdfPath, int pageNumber){
     {
         using (var pageReader = docReader.GetPageReader(pageNumber))
         {
-            var rawBytes = pageReader.GetImage();
+            var rawBytes = pageReader.GetImage(); // formats it as Bgra32
             
             var width = pageReader.GetPageWidth();
             var height = pageReader.GetPageHeight();
 
-            var characters = pageReader.GetCharacters();
-
-            var bmp = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            // use ImageSharp to interpret those raw bytes in B-G-R-A format into a bitmap that avalonia can understand
+            var img = SixLabors.ImageSharp.Image.LoadPixelData<Bgra32>(rawBytes, width, height);
             using (var ms = new System.IO.MemoryStream())
             {
-                bmp.Save(ms, ImageFormat.Bmp);
-                return ms.ToArray();
+                img.SaveAsBmp(ms);
+                var imgData = ms.ToArray();
+                // write out a test bitmap
+                System.IO.File.WriteAllBytes(path: System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "out.bmp"),
+                    bytes: imgData);
+                return imgData;
             }
         }
     }
