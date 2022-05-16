@@ -1,0 +1,13 @@
+@inherits LayoutComponentBase
+
+<CascadingValue Value="@AppTitle">
+    <MainLayoutBase>
+        <BodyFragment>
+            @Body
+        </BodyFragment>
+    </MainLayoutBase>
+</CascadingValue>
+
+@code {
+    private string AppTitle = "BlazorServerApp";
+}
