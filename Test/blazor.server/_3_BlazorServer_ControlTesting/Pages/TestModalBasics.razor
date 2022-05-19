@@ -1,0 +1,21 @@
+﻿@page "/testModalBasics"
+
+<PageTitle>Test Modal Basics</PageTitle>
+
+<div>
+    Click button to show modal <button type="button" class="btn btn-info" @onclick="() => modal.Open()">Show Modal</button>
+</div>
+
+<Modal @ref="modal">
+    <Title>My Test Modal</Title>
+    <Body>
+    <h1>Hello World!</h1>
+    </Body>
+    <Footer>
+        <button type="button" class="btn btn-info" @onclick="() => modal.Close()">Close</button>
+    </Footer>
+</Modal>
+
+@code {
+    private _3_BlazorServer_ControlTesting.Shared.UI.Modal modal { get; set; }
+}
