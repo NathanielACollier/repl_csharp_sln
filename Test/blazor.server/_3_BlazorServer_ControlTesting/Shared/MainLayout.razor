@@ -2,14 +2,16 @@
 
 <PageTitle>BLazor Server App</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="sidebar">
+                <NavMenu />
+            </div>
+        </div>
+        <div class="col-lg-11">
+             @Body
+        </div>
     </div>
-
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
 </div>
