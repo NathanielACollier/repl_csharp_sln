@@ -2,7 +2,21 @@
 @namespace _3_BlazorServer_ControlTesting.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    Layout = "_Layout";
+    Layout = null;
 }
 
-<component type="typeof(App)" render-mode="ServerPrerendered" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <script src="css/bootstrap/bootstrap.min.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>
