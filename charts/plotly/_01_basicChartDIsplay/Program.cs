@@ -8,9 +8,15 @@ var form = Avalonia.AppBuilder.Configure<nac.Forms.App>()
     .NewForm();
     
 form.Text("Chart Display")
-    .Display(onDisplay: (__f) =>
+    .Image(modelFieldName: "chart")
+    .Display(onDisplay: async (__f) =>
     {
-        
+        var chartData = await Task.Run(() =>
+        {
+            return buildChart();
+        });
+
+        form.Model["chart"] = chartData;
     });
 
 byte[] buildChart()
@@ -22,6 +28,7 @@ byte[] buildChart()
         Labels: labels,
         Text: "A simple bar chart");
 
-    string imageBase64 = pie.ToBase64JPGString(Width: 1908, Height: 1024);
-    
+    string imageBase64 = pie.ToBase64PNGString(Width: 1908, Height: 1024);
+
+    return Convert.FromBase64String(imageBase64);
 }
