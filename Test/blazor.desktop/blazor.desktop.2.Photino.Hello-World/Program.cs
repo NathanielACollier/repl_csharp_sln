@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Photino.Blazor;
 
 namespace blazor.desktop._2.Photino.Hello_World
@@ -8,12 +9,25 @@ namespace blazor.desktop._2.Photino.Hello_World
         [STAThread]
         static void Main(string[] args)
         {
-            ComponentsDesktop.Run<Startup>("Hello Photino Blazor!"
-                , "wwwroot/index.html"
-                , x:450
-                , y:100
-                , width:1000
-                , height:900);
+            var appBuilder = PhotinoBlazorAppBuilder.CreateDefault(args);
+            appBuilder.Services
+                .AddLogging();
+
+            // register root component
+            appBuilder.RootComponents.Add<App>("app");
+
+            var app = appBuilder.Build();
+
+            // customize window
+            app.MainWindow
+                .SetTitle("Photino Hello World");
+
+            AppDomain.CurrentDomain.UnhandledException += (sender, error) =>
+            {
+                app.MainWindow.OpenAlertWindow("Fatal exception", error.ExceptionObject.ToString());
+            };
+
+            app.Run();
         }
     }
 }
