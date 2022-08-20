@@ -13,4 +13,7 @@
       <PackageReference Include="Plotly.NET.ImageExport" Version="3.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\lib\commonUtilitiesLib\commonUtilitiesLib.csproj" />
+    </ItemGroup>
 </Project>

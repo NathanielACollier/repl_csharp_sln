@@ -29,9 +29,10 @@ form.Text("Chart Display")
     .Display(onDisplay: async (__f) =>
     {
         model.chartIsLoading = true;
-        model.chartData = await Task.Run(async () =>
+        model.chartData = await Task.Run( () =>
         {
-            return buildChart();
+            var chartData =  buildChart();
+            return chartData;
         });
 
         model.chartIsLoading = false;
@@ -48,7 +49,7 @@ byte[] buildChart()
 
     string imageBase64 = pie.ToBase64PNGString(Width: 1908, Height: 1024);
 
-    return Convert.FromBase64String(imageBase64);
+    return commonUtilitiesLib.TextParse.parseBase64ImageTag(imageBase64);
 }
 
 
