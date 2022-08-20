@@ -13,20 +13,31 @@ using Plotly.NET.ImageExport;
 
 var form = Avalonia.AppBuilder.Configure<nac.Forms.App>()
     .NewForm();
+
+var model = new Model
+{
+    chartIsLoading = false
+};
+form.DataContext = model;
     
 form.Text("Chart Display")
-    .Image(modelFieldName: "chart")
+    .HorizontalGroup(hg=> {
+        hg.Text("Loading chart")
+        .LoadingTextAnimation();
+    }, style: new nac.Forms.model.Style { isVisibleModelName= nameof(model.chartIsLoading) })
+    .Image(modelFieldName: nameof(model.chartData))
     .Display(onDisplay: async (__f) =>
     {
-        var chartData = await Task.Run(async () =>
+        model.chartIsLoading = true;
+        model.chartData = await Task.Run(async () =>
         {
-            return await buildChart();
+            return buildChart();
         });
 
-        form.Model["chart"] = chartData;
+        model.chartIsLoading = false;
     });
 
-async Task<byte[]> buildChart()
+byte[] buildChart()
 {
     var values = new[] { 30, 10, 50, 10 };
     var labels = new[] { "Napster", "Jack", "Honey", "Mittens" };
@@ -38,4 +49,22 @@ async Task<byte[]> buildChart()
     string imageBase64 = pie.ToBase64PNGString(Width: 1908, Height: 1024);
 
     return Convert.FromBase64String(imageBase64);
+}
+
+
+
+
+
+class Model : nac.Forms.model.ViewModelBase
+{
+    public bool chartIsLoading
+    {
+        get { return GetValue(() => chartIsLoading); }
+        set { SetValue(() => chartIsLoading, value); }
+    }
+    public byte[] chartData
+    {
+        get { return GetValue(() => chartData); }
+        set { SetValue(() => chartData, value); }
+    }
 }
