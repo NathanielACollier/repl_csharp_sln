@@ -10,7 +10,6 @@
   "profiles": {
     "1_Blazor_Server_Hello_World": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5398",
       "environmentVariables": {

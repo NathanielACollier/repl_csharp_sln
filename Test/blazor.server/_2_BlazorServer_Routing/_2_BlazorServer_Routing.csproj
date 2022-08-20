@@ -6,6 +6,7 @@
   </PropertyGroup>
   
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == '1_Blazor_Server_Hello_World' " />
   <ItemGroup>
     <Folder Include="wwwroot" />
   </ItemGroup>
