@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "1_Blazor_Server_Hello_World": {
+    "_3_BlazorServer_ControlTesting": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5261",
