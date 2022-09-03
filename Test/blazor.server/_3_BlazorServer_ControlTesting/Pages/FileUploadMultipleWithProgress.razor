@@ -14,8 +14,15 @@
     </div>
 }
 
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <h2>Error Occured</h2>
+    <div style="color:red; font-weight: bold;">@errorMessage</div>
+}
+
 @code {
     List<FileUploadProgress> uploadedFiles = new();
+    string errorMessage = "";
 
     private async ValueTask LoadFiles(InputFileChangeEventArgs e)
     {
@@ -49,12 +56,16 @@
                     // TODO Do something with the file chunk, such as save it
                     // to a database or a local file system
                     var readData = buffer.AsMemory().Slice(0, read);
-                    
-                    
+
+
                 }
 
                 startIndex++;
             }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Exception: {ex}";
         }
         finally
         {
