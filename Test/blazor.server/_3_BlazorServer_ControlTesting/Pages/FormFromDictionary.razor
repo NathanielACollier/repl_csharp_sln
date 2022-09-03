@@ -1,0 +1,63 @@
+﻿@page "/formFromDictionary"
+
+<PageTitle>Form from Dictionary</PageTitle>
+
+<h1>Form</h1>
+
+
+@if (isLoaded)
+{
+    <div class="container-fluid">
+        @foreach(var field in formFields)
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">@field.Key</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" @bind="@formFields[field.Key]" />
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-info" @onclick="onButtonClick_SaveForm">Save Form</button>
+            </div>
+        </div>
+    </div>
+}else
+{
+    <div>Loading...</div>
+}
+
+@code {
+    private Dictionary<string, string> formFields = new Dictionary<string, string>();
+    private bool isLoaded = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // simulate it taking time to load the form
+        var data = await Task.Run(async () =>
+        {
+            await Task.Delay(1* 1000);
+            return new[]
+            {
+                "Field1", "Field2", "Field3"
+            };
+        });
+
+        foreach( var i in data)
+        {
+            formFields.Add(i, "Default Val");
+        }
+        isLoaded = true;
+    }
+
+    private async Task onButtonClick_SaveForm()
+    {
+
+    }
+}
+
+
