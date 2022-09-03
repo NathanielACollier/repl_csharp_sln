@@ -9,5 +9,10 @@
   <ItemGroup>
     <Folder Include="wwwroot" />
   </ItemGroup>
+  
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\commonUtilitiesLib\commonUtilitiesLib.csproj" />
+  </ItemGroup>
 
 </Project>

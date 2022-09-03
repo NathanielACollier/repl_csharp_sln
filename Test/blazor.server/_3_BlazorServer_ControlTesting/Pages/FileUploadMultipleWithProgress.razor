@@ -1,0 +1,77 @@
+@page "/fileUploadMultipleWithProgress"
+
+<PageTitle>FIle Upload with Progress</PageTitle>
+
+<InputFile OnChange="e => LoadFiles(e)" multiple></InputFile>
+
+@foreach (var file in uploadedFiles)
+{
+    <div>
+        @file.FileName
+        <progress value="@file.UploadedBytes" max="@file.Size"></progress>
+        @file.UploadedPercentage.ToString("F1")%
+        (@FormatBytes(file.UploadedBytes) / @FormatBytes(file.Size))
+    </div>
+}
+
+@code {
+    List<FileUploadProgress> uploadedFiles = new();
+
+    private async ValueTask LoadFiles(InputFileChangeEventArgs e)
+    {
+        var files = e.GetMultipleFiles(maximumFileCount: 100);
+
+        var startIndex = uploadedFiles.Count;
+
+        // Add all files to the UI
+        foreach (var file in files)
+        {
+            var progress = new FileUploadProgress(file.Name, file.Size);
+            uploadedFiles.Add(progress);
+        }
+
+        // We don't want to refresh the UI too frequently,
+        // So, we use a timer to update the UI every few hundred milliseconds
+        await using var timer = new Timer(_ => InvokeAsync(() => StateHasChanged()));
+        timer.Change(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(500));
+
+        // Upload files
+        byte[] buffer = System.Buffers.ArrayPool<byte>.Shared.Rent(4096);
+        try
+        {
+            foreach (var file in files)
+            {
+                using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+                while (await stream.ReadAsync(buffer) is int read && read > 0)
+                {
+                    uploadedFiles[startIndex].UploadedBytes += read;
+
+                    // TODO Do something with the file chunk, such as save it
+                    // to a database or a local file system
+                    var readData = buffer.AsMemory().Slice(0, read);
+                    
+                    
+                }
+
+                startIndex++;
+            }
+        }
+        finally
+        {
+            System.Buffers.ArrayPool<byte>.Shared.Return(buffer);
+
+            // Update the UI with the final progress
+            StateHasChanged();
+        }
+    }
+
+    // Use the Meziantou.Framework.ByteSize NuGet package.
+    // You could also use Humanizer
+    string FormatBytes(long value) => commonUtilitiesLib.StringUtil.byteSizeToString(value);
+
+    record FileUploadProgress(string FileName, long Size)
+    {
+        public long UploadedBytes { get; set; }
+        public double UploadedPercentage => (double)UploadedBytes / (double)Size * 100d;
+    }
+}
