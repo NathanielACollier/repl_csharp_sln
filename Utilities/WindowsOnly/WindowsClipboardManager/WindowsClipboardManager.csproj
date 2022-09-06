@@ -1,10 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+	  <!-- Need to make sure Implicit Usings is disabled.  The System.WIndows.Forms class conflicts with nac.Forms -->
+    <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <!-- need windows forms for the clipboard APIs -->
+	  <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
