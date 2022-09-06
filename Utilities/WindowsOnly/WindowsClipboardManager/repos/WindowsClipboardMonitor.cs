@@ -21,8 +21,11 @@ public class WindowsClipboardMonitor
     bool notQuit;
     Thread clipboardMonitorThread;
     private string previousClipboardText;
+    private System.Drawing.Image previousClipboardImage;
 
     public event EventHandler<string> onClipboardTextChanged;
+    public event EventHandler<(string message, Exception ex)> onException;
+    public event EventHandler<byte[]> onClipboardImageChanged;
 
     public WindowsClipboardMonitor()
     {
@@ -61,6 +64,41 @@ public class WindowsClipboardMonitor
                     this.onClipboardTextChanged(this, currentText);
                 }
             }
+        }
+
+        if(windowsClipboardAPI.ContainsImage())
+        {
+            var currentImage = windowsClipboardAPI.GetImage();
+            if( currentImage != previousClipboardImage)
+            {
+                previousClipboardImage = currentImage;
+                // get bitmap bytes and raise an event
+                try
+                {
+                    byte[] rawImageData = repos.WindowsFormsImageManipulationRepo.ImageToByteArray(currentImage);
+                    if( this.onClipboardImageChanged != null)
+                    {
+                        this.onClipboardImageChanged(this, rawImageData);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    throwException(ex, "Converting clipboard image to byte array");
+                }
+
+            }
+        }
+    }
+
+
+    private void throwException(Exception ex, string message)
+    {
+        if( this.onException != null)
+        {
+            this.onException(this, 
+                (message: message,
+                ex: ex)
+            );
         }
     }
 

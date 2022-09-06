@@ -16,4 +16,11 @@ public class MainWindowModel : nac.Forms.model.ViewModelBase
     }
 
 
+    public byte[] ClipboardImage
+    {
+        get { return GetValue(() => ClipboardImage); }
+        set { SetValue(() => ClipboardImage, value); }
+    }
+
+
 }

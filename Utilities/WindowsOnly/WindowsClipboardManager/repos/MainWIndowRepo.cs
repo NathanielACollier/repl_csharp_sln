@@ -40,9 +40,14 @@ public static class MainWindowRepo
         // start the thread to monitor the clipboard
         clipboardMonitor = new repos.WindowsClipboardMonitor();
 
-        clipboardMonitor.onClipboardTextChanged += (_s, _args) =>
+        clipboardMonitor.onClipboardTextChanged += (_s, text) =>
         {
-            model.ClipboardText = _args;
+            model.ClipboardText = text;
+        };
+
+        clipboardMonitor.onClipboardImageChanged += (_s, imageData) =>
+        {
+            model.ClipboardImage = imageData;
         };
 
         clipboardMonitor.StartMonitoring();
@@ -50,7 +55,8 @@ public static class MainWindowRepo
 
     private static void PopulateTabImage(Form t)
     {
-        t.Text("Image on clipboard will show up here");
+        t.Text("Clipboard Image Content")
+            .Image(nameof(model.ClipboardImage));
     }
 
     private static void PopulateTabText(Form t)
