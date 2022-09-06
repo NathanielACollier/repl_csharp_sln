@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WindowsClipboardManager.models;
 
@@ -17,32 +18,51 @@ namespace WindowsClipboardManager.repos;
 
 public class WindowsClipboardMonitor
 {
-    models.MainWindowModel model;
     bool notQuit;
+    Thread clipboardMonitorThread;
+    private string previousClipboardText;
 
-    public WindowsClipboardMonitor(MainWindowModel model)
+    public event EventHandler<string> onClipboardTextChanged;
+
+    public WindowsClipboardMonitor()
     {
-        this.model = model;
         this.notQuit = true;
     }
 
-    public Task StartMonitoring()
+    public void StartMonitoring()
     {
-        return Task.Run(async () =>
+        /*
+         The clipboard API for Windows Forms only works in a [STA] thread.  see: https://stackoverflow.com/questions/518701/clipboard-gettext-returns-null-empty-string
+         */
+        this.clipboardMonitorThread = new Thread(() =>
         {
-            while(notQuit)
+            while (notQuit)
             {
                 SetModelViaClipboard();
-                await Task.Delay(millisecondsDelay: 1 * 1000);
+                Thread.Sleep(millisecondsTimeout: 1 * 1000);
             }
         });
+
+        this.clipboardMonitorThread.SetApartmentState(ApartmentState.STA);
+        this.clipboardMonitorThread.Start();
     }
 
     private void SetModelViaClipboard()
     {
         if(windowsClipboardAPI.ContainsText())
         {
-            model.ClipboardText = windowsClipboardAPI.GetText();
+            var currentText = windowsClipboardAPI.GetText();
+            if( currentText != previousClipboardText)
+            {
+                previousClipboardText = currentText;
+                // raise event
+                if( this.onClipboardTextChanged != null)
+                {
+                    this.onClipboardTextChanged(this, currentText);
+                }
+            }
         }
     }
+
+
 }

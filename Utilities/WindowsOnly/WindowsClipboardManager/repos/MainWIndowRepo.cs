@@ -1,4 +1,5 @@
 ﻿using nac.Forms;
+using System;
 using System.Threading.Tasks;
 
 namespace WindowsClipboardManager.repos;
@@ -15,6 +16,7 @@ public static class MainWindowRepo
         .NewForm();
 
         model = new models.MainWindowModel();
+        myForm.DataContext = model;
 
         myForm.Title = "Windows Clipboard Manager";
 
@@ -28,11 +30,22 @@ public static class MainWindowRepo
             t.Populate = PopulateTabImage;
         });
 
-        // start the thread to monitor the clipboard
-        clipboardMonitor = new repos.WindowsClipboardMonitor(model);
-        clipboardMonitor.StartMonitoring();
+        setupClipboardMonitoring();
 
         myForm.Display();
+    }
+
+    private static void setupClipboardMonitoring()
+    {
+        // start the thread to monitor the clipboard
+        clipboardMonitor = new repos.WindowsClipboardMonitor();
+
+        clipboardMonitor.onClipboardTextChanged += (_s, _args) =>
+        {
+            model.ClipboardText = _args;
+        };
+
+        clipboardMonitor.StartMonitoring();
     }
 
     private static void PopulateTabImage(Form t)
@@ -42,7 +55,11 @@ public static class MainWindowRepo
 
     private static void PopulateTabText(Form t)
     {
-        t.Text("This will be where clipboard text shows up");
+        t.Text("Clipboard Text Content")
+            .TextBoxFor(nameof(model.ClipboardText), 
+                multiline: true, 
+                isReadOnly: true
+        );
     }
 }
 
