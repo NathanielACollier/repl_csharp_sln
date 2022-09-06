@@ -21,7 +21,7 @@ public class WindowsClipboardMonitor
     bool notQuit;
     Thread clipboardMonitorThread;
     private string previousClipboardText;
-    private System.Drawing.Image previousClipboardImage;
+    private byte[] previousClipboardImage;
 
     public event EventHandler<string> onClipboardTextChanged;
     public event EventHandler<(string message, Exception ex)> onException;
@@ -79,24 +79,30 @@ public class WindowsClipboardMonitor
         if(windowsClipboardAPI.ContainsImage())
         {
             var currentImage = windowsClipboardAPI.GetImage();
-            if( currentImage != previousClipboardImage)
+
+            try
             {
-                previousClipboardImage = currentImage;
-                // get bitmap bytes and raise an event
-                try
-                {
-                    byte[] rawImageData = repos.WindowsFormsImageManipulationRepo.ImageToByteArray(currentImage);
-                    if( this.onClipboardImageChanged != null)
+                byte[] rawImageData = repos.WindowsFormsImageManipulationRepo.ImageToByteArray(currentImage);
+
+                // Is this new image a match to our previous image?
+                if( previousClipboardImage == null || 
+                    !WindowsFormsImageManipulationRepo.ByteArrayCompare(rawImageData, previousClipboardImage)
+                ){
+                    previousClipboardImage = rawImageData;
+
+                    if (this.onClipboardImageChanged != null)
                     {
                         this.onClipboardImageChanged(this, rawImageData);
                     }
                 }
-                catch(Exception ex)
-                {
-                    throwException(ex, "Converting clipboard image to byte array");
-                }
+                
 
             }
+            catch (Exception ex)
+            {
+                throwException(ex, "Converting clipboard image to byte array");
+            }
+
         }
     }
 

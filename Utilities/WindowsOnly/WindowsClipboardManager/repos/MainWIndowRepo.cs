@@ -77,7 +77,7 @@ public static class MainWindowRepo
                     }
                 }, style: new nac.Forms.model.Style
                 {
-                    width = 30
+                    width = 120
                 });
             })
             .Image(nameof(model.ClipboardImage));
