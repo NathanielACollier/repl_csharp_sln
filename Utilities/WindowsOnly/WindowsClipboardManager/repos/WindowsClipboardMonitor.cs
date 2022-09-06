@@ -27,9 +27,12 @@ public class WindowsClipboardMonitor
     public event EventHandler<(string message, Exception ex)> onException;
     public event EventHandler<byte[]> onClipboardImageChanged;
 
+    private System.Collections.Concurrent.ConcurrentQueue<string> textToSetClipboardQueue;
+
     public WindowsClipboardMonitor()
     {
         this.notQuit = true;
+        this.textToSetClipboardQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
     }
 
     public void StartMonitoring()
@@ -52,6 +55,13 @@ public class WindowsClipboardMonitor
 
     private void SetModelViaClipboard()
     {
+        // may have things to add to clipboard so do those first
+        if( this.textToSetClipboardQueue.TryDequeue(out string newClipboardText))
+        {
+            windowsClipboardAPI.SetText(newClipboardText);
+        }
+
+
         if(windowsClipboardAPI.ContainsText())
         {
             var currentText = windowsClipboardAPI.GetText();
@@ -102,5 +112,8 @@ public class WindowsClipboardMonitor
         }
     }
 
-
+    internal void SetClipboardText(string imageTag)
+    {
+        this.textToSetClipboardQueue.Enqueue(imageTag);
+    }
 }

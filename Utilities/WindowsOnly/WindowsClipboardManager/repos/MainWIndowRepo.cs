@@ -50,12 +50,36 @@ public static class MainWindowRepo
             model.ClipboardImage = imageData;
         };
 
+        clipboardMonitor.onException += (_s, _args) =>
+        {
+            showException(_args.message, _args.ex);
+        };
+
         clipboardMonitor.StartMonitoring();
     }
 
     private static void PopulateTabImage(Form t)
     {
         t.Text("Clipboard Image Content")
+            .HorizontalGroup(hg =>
+            {
+                hg.Button("img tag base64", async () =>
+                {
+                    try
+                    {
+                        string imageBase64 = Convert.ToBase64String(model.ClipboardImage);
+                        string imageTag = $"data:image/jpeg;base64, {imageBase64}";
+                        clipboardMonitor.SetClipboardText(imageTag);
+                    }
+                    catch (Exception ex)
+                    {
+                        showException("Converting image on clipboard to base64 image tag", ex);
+                    }
+                }, style: new nac.Forms.model.Style
+                {
+                    width = 30
+                });
+            })
             .Image(nameof(model.ClipboardImage));
     }
 
@@ -66,6 +90,12 @@ public static class MainWindowRepo
                 multiline: true, 
                 isReadOnly: true
         );
+    }
+
+
+    private static void showException(string message, Exception ex)
+    {
+
     }
 }
 
