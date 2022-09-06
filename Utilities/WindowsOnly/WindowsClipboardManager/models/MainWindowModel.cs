@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace WindowsClipboardManager.models;
 
-public class MainWindowModel
+public class MainWindowModel : nac.Forms.model.ViewModelBase
 {
+
+    public string ClipboardText
+    {
+        get {  return GetValue(() => ClipboardText); }
+        set { SetValue(() => ClipboardText, value); }
+    }
 
 
 }

@@ -7,6 +7,7 @@ public static class MainWindowRepo
 {
     private static nac.Forms.Form myForm;
     private static models.MainWindowModel model;
+    private static repos.WindowsClipboardMonitor clipboardMonitor;
 
     public static async Task run()
     {
@@ -26,6 +27,10 @@ public static class MainWindowRepo
             t.Header = "Image";
             t.Populate = PopulateTabImage;
         });
+
+        // start the thread to monitor the clipboard
+        clipboardMonitor = new repos.WindowsClipboardMonitor(model);
+        clipboardMonitor.StartMonitoring();
 
         myForm.Display();
     }
