@@ -8,6 +8,8 @@
     <Nullable>enable</Nullable>
 	  <!-- need windows forms for the clipboard APIs -->
 	  <UseWindowsForms>true</UseWindowsForms>
+	  <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    
   </PropertyGroup>
 
   <ItemGroup>

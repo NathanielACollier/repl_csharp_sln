@@ -22,5 +22,8 @@ public class MainWindowModel : nac.Forms.model.ViewModelBase
         set { SetValue(() => ClipboardImage, value); }
     }
 
-
+    public string Version
+    {
+        get { return System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString(); }
+    }
 }

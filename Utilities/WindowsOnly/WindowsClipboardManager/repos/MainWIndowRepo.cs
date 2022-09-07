@@ -18,7 +18,7 @@ public static class MainWindowRepo
         model = new models.MainWindowModel();
         myForm.DataContext = model;
 
-        myForm.Title = "Windows Clipboard Manager";
+        myForm.Title = $"Windows Clipboard Manager v{model.Version}";
 
         myForm.Tabs(t =>
         {
