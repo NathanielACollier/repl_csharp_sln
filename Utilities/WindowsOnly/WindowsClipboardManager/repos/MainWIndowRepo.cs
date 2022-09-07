@@ -32,7 +32,18 @@ public static class MainWindowRepo
 
         setupClipboardMonitoring();
 
-        myForm.Display();
+        myForm.Display( onClosing: OnMainWindowClosing);
+    }
+
+    private static async Task<bool?> OnMainWindowClosing(Form arg)
+    {
+        // need to stop the clipboard monitoring thread
+        if (clipboardMonitor != null)
+        {
+            clipboardMonitor.Stop();
+        }
+
+        return false; // Do we cancel?
     }
 
     private static void setupClipboardMonitoring()

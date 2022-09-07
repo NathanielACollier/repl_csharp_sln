@@ -122,4 +122,10 @@ public class WindowsClipboardMonitor
     {
         this.textToSetClipboardQueue.Enqueue(imageTag);
     }
+
+    public void Stop()
+    {
+        this.notQuit = false; // should stop the thread from running
+        this.clipboardMonitorThread.Join(); // join it so we can wait for it to quit
+    }
 }
