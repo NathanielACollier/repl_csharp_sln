@@ -20,7 +20,13 @@ public static class MainWindowRepo
 
         myForm.Title = $"Windows Clipboard Manager v{model.Version}";
 
-        myForm.Tabs(t =>
+        myForm
+            .HorizontalGroup(hg =>
+            {
+                hg.Button("Clear", onClick: onClickClearClipboardButton,
+                    style: new nac.Forms.model.Style { width = 60 });
+            })
+            .Tabs(t =>
         {
             t.Header = "Text";
             t.Populate = PopulateTabText;
@@ -33,6 +39,16 @@ public static class MainWindowRepo
         setupClipboardMonitoring();
 
         myForm.Display( onClosing: OnMainWindowClosing);
+    }
+
+    private static async Task onClickClearClipboardButton()
+    {
+        if (clipboardMonitor != null)
+        {
+            clipboardMonitor.clearClipboard();
+            model.ClipboardImage = null;
+            model.ClipboardText = "";
+        }
     }
 
     private static async Task<bool?> OnMainWindowClosing(Form arg)

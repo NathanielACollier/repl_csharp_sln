@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using WindowsClipboardManager.models;
+
 
 using windowsClipboardAPI = System.Windows.Forms.Clipboard;
 
@@ -15,6 +11,11 @@ https://markheath.net/post/save-clipboard-image-to-file
 
 
 namespace WindowsClipboardManager.repos;
+
+public enum ClipboardCommands
+{
+    Clear
+}
 
 public class WindowsClipboardMonitor
 {
@@ -28,11 +29,13 @@ public class WindowsClipboardMonitor
     public event EventHandler<byte[]> onClipboardImageChanged;
 
     private System.Collections.Concurrent.ConcurrentQueue<string> textToSetClipboardQueue;
+    private System.Collections.Concurrent.ConcurrentQueue<ClipboardCommands> clipboardCommandsQueue;
 
     public WindowsClipboardMonitor()
     {
         this.notQuit = true;
         this.textToSetClipboardQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
+        this.clipboardCommandsQueue = new System.Collections.Concurrent.ConcurrentQueue<ClipboardCommands>();
     }
 
     public void StartMonitoring()
@@ -55,6 +58,18 @@ public class WindowsClipboardMonitor
 
     private void SetModelViaClipboard()
     {
+        // see if we have any clipboard commands to run
+        if (this.clipboardCommandsQueue.TryDequeue(out ClipboardCommands cmd))
+        {
+            switch (cmd)
+            {
+                case ClipboardCommands.Clear:
+                    windowsClipboardAPI.Clear();
+                    break;
+            }
+        }
+        
+        
         // may have things to add to clipboard so do those first
         if( this.textToSetClipboardQueue.TryDequeue(out string newClipboardText))
         {
@@ -67,12 +82,7 @@ public class WindowsClipboardMonitor
             var currentText = windowsClipboardAPI.GetText();
             if( currentText != previousClipboardText)
             {
-                previousClipboardText = currentText;
-                // raise event
-                if( this.onClipboardTextChanged != null)
-                {
-                    this.onClipboardTextChanged(this, currentText);
-                }
+                raiseNewClipboardTextFound(currentText);
             }
         }
 
@@ -87,13 +97,9 @@ public class WindowsClipboardMonitor
                 // Is this new image a match to our previous image?
                 if( previousClipboardImage == null || 
                     !WindowsFormsImageManipulationRepo.ByteArrayCompare(rawImageData, previousClipboardImage)
-                ){
-                    previousClipboardImage = rawImageData;
-
-                    if (this.onClipboardImageChanged != null)
-                    {
-                        this.onClipboardImageChanged(this, rawImageData);
-                    }
+                )
+                {
+                    raiseNewClipboardImageFound(rawImageData);
                 }
                 
 
@@ -103,6 +109,26 @@ public class WindowsClipboardMonitor
                 throwException(ex, "Converting clipboard image to byte array");
             }
 
+        }
+    }
+
+    private void raiseNewClipboardImageFound(byte[] rawImageData)
+    {
+        previousClipboardImage = rawImageData;
+
+        if (this.onClipboardImageChanged != null)
+        {
+            this.onClipboardImageChanged(this, rawImageData);
+        }
+    }
+
+    private void raiseNewClipboardTextFound(string currentText)
+    {
+        previousClipboardText = currentText;
+        // raise event
+        if (this.onClipboardTextChanged != null)
+        {
+            this.onClipboardTextChanged(this, currentText);
         }
     }
 
@@ -121,6 +147,12 @@ public class WindowsClipboardMonitor
     internal void SetClipboardText(string imageTag)
     {
         this.textToSetClipboardQueue.Enqueue(imageTag);
+    }
+
+
+    public void clearClipboard()
+    {
+        this.clipboardCommandsQueue.Enqueue(ClipboardCommands.Clear);
     }
 
     public void Stop()
