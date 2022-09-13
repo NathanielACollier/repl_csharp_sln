@@ -74,7 +74,24 @@ public class SystemTextJson
     {
         if (je.ValueKind == JsonValueKind.Number)
         {
-            return je.GetDouble();
+            string numberStr = je.GetRawText();
+            if (int.TryParse(numberStr, out int valInt))
+            {
+                return valInt;
+            }else if (long.TryParse(numberStr, out long valLong))
+            {
+                return valLong;
+            }else if (float.TryParse(numberStr, out float valFloat))
+            {
+                return valFloat;
+            }else if (double.TryParse(numberStr, out double valDouble))
+            {
+                return valDouble;
+            }
+            else
+            {
+                throw new Exception($"Could not parse [{numberStr}] as a number");
+            }
         }else if (je.ValueKind == JsonValueKind.String)
         {
             return je.GetString();
