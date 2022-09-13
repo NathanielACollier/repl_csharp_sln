@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace testCommonUtilitiesLib;
@@ -21,15 +23,15 @@ public class SystemTextJsonTests
     [TestMethod]
     public void ListOneLevel()
     {
-        var result = commonUtilitiesLib.SystemTextJson.DeserializeToDictionaryList(@"
+        dynamic result = commonUtilitiesLib.SystemTextJson.DeserializeToDictionaryList(@"
             [
-                {""A"": ""1""},
-                {""A"": ""2""},
-                {""A"": ""3""}
+                {""A"": 1},
+                {""A"": 2},
+                {""A"": 3}
             ]
-        ") as List<Dictionary<string, object>>;
-        
-        Assert.IsTrue(result[0]["A"] as int? == 1);
-        Assert.IsTrue(result[1]["A"] as int? == 2);
+        ");
+
+        Assert.IsTrue(result[0]["A"] == 1);
+        Assert.IsTrue(result[1]["A"] == 2);
     }
 }
