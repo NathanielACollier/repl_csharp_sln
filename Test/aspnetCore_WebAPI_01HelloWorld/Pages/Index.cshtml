@@ -1,0 +1,28 @@
+@page "/"
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+
+</head>
+<body>
+<h1>Index</h1>
+
+<div id="div1"></div>
+
+<script type="text/javascript">
+    
+    fetch('api/General/Hello')
+    .then(resp=> {
+        let div1 = document.getElementById("div1");
+        resp.text().then(respStr=>{
+            div1.innerText = respStr;
+            });
+        });
+
+</script>
+</body>
+</html>
