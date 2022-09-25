@@ -16,12 +16,11 @@
 <script type="text/javascript">
     
     fetch('api/General/Hello')
-    .then(resp=> {
+    .then(resp => resp.text())
+    .then(respStr=> {
         let div1 = document.getElementById("div1");
-        resp.text().then(respStr=>{
-            div1.innerText = respStr;
-            });
-        });
+        div1.innerText = respStr;
+    });
 
 </script>
 </body>
