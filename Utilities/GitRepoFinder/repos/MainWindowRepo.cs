@@ -1,4 +1,5 @@
-﻿using nac.Forms;
+﻿using Avalonia.Input;
+using nac.Forms;
 using nac.Forms.model;
 
 namespace GitRepoFinder.repos;
@@ -53,7 +54,14 @@ public static class MainWindowRepo
                 }).Button("Filter", async () =>
                 {
                     FilterRepos();
-                }).TextBoxFor(nameof(model.filterText));
+                }).TextBoxFor(nameof(model.filterText), onKeyPress: (key) =>
+                {
+                    // filter the repos if they hit enter in the textbox
+                    if (key.Key == Key.Return && key.KeyModifiers == KeyModifiers.None)
+                    {
+                        FilterRepos();
+                    }   
+                });
             }, style: new Style{ height = 30})
             .List<models.GitRepoInfo>(nameof(model.displayedGitRepos), itemRow =>
             {
