@@ -47,35 +47,39 @@ public static class MainWindowRepo
                     await RefreshGitRepos();
                 }).Button("Filter", async () =>
                 {
-                    model.displayedGitRepos.Clear();
-                    foreach (var r in model.gitRepos)
-                    {
-                        if (r.Name.IndexOf(model.filterText, StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            model.displayedGitRepos.Add(r);
-                        }
-                    }
-
-                    model.repoDisplayCount = model.displayedGitRepos.Count;
-                    
+                    FilterRepos();
                 }).TextBoxFor(nameof(model.filterText));
             })
             .List<models.GitRepoInfo>(nameof(model.displayedGitRepos), itemRow =>
             {
                 var repo = itemRow.DataContext as models.GitRepoInfo;
 
-                itemRow.Button("...", async () =>
-                    {
-                        repos.os.OpenBrowser(repo.Path);
-                    }).TextFor(nameof(repo.Name))
-                    .TextFor(nameof(repo.Path));
-
+                itemRow.HorizontalGroup(h =>
+                {
+                    h.Button("...", async () => { repos.os.OpenBrowser(repo.Path); })
+                        .TextFor(nameof(repo.Name))
+                        .TextFor(nameof(repo.Path));
+                });
             });
         }, style: new Style{isVisibleModelName = nameof(model.doneGitRepoLoad)})
         .Display(onDisplay: async (_f) =>
         {
             await RefreshGitRepos();
         });
+    }
+
+    private static void FilterRepos()
+    {
+        model.displayedGitRepos.Clear();
+        foreach (var r in model.gitRepos)
+        {
+            if (r.Name.IndexOf(model.filterText, StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                model.displayedGitRepos.Add(r);
+            }
+        }
+
+        model.repoDisplayCount = model.displayedGitRepos.Count;
     }
 
     private static async Task RefreshGitRepos()
