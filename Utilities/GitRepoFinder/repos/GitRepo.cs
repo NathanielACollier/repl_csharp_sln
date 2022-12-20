@@ -2,7 +2,7 @@
 
 public static class GitRepo
 {
-    public static async Task<List<models.GitRepoInfo>> refreshGitRepos(string[] rootWorkspacePaths)
+    public static async Task<List<models.GitRepoInfo>> refreshGitRepos(IEnumerable<string> rootWorkspacePaths)
     {
         return await Task.Run(() =>
         {

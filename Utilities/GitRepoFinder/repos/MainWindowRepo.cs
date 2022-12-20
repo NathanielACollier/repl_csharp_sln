@@ -26,12 +26,16 @@ public static class MainWindowRepo
     {
         
         myForm.HorizontalGroup(h =>
-        {
-            h.Text("Git Repo Count: ")
-                .TextFor(nameof(model.repoCount))
-                .Text(" Displayed Count: ")
-                .TextFor(nameof(model.displayedGitRepos));
-        })
+            {
+                h.Text("Git Repo Count: ")
+                    .TextFor(nameof(model.repoCount))
+                    .Text(" Displayed Count: ")
+                    .TextFor(nameof(model.displayedGitRepos))
+                    .Button("Edit Workspaces", async () =>
+                    {
+                        await repos.EditWorkspacesWindowRepo.run(myForm);
+                    });
+            })
         .HorizontalGroup(h =>
         {
             h.Text("Loading git repos", style: new Style{width = 100})
@@ -90,7 +94,9 @@ public static class MainWindowRepo
             model.gitRepos.Clear();
             model.displayedGitRepos.Clear();
 
-            var repoList = await repos.GitRepo.refreshGitRepos(new[] { "C:\\sc" });
+            var workspaces = await repos.WorkspacesRepo.getAll();
+            
+            var repoList = await repos.GitRepo.refreshGitRepos(workspaces);
 
             model.repoCount = repoList.Count;
             model.repoDisplayCount = repoList.Count;
