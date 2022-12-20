@@ -9,21 +9,31 @@ public static class WorkspacesRepo
     {
         var tc = new TaskCompletionSource<List<string>>();
 
-        tc.SetResult(workspaces);
+        var settings = repos.settingsFile.read();
+        tc.SetResult(settings.workspaces);
 
         return tc.Task;
     }
 
     public static Task AddWorkspace(string workspacePath)
     {
-        workspaces.Add(workspacePath);
+        var settings = repos.settingsFile.read();
+        settings.workspaces.Add(workspacePath);
+        repos.settingsFile.write(settings);
+        
         return Task.CompletedTask;
     }
 
     public static Task RemoveWorkspace(string workspacePath)
     {
-        workspaces.Remove(workspacePath);
+        var settings = repos.settingsFile.read();
+        settings.workspaces.Remove(workspacePath);
+        repos.settingsFile.write(settings);
+        
         return Task.CompletedTask;
     }
+
+
+
     
 }
