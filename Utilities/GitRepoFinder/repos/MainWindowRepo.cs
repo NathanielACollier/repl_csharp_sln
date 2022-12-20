@@ -34,6 +34,7 @@ public static class MainWindowRepo
                     .Button("Edit Workspaces", async () =>
                     {
                         await repos.EditWorkspacesWindowRepo.run(myForm);
+                        await RefreshGitRepos();
                     });
             })
         .HorizontalGroup(h =>
@@ -53,7 +54,7 @@ public static class MainWindowRepo
                 {
                     FilterRepos();
                 }).TextBoxFor(nameof(model.filterText));
-            })
+            }, style: new Style{ height = 30})
             .List<models.GitRepoInfo>(nameof(model.displayedGitRepos), itemRow =>
             {
                 var repo = itemRow.DataContext as models.GitRepoInfo;
@@ -74,6 +75,11 @@ public static class MainWindowRepo
 
     private static void FilterRepos()
     {
+        if (string.IsNullOrWhiteSpace(model.filterText))
+        {
+            return; // no need to filter on empty and it would be a problem if it was null
+        }
+        
         model.displayedGitRepos.Clear();
         foreach (var r in model.gitRepos)
         {
