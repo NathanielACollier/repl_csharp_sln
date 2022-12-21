@@ -1,5 +1,10 @@
 ﻿
-$deployDir = [system.io.directory]::CreateDirectory("$($env:USERPROFILE)\programs\GitRepoFinder")
+$myScriptFolder = [System.IO.Path]::GetDirectoryName( $MyInvocation.MyCommand.Path )
+Write-Host "Script Folder: " $myScriptFolder
+
+$projectFileInfo = Get-ChildItem -Path $myScriptFolder | where { $_.Extension -eq ".csproj"} | select -First 1
+
+$deployDir = [system.io.directory]::CreateDirectory(  [System.IO.Path]::Combine([system.environment]::GetFolderPath("userprofile"), "programs", [system.io.path]::GetFileNameWithoutExtension($projectFileInfo.Name) ))
 Write-Host "Deploying: " $deployDir.FullName
 
 # clear existing folder
@@ -7,11 +12,10 @@ remove-item ([system.io.path]::Combine($deployDir.FullName, "*")) -Recurse -Forc
 
 $buildConfig = "Release"
 
-$projectFile = Get-ChildItem -Path $PSScriptRoot | where { $_.Extension -eq ".csproj"} | select -First 1
 
-Write-Host "Building: " $projectFile
+Write-Host "Building: " $projectFileInfo.FullName
 
-& dotnet @("publish", $projectFile,  "-c", $buildConfig, "-o", "`"" + $deployDir.FullName + "`"", "-p:PublishSingleFile=true",
+& dotnet @("publish", "`"" + $projectFileInfo.FullName + "`"",  "-c", $buildConfig, "-o", "`"" + $deployDir.FullName + "`"", "-p:PublishSingleFile=true",
 		"-p:RuntimeIdentifier=win-x64", "-p:SelfContained=false", "-p:ExcludeSymbolsFromSingleFile=true"
  )
 
