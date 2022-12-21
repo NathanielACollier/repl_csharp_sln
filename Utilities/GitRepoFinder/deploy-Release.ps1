@@ -11,9 +11,9 @@ remove-item ([system.io.path]::Combine($deployDir.FullName, "*")) -Recurse -Forc
 
 $buildConfig = "Release"
 
-$projectFilePath = "`"" + $projectFileInfo.FullName + "`""
+$projectFilePath = $projectFileInfo.FullName 
 Write-Host "Building: " $projectFilePath
-$deployDirPath = "`"" + $deployDir.FullName + "`""
+$deployDirPath =  $deployDir.FullName 
 Write-Host "Deploying: " $deployDirPath
 
 & dotnet @("publish", $projectFilePath,  "-c", $buildConfig, "-o", $deployDirPath, "-p:PublishSingleFile=true",
