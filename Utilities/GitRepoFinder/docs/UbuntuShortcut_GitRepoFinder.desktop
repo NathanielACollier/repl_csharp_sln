@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name[en_US]=GitRepoFInder
+GenericName[en_US]=Git Repo Finder
+Comment[en_US]=Displays a list of all git repos on computer
+Exec=dotnet run /home/nathaniel/programs/GitRepoFinder/GitRepoFinder.exe
+Path=/home/nathaniel/programs/GitRepoFinder/
+Icon=/home/nathaniel/Documents/icon/gitRepoFinder.png
+Terminal=false
+Type=Application
+Categories=Application
