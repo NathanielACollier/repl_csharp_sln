@@ -1,4 +1,6 @@
-﻿
+﻿param(
+    [string]$runtimeConfig = "win-x64"
+)
 $projectFileInfo = Get-ChildItem -Path $PSScriptRoot | where { $_.Extension -eq ".csproj"} | select -First 1
 
 $deployDir = [system.io.directory]::CreateDirectory(  [System.IO.Path]::Combine([system.environment]::GetFolderPath("userprofile"), "programs", [system.io.path]::GetFileNameWithoutExtension($projectFileInfo.Name) ))
@@ -8,7 +10,8 @@ remove-item ([system.io.path]::Combine($deployDir.FullName, "*")) -Recurse -Forc
 
 $buildConfig = "Release"
 
-& dotnet @("publish", $projectFileInfo.FullName,  "-c", $buildConfig, "-o", $deployDir.FullName , "-p:PublishSingleFile=true",
+& dotnet @("publish", $projectFileInfo.FullName,  "-r", $runtimeConfig ,"-c", $buildConfig, "-o", 
+            $deployDir.FullName , "-p:PublishSingleFile=true",
 		"-p:RuntimeIdentifier=win-x64", "-p:SelfContained=false", "-p:ExcludeSymbolsFromSingleFile=true"
  )
 

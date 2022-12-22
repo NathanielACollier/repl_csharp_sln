@@ -1,0 +1,1 @@
+& ./deploy-Release.ps1 -runtimeConfig "linux-x64"
