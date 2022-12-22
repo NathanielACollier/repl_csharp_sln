@@ -31,7 +31,7 @@ public static class MainWindowRepo
                 h.Text("Git Repo Count: ")
                     .TextFor(nameof(model.repoCount))
                     .Text(" Displayed Count: ")
-                    .TextFor(nameof(model.displayedGitRepos))
+                    .TextFor(nameof(model.repoDisplayCount))
                     .Button("Edit Workspaces", async () =>
                     {
                         await repos.EditWorkspacesWindowRepo.run(myForm);
@@ -112,6 +112,9 @@ public static class MainWindowRepo
             var workspaces = await repos.WorkspacesRepo.getAll();
             
             var repoList = await repos.GitRepo.refreshGitRepos(workspaces);
+            // sort it
+            repoList = repoList.OrderBy(i => i.Name)
+                .ToList();
 
             model.repoCount = repoList.Count;
             model.repoDisplayCount = repoList.Count;
