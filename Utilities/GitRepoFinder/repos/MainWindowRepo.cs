@@ -69,7 +69,8 @@ public static class MainWindowRepo
 
                 itemRow.HorizontalGroup(h =>
                 {
-                    h.Button("...", async () => { repos.os.OpenBrowser(repo.Path); })
+                    h.Button("...", async () => { repos.os.OpenBrowser(repo.Path); },
+                            style: new Style{width = 30})
                         .TextFor(nameof(repo.Name))
                         .TextFor(nameof(repo.Path));
                 });
