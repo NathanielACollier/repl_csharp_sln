@@ -1,12 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <OutputType>WinExe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AssemblyVersion>1.0.1.0</AssemblyVersion>
+        <ApplicationIcon>docs\icon.ico</ApplicationIcon>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="docs\icon.ico" />
+    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="nac.Forms" Version="1.8.4" />
