@@ -86,7 +86,7 @@ public static class MainWindowRepo
     {
         if (string.IsNullOrWhiteSpace(model.filterText))
         {
-            return; // no need to filter on empty and it would be a problem if it was null
+            model.filterText = "";
         }
         
         model.displayedGitRepos.Clear();
