@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name[en_US]=GitRepoFInder
+GenericName[en_US]=Git Repo Finder
+Comment[en_US]=Displays a list of all git repos on computer
+Exec=/home/nathaniel/sc_git/repl_csharp_sln/Utilities/GitRepoFinder/docs/bashRunProject.sh
+Path=/home/nathaniel/temp/
+Icon=/home/nathaniel/sc_git/repl_csharp_sln/Utilities/GitRepoFinder/docs/icon.png
+Terminal=False
+Type=Application
+Categories=Application
