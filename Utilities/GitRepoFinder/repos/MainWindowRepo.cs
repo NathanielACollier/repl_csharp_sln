@@ -71,7 +71,7 @@ public static class MainWindowRepo
                 {
                     h.Button("...", async () => { repos.os.OpenBrowser(repo.Path); },
                             style: new Style{width = 30})
-                        .TextFor(nameof(repo.Name))
+                        .TextFor(nameof(repo.Name), style: new Style{width = 300})
                         .TextFor(nameof(repo.Path));
                 });
             });
