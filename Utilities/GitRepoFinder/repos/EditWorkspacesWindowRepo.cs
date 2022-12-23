@@ -25,7 +25,10 @@ public class EditWorkspacesWindowRepo
                 var existingWorkspaces = await repos.WorkspacesRepo.getAll();
                 foreach (var wsPath in existingWorkspaces)
                 {
-                    
+                    model.WorkspacePath.Add(new models.WorkspaceModel
+                    {
+                        Path = wsPath
+                    });
                 }
             });
     }
