@@ -12,9 +12,15 @@
     <ItemGroup>
       <Content Include="docs\icon.ico" />
     </ItemGroup>
+    
+    <!-- macos bundle properties -->
+    <PropertyGroup>
+        <CFBundleShortVersionString>1.0.1</CFBundleShortVersionString>
+    </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="nac.Forms" Version="1.8.4" />
+        <PackageReference Include="Dotnet.Bundle" Version="*" />
     </ItemGroup>
 
 </Project>
