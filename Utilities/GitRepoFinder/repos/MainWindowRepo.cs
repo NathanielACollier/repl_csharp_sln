@@ -113,21 +113,35 @@ public static class MainWindowRepo
         foreach (var c in cmdList)
         {
             var item = new nac.Forms.model.MenuItem();
-
-            string commandArguments = repos.StringFormat.OskarFormat(c.Arguments, new
-            {
-                filepath = repo.Path
-            });
-
+            
             item.Header = c.Description;
             item.Action = () =>
             {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(c.ExePath, commandArguments));
+                runCommand(repo, command: c);
             };
             items.Add(item);
         }
 
         return items.ToArray();
+    }
+
+    private static void runCommand(GitRepoInfo repo, FolderCommandModel command)
+    {
+        try
+        {
+            string commandArguments = repos.StringFormat.OskarFormat(command.Arguments, new
+            {
+                folderpath = repo.Path
+            });
+            
+            repos.log.Info($"Running command: EXE[{command.ExePath}] Arguments[{commandArguments}]");
+            
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(command.ExePath, commandArguments));
+        }
+        catch (Exception ex)
+        {
+            repos.ErrorWindowRepo.run(parentForm: myForm, exception: ex);
+        }
     }
 
     private static void FilterRepos()
