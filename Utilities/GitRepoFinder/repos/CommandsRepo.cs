@@ -2,6 +2,8 @@ namespace GitRepoFinder.repos;
 
 public static class CommandsRepo
 {
+
+    private static List<models.FolderCommandModel> commandListCache;
     
     public static Task<List<models.FolderCommandModel>> getAll()
     {
@@ -39,5 +41,16 @@ public static class CommandsRepo
         repos.settingsFile.write(settings);
         
         return Task.CompletedTask;
+    }
+
+    public static async Task RefreshCommandListCache()
+    {
+        commandListCache = null;
+        commandListCache = await getAll();
+    }
+
+    public static List<models.FolderCommandModel> GetAllCached()
+    {
+        return commandListCache;
     }
 }

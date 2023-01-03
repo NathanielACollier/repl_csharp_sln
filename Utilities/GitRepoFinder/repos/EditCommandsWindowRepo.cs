@@ -64,6 +64,8 @@ Command Placeholders - Can be used in the Args textbox
                         await repos.CommandsRepo.Remove(cmd);
                         model.CommandList.Remove(cmd);
                     })
+                    .Text("Desc: ")
+                    .TextBoxFor(nameof(cmd.Description), style: new Style{width = 50})
                     .Text("Exe: ")
                     .TextBoxFor(nameof(cmd.ExePath), style: new Style { width = 400 })
                     .Text("Args: ")

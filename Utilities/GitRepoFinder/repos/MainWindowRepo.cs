@@ -1,4 +1,5 @@
 ﻿using Avalonia.Input;
+using GitRepoFinder.models;
 using nac.Forms;
 using nac.Forms.model;
 
@@ -47,6 +48,7 @@ public static class MainWindowRepo
                                 {
                                     await repos.EditCommandsWindowRepo.run(myForm);
                                     await RefreshGitRepos();
+                                    await repos.CommandsRepo.RefreshCommandListCache();
                                 }
                             }
                         }
@@ -81,10 +83,16 @@ public static class MainWindowRepo
             {
                 var repo = itemRow.DataContext as models.GitRepoInfo;
 
+                var commandMenuItems = generateMenuItemsForAllFolderComppands(repo);
+
                 itemRow.HorizontalGroup(h =>
                 {
                     h.Button("...", async () => { repos.os.OpenBrowser(repo.Path); },
-                            style: new Style{width = 30})
+                            style: new Style
+                            {
+                                width = 30,
+                                contextMenuItems = commandMenuItems
+                            })
                         .TextFor(nameof(repo.Name), style: new Style{width = 300})
                         .TextFor(nameof(repo.Path));
                 });
@@ -93,7 +101,33 @@ public static class MainWindowRepo
         .Display(onDisplay: async (_f) =>
         {
             await RefreshGitRepos();
+            await repos.CommandsRepo.RefreshCommandListCache();
         });
+    }
+
+    private static nac.Forms.model.MenuItem[] generateMenuItemsForAllFolderComppands(GitRepoInfo repo)
+    {
+        var items = new List<nac.Forms.model.MenuItem>();
+        var cmdList = repos.CommandsRepo.GetAllCached();
+
+        foreach (var c in cmdList)
+        {
+            var item = new nac.Forms.model.MenuItem();
+
+            string commandArguments = repos.StringFormat.OskarFormat(c.Arguments, new
+            {
+                filepath = repo.Path
+            });
+
+            item.Header = c.Description;
+            item.Action = () =>
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(c.ExePath, commandArguments));
+            };
+            items.Add(item);
+        }
+
+        return items.ToArray();
     }
 
     private static void FilterRepos()
