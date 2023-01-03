@@ -1,4 +1,5 @@
 ﻿using Avalonia.Input;
+using GitRepoFinder.models;
 using nac.Forms;
 using nac.Forms.model;
 
@@ -36,6 +37,21 @@ public static class MainWindowRepo
                     {
                         await repos.EditWorkspacesWindowRepo.run(myForm);
                         await RefreshGitRepos();
+                    }, new Style
+                    {
+                        contextMenuItems = new nac.Forms.model.MenuItem[]
+                        {
+                            new nac.Forms.model.MenuItem
+                            {
+                                Header = "Edit Commands",
+                                Action = async () =>
+                                {
+                                    await repos.EditCommandsWindowRepo.run(myForm);
+                                    await repos.CommandsRepo.RefreshCommandListCache();
+                                    await RefreshGitRepos();
+                                }
+                            }
+                        }
                     });
             })
         .HorizontalGroup(h =>
@@ -67,10 +83,16 @@ public static class MainWindowRepo
             {
                 var repo = itemRow.DataContext as models.GitRepoInfo;
 
+                var commandMenuItems = generateMenuItemsForAllFolderComppands(repo);
+
                 itemRow.HorizontalGroup(h =>
                 {
                     h.Button("...", async () => { repos.os.OpenBrowser(repo.Path); },
-                            style: new Style{width = 30})
+                            style: new Style
+                            {
+                                width = 30,
+                                contextMenuItems = commandMenuItems
+                            })
                         .TextFor(nameof(repo.Name), style: new Style{width = 300})
                         .TextFor(nameof(repo.Path));
                 });
@@ -78,8 +100,48 @@ public static class MainWindowRepo
         }, style: new Style{isVisibleModelName = nameof(model.doneGitRepoLoad)})
         .Display(onDisplay: async (_f) =>
         {
+            await repos.CommandsRepo.RefreshCommandListCache();
             await RefreshGitRepos();
         });
+    }
+
+    private static nac.Forms.model.MenuItem[] generateMenuItemsForAllFolderComppands(GitRepoInfo repo)
+    {
+        var items = new List<nac.Forms.model.MenuItem>();
+        var cmdList = repos.CommandsRepo.GetAllCached();
+
+        foreach (var c in cmdList)
+        {
+            var item = new nac.Forms.model.MenuItem();
+            
+            item.Header = c.Description;
+            item.Action = () =>
+            {
+                runCommand(repo, command: c);
+            };
+            items.Add(item);
+        }
+
+        return items.ToArray();
+    }
+
+    private static void runCommand(GitRepoInfo repo, FolderCommandModel command)
+    {
+        try
+        {
+            string commandArguments = repos.StringFormat.OskarFormat(command.Arguments, new
+            {
+                folderpath = repo.Path
+            });
+            
+            repos.log.Info($"Running command: EXE[{command.ExePath}] Arguments[{commandArguments}]");
+            
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(command.ExePath, commandArguments));
+        }
+        catch (Exception ex)
+        {
+            repos.ErrorWindowRepo.run(parentForm: myForm, exception: ex);
+        }
     }
 
     private static void FilterRepos()

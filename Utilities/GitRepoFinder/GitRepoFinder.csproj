@@ -5,7 +5,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyVersion>1.0.2.0</AssemblyVersion>
+        <AssemblyVersion>1.1.1.0</AssemblyVersion>
         <ApplicationIcon>docs\icon.ico</ApplicationIcon>
     </PropertyGroup>
 
@@ -19,7 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="nac.Forms" Version="1.8.4" />
+      <PackageReference Include="nac.Forms" Version="1.9.1" />
         <PackageReference Include="Dotnet.Bundle" Version="*" />
     </ItemGroup>
 
