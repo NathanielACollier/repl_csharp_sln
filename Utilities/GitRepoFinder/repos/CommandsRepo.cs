@@ -13,6 +13,16 @@ public static class CommandsRepo
         return tc.Task;
     }
 
+    public static async Task saveAll(IEnumerable<models.FolderCommandModel> commands)
+    {
+        var settings = repos.settingsFile.read();
+        
+        settings.commands.Clear();
+        settings.commands.AddRange(commands);
+        
+        repos.settingsFile.write(settings);
+    }
+
     public static Task Add(models.FolderCommandModel command)
     {
         var settings = repos.settingsFile.read();

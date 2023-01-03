@@ -2,9 +2,16 @@ namespace GitRepoFinder.models;
 
 public class FolderCommandModel : nac.Forms.model.ViewModelBase
 {
-    public string CommandText
+
+    public string ExePath
     {
-        get { return GetValue(() => CommandText); }
-        set { SetValue(() => CommandText, value);}
+        get { return GetValue(() => ExePath); }
+        set { SetValue(() => ExePath, value);}
+    }
+    
+    public string Arguments
+    {
+        get { return GetValue(() => Arguments); }
+        set { SetValue(() => Arguments, value);}
     }
 }

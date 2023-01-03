@@ -1,3 +1,5 @@
+using nac.Forms.model;
+
 namespace GitRepoFinder.repos;
 
 public class EditCommandsWindowRepo
@@ -26,6 +28,12 @@ public class EditCommandsWindowRepo
                 {
                     model.CommandList.Add(cmd);
                 }
+            }, onClosing: async (_f) =>
+            {
+                // save the commands
+                await repos.CommandsRepo.saveAll(model.CommandList);
+
+                return false; 
             });
     }
     
@@ -41,7 +49,7 @@ public class EditCommandsWindowRepo
             });
         })
             .Text(@"--------------------
-Command Placeholders
+Command Placeholders - Can be used in the Args textbox
 --------------------
 {folderpath} - Path, This is the path to the folder the git repo is in
 ####################
@@ -56,8 +64,10 @@ Command Placeholders
                         await repos.CommandsRepo.Remove(cmd);
                         model.CommandList.Remove(cmd);
                     })
-                    .Text("Command Text: ")
-                    .TextBoxFor(nameof(cmd.CommandText));
+                    .Text("Exe: ")
+                    .TextBoxFor(nameof(cmd.ExePath), style: new Style { width = 400 })
+                    .Text("Args: ")
+                    .TextBoxFor(nameof(cmd.Arguments), style: new Style { width = 400 });
             });
         });
     }
