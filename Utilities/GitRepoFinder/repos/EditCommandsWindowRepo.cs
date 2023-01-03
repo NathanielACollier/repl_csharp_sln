@@ -39,7 +39,14 @@ public class EditCommandsWindowRepo
             {
                 model.CommandList.Add(new());
             });
-        }).List<models.FolderCommandModel>(nameof(model.CommandList), itemRow =>
+        })
+            .Text(@"--------------------
+Command Placeholders
+--------------------
+{folderpath} - Path, This is the path to the folder the git repo is in
+####################
+            ")
+            .List<models.FolderCommandModel>(nameof(model.CommandList), itemRow =>
         {
             itemRow.HorizontalGroup(h =>
             {
