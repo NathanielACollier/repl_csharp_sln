@@ -2,8 +2,6 @@
 
 public static class WorkspacesRepo
 {
-    private static List<string> workspaces = new();
-
 
     public static Task<List<string>> getAll()
     {
