@@ -36,6 +36,20 @@ public static class MainWindowRepo
                     {
                         await repos.EditWorkspacesWindowRepo.run(myForm);
                         await RefreshGitRepos();
+                    }, new Style
+                    {
+                        contextMenuItems = new nac.Forms.model.MenuItem[]
+                        {
+                            new nac.Forms.model.MenuItem
+                            {
+                                Header = "Edit Commands",
+                                Action = async () =>
+                                {
+                                    await repos.EditCommandsWindowRepo.run(myForm);
+                                    await RefreshGitRepos();
+                                }
+                            }
+                        }
                     });
             })
         .HorizontalGroup(h =>
