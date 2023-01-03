@@ -47,8 +47,8 @@ public static class MainWindowRepo
                                 Action = async () =>
                                 {
                                     await repos.EditCommandsWindowRepo.run(myForm);
-                                    await RefreshGitRepos();
                                     await repos.CommandsRepo.RefreshCommandListCache();
+                                    await RefreshGitRepos();
                                 }
                             }
                         }
@@ -100,8 +100,8 @@ public static class MainWindowRepo
         }, style: new Style{isVisibleModelName = nameof(model.doneGitRepoLoad)})
         .Display(onDisplay: async (_f) =>
         {
-            await RefreshGitRepos();
             await repos.CommandsRepo.RefreshCommandListCache();
+            await RefreshGitRepos();
         });
     }
 
