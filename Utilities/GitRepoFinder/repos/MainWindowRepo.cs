@@ -62,41 +62,55 @@ public static class MainWindowRepo
         .VerticalGroup(v =>
         {
             v
-            .HorizontalGroup(h =>
-            {
-                h.Button("Refresh", async () =>
+                .HorizontalGroup(h =>
                 {
-                    await RefreshGitRepos();
-                }).Button("Filter", async () =>
-                {
-                    FilterRepos();
-                }).TextBoxFor(nameof(model.filterText), onKeyPress: (key) =>
-                {
-                    // filter the repos if they hit enter in the textbox
-                    if (key.Key == Key.Return && key.KeyModifiers == KeyModifiers.None)
+                    h.Button("Refresh", async () =>
+                    {
+                        await RefreshGitRepos();
+                    }).Button("Filter", async () =>
                     {
                         FilterRepos();
-                    }   
-                });
-            }, style: new Style{ height = 30})
-            .List<models.GitRepoInfo>(nameof(model.displayedGitRepos), itemRow =>
-            {
-                var repo = itemRow.DataContext as models.GitRepoInfo;
-
-                var commandMenuItems = generateMenuItemsForAllFolderComppands(repo);
-
-                itemRow.HorizontalGroup(h =>
-                {
-                    h.Button("...", async () => { repos.os.OpenBrowser(repo.Path); },
-                            style: new Style
+                    }).TextBoxFor(nameof(model.filterText), onKeyPress: (key) =>
+                    {
+                        // filter the repos if they hit enter in the textbox
+                        if (key.Key == Key.Return && key.KeyModifiers == KeyModifiers.None)
+                        {
+                            FilterRepos();
+                        }
+                    });
+                }, style: new Style { height = 30 })
+                .Table<models.GitRepoInfo>(nameof(model.displayedGitRepos),
+                    autoGenerateColumns: false,
+                    columns: new[]
+                    {
+                        new nac.Forms.model.Column
+                        {
+                            Header = "",
+                            template = row =>
                             {
-                                width = 30,
-                                contextMenuItems = commandMenuItems
-                            })
-                        .TextFor(nameof(repo.Name), style: new Style{width = 300})
-                        .TextFor(nameof(repo.Path));
-                });
-            });
+                                var repo = row.DataContext as models.GitRepoInfo;
+
+                                var commandMenuItems = generateMenuItemsForAllFolderComppands(repo);
+
+                                row.Button("...", async () => { repos.os.OpenBrowser(repo.Path); },
+                                    style: new Style
+                                    {
+                                        width = 30,
+                                        contextMenuItems = commandMenuItems
+                                    });
+                            }
+                        },
+                        new nac.Forms.model.Column
+                        {
+                            Header = "Name",
+                            modelBindingPropertyName = nameof(models.GitRepoInfo.Name)
+                        },
+                        new nac.Forms.model.Column
+                        {
+                            Header = "Path",
+                            modelBindingPropertyName = nameof(models.GitRepoInfo.Path)
+                        }
+                    });
         }, style: new Style{isVisibleModelName = nameof(model.doneGitRepoLoad)})
         .Display(onDisplay: async (_f) =>
         {
