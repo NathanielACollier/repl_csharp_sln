@@ -15,7 +15,7 @@ using (var conn = new db.TestContext())
         .First();
     
     Console.WriteLine($@"Last row:
-ID: \t{lastRow.Id}
-Date: \t{lastRow.Date}
-Message: \t{lastRow.Message}");
+ID:      {lastRow.Id}
+Date:    {lastRow.Date}
+Message: {lastRow.Message}");
 }
