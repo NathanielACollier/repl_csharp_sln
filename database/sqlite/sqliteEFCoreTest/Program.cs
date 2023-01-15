@@ -7,6 +7,7 @@ using (var conn = new db.TestContext())
     {
         Message = "Test Entry: " + Guid.NewGuid().ToString("N")
     });
+    conn.SaveChanges();
     
     Console.WriteLine($"Row count: {conn.Test.Count()}");
 

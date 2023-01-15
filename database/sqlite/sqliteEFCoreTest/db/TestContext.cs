@@ -31,7 +31,7 @@ public class TestContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        string dbFilePath = System.IO.Path.Combine(commonUtilitiesLib.Directory.getRootDirectory(), "TestDB.db");
+        string dbFilePath = System.IO.Path.Combine(commonUtilitiesLib.Directory.getRootDirectory(), "output", "TestDB.db");
         optionsBuilder.UseSqlite($"Data Source={dbFilePath};");
     }
 
@@ -46,6 +46,6 @@ public class TestContext : DbContext
 
         modelBuilder.Entity<Tables.TestTable>()
             .Property(i => i.Date)
-            .HasDefaultValueSql("getdate()");
+            .HasDefaultValueSql("DateTime('now')");
     }
 }
