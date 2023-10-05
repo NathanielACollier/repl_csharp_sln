@@ -19,8 +19,8 @@ $iconPath = [system.io.path]::Combine( $projectFileInfo.DirectoryName, "docs", "
 # clear existing folder
 remove-item ([system.io.path]::Combine($deployDir.FullName, "*")) -Recurse -Force
 
-& dotnet restore -r osx-x64
-& dotnet @( "msbuild" , "-t:BundleApp", "-p:RuntimeIdentifier=osx-x64", "-property:Configuration=Release", "-p:UseAppHost=true",
+& dotnet restore -r osx-arm64
+& dotnet @( "msbuild" , "-t:BundleApp", "-p:RuntimeIdentifier=osx-arm64", "-property:Configuration=Release", "-p:UseAppHost=true",
            ("-p:PublishDir=" + $deployDir.FullName),
              "-p:CFBundleIconFile=$iconPath" )
 
