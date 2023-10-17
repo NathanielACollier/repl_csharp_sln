@@ -7,8 +7,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-var form = Avalonia.AppBuilder.Configure<nac.Forms.App>()
-    .NewForm();
+var form = nac.Forms.Form.NewForm();
 
 form.Text("PDF Viewer")
     .HorizontalGroup(hg =>
@@ -28,7 +27,7 @@ form.Text("PDF Viewer")
 
                 return 0;
             })
-            .Button("Render", (_args) =>
+            .Button("Render", async () =>
             {
                 int page = (int)form.Model["page"];
                 string pdfPath = form.Model["pdfPath"] as string;
