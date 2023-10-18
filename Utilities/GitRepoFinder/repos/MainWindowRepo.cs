@@ -13,8 +13,7 @@ public static class MainWindowRepo
 
     public static async Task run()
     {
-        myForm = Avalonia.AppBuilder.Configure<nac.Forms.App>()
-            .NewForm();
+        myForm = nac.Forms.Form.NewForm();
 
         model = new models.MainWindowModel();
         myForm.DataContext = model;
