@@ -1,5 +1,4 @@
 ﻿using System;
-using dotnetCoreAvaloniaNCForms;
 
 namespace simple_nacForms_Test
 {
@@ -7,8 +6,7 @@ namespace simple_nacForms_Test
     {
         static void Main(string[] args)
         {
-            var f = Avalonia.AppBuilder.Configure<dotnetCoreAvaloniaNCForms.App>()
-                                    .NewForm();
+            var f = nac.Forms.Form.NewForm();
 
             f.Text("Hello World!");
             f.Display();

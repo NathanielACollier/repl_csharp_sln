@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>simple_nacForms_Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="dotnetCoreAvaloniaNCForms" Version="1.0.4" />
+    <PackageReference Include="nac.Forms" Version="2.0.3" />
   </ItemGroup>
 </Project>
