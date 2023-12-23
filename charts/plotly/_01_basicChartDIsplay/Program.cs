@@ -11,9 +11,7 @@ using Plotly.NET.ImageExport;
  
  */
 
-var form = Avalonia.AppBuilder.Configure<nac.Forms.App>()
-    .NewForm();
-
+var form = nac.Forms.Form.NewForm();
 var model = new Model
 {
     chartIsLoading = false
@@ -56,7 +54,7 @@ byte[] buildChart()
 
 
 
-class Model : nac.Forms.model.ViewModelBase
+class Model : nac.ViewModelBase.ViewModelBase
 {
     public bool chartIsLoading
     {
