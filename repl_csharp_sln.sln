@@ -105,6 +105,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqliteEFCoreTest", "databas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetCore_RazorPages_HelloWorld", "Test\aspnet\aspnetCore_RazorPages_HelloWorld\aspnetCore_RazorPages_HelloWorld.csproj", "{9AF07DDA-05BD-4F22-9A36-7E97F48C5026}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetCore_MicrosoftLoginTest", "Test\aspnet\aspnetCore_MicrosoftLoginTest\aspnetCore_MicrosoftLoginTest.csproj", "{676BC792-223E-4E63-AC25-A2A544B581A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -227,6 +229,10 @@ Global
 		{9AF07DDA-05BD-4F22-9A36-7E97F48C5026}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AF07DDA-05BD-4F22-9A36-7E97F48C5026}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AF07DDA-05BD-4F22-9A36-7E97F48C5026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{676BC792-223E-4E63-AC25-A2A544B581A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{676BC792-223E-4E63-AC25-A2A544B581A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{676BC792-223E-4E63-AC25-A2A544B581A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{676BC792-223E-4E63-AC25-A2A544B581A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -275,6 +281,7 @@ Global
 		{C64C0822-F628-4BDE-B2BF-CF20FE31E8D6} = {271F5C6C-D9AF-4BB8-BF4A-D7BF6D8C3853}
 		{F1A87775-126D-475A-9F7C-EFF61653EC3F} = {C64C0822-F628-4BDE-B2BF-CF20FE31E8D6}
 		{9AF07DDA-05BD-4F22-9A36-7E97F48C5026} = {99CB7799-DC3F-4792-B561-0529E1B6A6F3}
+		{676BC792-223E-4E63-AC25-A2A544B581A4} = {99CB7799-DC3F-4792-B561-0529E1B6A6F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F73E925-277D-47A3-B8DA-6B406F5CE3AD}
