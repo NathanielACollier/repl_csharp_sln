@@ -16,7 +16,7 @@
                 </DockPanel>
                 
                 <DataGrid DockPanel.Dock="Bottom" 
-                                Items="{Binding People}" 
+                                ItemsSource="{Binding People}"
                                 AutoGenerateColumns="False"
                                 x:Name="dg1"
                                 >
