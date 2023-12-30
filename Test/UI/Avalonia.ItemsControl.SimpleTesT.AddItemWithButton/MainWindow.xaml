@@ -18,7 +18,8 @@
                         </StackPanel>
                 </DockPanel>
                 
-                <ItemsControl DockPanel.Dock="Top" Items="{Binding MyListofStuff}">
+                <ItemsControl DockPanel.Dock="Top"
+                              ItemsSource="{Binding MyListofStuff}">
                         <ItemsControl.DataTemplates>
                                 <!--
                                 Here is documentation on how DataTemplate work
