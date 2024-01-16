@@ -13,8 +13,7 @@ Might be a way to store the user identity in memory
 - https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-custom-storage-providers?view=aspnetcore-3.1
 */
 
-services.AddDefaultIdentity<IdentityUser>(options =>
-                                       options.SignIn.RequireConfirmedAccount = true);
+services.AddIdentityCore<IdentityUser>();
 
 /*
 Trying to follow this documentation:
