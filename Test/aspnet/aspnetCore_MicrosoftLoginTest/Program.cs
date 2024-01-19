@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using appDB=aspnetCore_MicrosoftLoginTest.appDB;
@@ -11,7 +13,11 @@ var services = builder.Services;
 /*
 Need to run these commands to setup the database
 ```
+# Install the entity framework tool
 dotnet tool install --global dotnet-ef
+# Setup the stuff to create the initial database
+dotnet ef migrations add InitialCreate
+# Run this to actually create the database
 dotnet ef database update
 ```
 */
@@ -19,19 +25,8 @@ services.AddDbContext<appDB.ApplicationDbContext>(options =>
         options.UseSqlite(connectionString: "Filename=./appDb.sqlite")
         );
 
-/*
-Might be a way to store the user identity in memory
--- https://stackoverflow.com/questions/60316005/how-to-use-identity-in-asp-net-core-3-1-without-ef-core
--- look at this too
-- https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-custom-storage-providers?view=aspnetcore-3.1
-*/
 
-services.AddIdentityCore<IdentityUser>(options => 
-    { options.SignIn.RequireConfirmedAccount = true;
-        options.SignIn.RequireConfirmedEmail = true;
-
-    })
-    .AddRoles<IdentityRole>()
+services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<appDB.ApplicationDbContext>();
 
 /*
@@ -50,10 +45,10 @@ services.AddAuthorization();
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.MapIdentityApi<IdentityUser>();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", (HttpContext httpContext) => $"Hello {httpContext.User.Identity.Name}!")
+.RequireAuthorization();
 
 app.Run();
 
