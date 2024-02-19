@@ -1,11 +1,14 @@
 [Desktop Entry]
-Version=1.0
-Name[en_US]=GitRepoFInder
-GenericName[en_US]=Git Repo Finder
+Categories=Development
 Comment[en_US]=Displays a list of all git repos on computer
-Exec=/home/nathaniel/sc_git/repl_csharp_sln/Utilities/GitRepoFinder/docs/bashRunProject.sh
-Path=/home/nathaniel/temp/
-Icon=/home/nathaniel/sc_git/repl_csharp_sln/Utilities/GitRepoFinder/docs/icon.png
-Terminal=False
+Comment=Displays a list of all git repos on computer
+Path=/home/nathaniel/programs/GitRepoFinder/
+Exec=bash -c "DOTNET_ROOT=$HOME/.dotnet PATH=$HOME/.dotnet:$HOME/.dotnet/tools:$PATH ./GitRepoFinder"
+GenericName[en_US]=Git Repo Finder
+GenericName=Git Repo Finder
+Icon=/home/nathaniel/sc/repl_csharp_sln/Utilities/GitRepoFinder/docs/icon.png
+Name[en_US]=GitRepoFInder
+Name=GitRepoFInder
+Terminal=false
 Type=Application
-Categories=Application
+Version=1.0
