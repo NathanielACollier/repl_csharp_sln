@@ -19,8 +19,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="nac.Forms" Version="2.0.3" />
+        <!-- this dotnet bundle is for building the macos App -->
         <PackageReference Include="Dotnet.Bundle" Version="*" />
+        <!-- Regular packages that are needed for application-->
+        <PackageReference Include="nac.Forms" Version="2.2.1" />
+        <PackageReference Include="nac.ViewModelBase" Version="1.0.1" />
     </ItemGroup>
 
 </Project>

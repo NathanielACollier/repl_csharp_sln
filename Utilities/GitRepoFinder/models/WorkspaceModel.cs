@@ -1,6 +1,6 @@
 ﻿namespace GitRepoFinder.models;
 
-public class WorkspaceModel : nac.Forms.model.ViewModelBase
+public class WorkspaceModel : nac.ViewModelBase.ViewModelBase
 {
 
     public string Path
