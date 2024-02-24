@@ -8,4 +8,12 @@
     <Folder Include="Properties/" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="nac.utilities" Version="1.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\commonUtilitiesLib\commonUtilitiesLib.csproj" />
+  </ItemGroup>
+
 </Project>
