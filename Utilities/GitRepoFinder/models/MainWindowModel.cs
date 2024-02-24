@@ -2,7 +2,7 @@
 
 namespace GitRepoFinder.models;
 
-public class MainWindowModel : nac.Forms.model.ViewModelBase
+public class MainWindowModel : nac.ViewModelBase.ViewModelBase
 {
 
 

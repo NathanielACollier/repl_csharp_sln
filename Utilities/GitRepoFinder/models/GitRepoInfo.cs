@@ -1,6 +1,6 @@
 ﻿namespace GitRepoFinder.models;
 
-public class GitRepoInfo : nac.Forms.model.ViewModelBase
+public class GitRepoInfo : nac.ViewModelBase.ViewModelBase
 {
     
     public string Name

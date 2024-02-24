@@ -1,6 +1,6 @@
 namespace GitRepoFinder.models;
 
-public class FolderCommandModel : nac.Forms.model.ViewModelBase
+public class FolderCommandModel : nac.ViewModelBase.ViewModelBase
 {
 
     public string Description
