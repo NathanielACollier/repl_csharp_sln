@@ -107,6 +107,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetCore_MicrosoftLoginTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetCore_WebAPI_01HelloWorld", "Test\aspnet\aspnetCore_WebAPI_01HelloWorld\aspnetCore_WebAPI_01HelloWorld.csproj", "{72FA31B9-812D-41EB-8F3A-256229F34FD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetCore_MicrosoftLoginWithoutLibraryHelp", "Test\aspnet\aspnetCore_MicrosoftLoginWithoutLibraryHelp\aspnetCore_MicrosoftLoginWithoutLibraryHelp.csproj", "{A7816DA9-17A9-4486-AA05-D09D8F153245}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,6 +235,10 @@ Global
 		{72FA31B9-812D-41EB-8F3A-256229F34FD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72FA31B9-812D-41EB-8F3A-256229F34FD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72FA31B9-812D-41EB-8F3A-256229F34FD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7816DA9-17A9-4486-AA05-D09D8F153245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7816DA9-17A9-4486-AA05-D09D8F153245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7816DA9-17A9-4486-AA05-D09D8F153245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7816DA9-17A9-4486-AA05-D09D8F153245}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -282,6 +288,7 @@ Global
 		{9AF07DDA-05BD-4F22-9A36-7E97F48C5026} = {99CB7799-DC3F-4792-B561-0529E1B6A6F3}
 		{676BC792-223E-4E63-AC25-A2A544B581A4} = {99CB7799-DC3F-4792-B561-0529E1B6A6F3}
 		{72FA31B9-812D-41EB-8F3A-256229F34FD1} = {99CB7799-DC3F-4792-B561-0529E1B6A6F3}
+		{A7816DA9-17A9-4486-AA05-D09D8F153245} = {99CB7799-DC3F-4792-B561-0529E1B6A6F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F73E925-277D-47A3-B8DA-6B406F5CE3AD}
