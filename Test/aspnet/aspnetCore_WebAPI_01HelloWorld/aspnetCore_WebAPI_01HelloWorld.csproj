@@ -2,18 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == '_1_BlazorServer_HelloWorld' " />
   <ItemGroup>
-    <Folder Include="wwwroot" />
-    <Folder Include="Controllers\" />
+    <Content Update="wwwroot\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 
-  <ItemGroup>
-    <None Remove="Controllers\" />
-  </ItemGroup>
+
 </Project>
