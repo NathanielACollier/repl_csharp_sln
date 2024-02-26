@@ -4,10 +4,16 @@ using Microsoft.AspNetCore.Http.Extensions;
 
 namespace aspnetCore_MicrosoftLoginWithoutLibraryHelp.repositories;
 
+
+/*
+Follow the documentation here:
+https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow
+*/
+
 public static class MicrosoftLogin
 {
     private static nac.Logging.Logger log = new();
-    private static string graphRootUrl = "https://graph.microsoft.com";
+    private static string graphScope = "https://graph.microsoft.com/.default";
 
 
     public static void RedirectIfNotLoggedIn(Microsoft.AspNetCore.Http.HttpContext httpContext)
@@ -24,7 +30,7 @@ public static class MicrosoftLogin
         state: new lib.MSLoginSaveState{
             OriginalUrl = urlAttempted
         });
-        
+
         log.Info($"Microsoft Login URL is: {loginUrl}");
 
         throw new lib.HttpRedirectFiltering.HttpRedirectException(url: loginUrl);
@@ -42,7 +48,7 @@ public static class MicrosoftLogin
 
         var loginUrl = new nac.utilities.Url("https://login.microsoftonline.com/");
         
-        loginUrl.Path = $"{tenant}/oauth2/authorize";
+        loginUrl.Path = $"{tenant}/oauth2/v2.0/authorize";
 
         // add the params
         loginUrl.AddQueryParametersFromDictionary(new Dictionary<string,string>{
@@ -50,7 +56,7 @@ public static class MicrosoftLogin
             {"response_type", "code"},
             {"redirect_uri", redirectUrl},
             {"response_mode", "query"},
-            {"resource", graphRootUrl},
+            {"scope", graphScope},
             {"state", CreateMSLoginState(state)}
         });
 
