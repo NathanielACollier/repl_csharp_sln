@@ -20,9 +20,13 @@ public static class MicrosoftLogin
         loginCodeUrl.ClearQuery();
         log.Info($"Redirect to Microsoft Login, and have them send code to: {loginCodeUrl}");
 
-        string loginUrl = FormMicrosoftLoginUrl(redirectUrl: loginCodeUrl.ToString());
-        log.Info($"Microsoft Login URL is: {loginUrl}");
+        string loginUrl = FormMicrosoftLoginUrl(redirectUrl: loginCodeUrl.ToString(),
+        state: new lib.MSLoginSaveState{
+            OriginalUrl = urlAttempted
+        });
         
+        log.Info($"Microsoft Login URL is: {loginUrl}");
+
         throw new lib.HttpRedirectFiltering.HttpRedirectException(url: loginUrl);
     }
 
@@ -32,7 +36,7 @@ public static class MicrosoftLogin
         );
     }
 
-    private static string FormMicrosoftLoginUrl(string redirectUrl){
+    private static string FormMicrosoftLoginUrl(string redirectUrl, lib.MSLoginSaveState state){
         string tenant = "common"; // your appID has to be multi tentant to use the common tenant
         var entraSettings = readEntraSettings();
 
@@ -47,10 +51,19 @@ public static class MicrosoftLogin
             {"redirect_uri", redirectUrl},
             {"response_mode", "query"},
             {"resource", graphRootUrl},
-            {"state", "12345"}
+            {"state", CreateMSLoginState(state)}
         });
 
         return loginUrl.ToString();
     }
+
+
+    private static string CreateMSLoginState(lib.MSLoginSaveState state){
+        string jsonText = System.Text.Json.JsonSerializer.Serialize(state);
+        var utf8Bytes = System.Text.Encoding.UTF8.GetBytes(jsonText);
+        return System.Convert.ToBase64String(utf8Bytes);
+    }
+
+
 
 }
