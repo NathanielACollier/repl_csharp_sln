@@ -6,14 +6,23 @@ namespace aspnetCore_MicrosoftLoginWithoutLibraryHelp.repositories;
 
 public static class MicrosoftLogin
 {
+    private static nac.Logging.Logger log = new();
     private static string graphRootUrl = "https://graph.microsoft.com";
 
 
     public static void RedirectIfNotLoggedIn(Microsoft.AspNetCore.Http.HttpContext httpContext)
     {
-        string currentUrl = httpContext.Request.GetEncodedUrl();
+        string urlAttempted = httpContext.Request.GetEncodedUrl();
+        log.Info($"Attempting to go to URL: {urlAttempted}");
 
-        string loginUrl = FormMicrosoftLoginUrl(redirectUrl: currentUrl);
+        var loginCodeUrl = new nac.utilities.Url(urlAttempted);
+        loginCodeUrl.Path = "api/general/loginWithOffice365Code";
+        loginCodeUrl.ClearQuery();
+        log.Info($"Redirect to Microsoft Login, and have them send code to: {loginCodeUrl}");
+
+        string loginUrl = FormMicrosoftLoginUrl(redirectUrl: loginCodeUrl.ToString());
+        log.Info($"Microsoft Login URL is: {loginUrl}");
+        
         throw new lib.HttpRedirectFiltering.HttpRedirectException(url: loginUrl);
     }
 
