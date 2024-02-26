@@ -9,12 +9,20 @@ namespace aspnetCore_MicrosoftLoginWithoutLibraryHelp;
 [Route("api/[controller]")]
 public class GeneralController : ControllerBase
 {
-
+    private static nac.Logging.Logger log = new();
 
     [HttpGet, Route("Hello")]
     public ContentResult GetHello()
     {
+        repositories.MicrosoftLogin.RedirectIfNotLoggedIn(HttpContext);
+
         return Content("Hello World!", "application/text");
+    }
+
+
+    [HttpGet, Route("loginWithOffice365Code")]
+    public void LoginWithOffice365Code([FromQuery]string code){
+        log.Info($"Received code from office365: {code}");
     }
     
     

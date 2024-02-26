@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http.Extensions;
 
-namespace aspnetCore_MicrosoftLoginWithoutLibraryHelp;
+namespace aspnetCore_MicrosoftLoginWithoutLibraryHelp.repositories;
 
 public static class MicrosoftLogin
 {
     private static string graphRootUrl = "https://graph.microsoft.com";
+
+
+    public static void RedirectIfNotLoggedIn(Microsoft.AspNetCore.Http.HttpContext httpContext)
+    {
+        string currentUrl = httpContext.Request.GetEncodedUrl();
+
+        string loginUrl = FormMicrosoftLoginUrl(redirectUrl: currentUrl);
+        throw new lib.HttpRedirectFiltering.HttpRedirectException(url: loginUrl);
+    }
 
     private static (string appID, string clientSecret) readEntraSettings(){
         return (appID: commonUtilitiesLib.settings.Get("TestAuthAzureAppID"),
