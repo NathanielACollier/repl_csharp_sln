@@ -22,7 +22,7 @@ public static class MicrosoftLogin
         log.Info($"Attempting to go to URL: {urlAttempted}");
 
         var loginCodeUrl = new nac.utilities.Url(urlAttempted);
-        loginCodeUrl.Path = "api/general/loginWithOffice365Code";
+        loginCodeUrl.Path = "api/general/msLogin";
         loginCodeUrl.ClearQuery();
         log.Info($"Redirect to Microsoft Login, and have them send code to: {loginCodeUrl}");
 

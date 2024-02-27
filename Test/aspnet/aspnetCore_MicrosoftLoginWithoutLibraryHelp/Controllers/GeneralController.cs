@@ -20,7 +20,7 @@ public class GeneralController : ControllerBase
     }
 
 
-    [HttpGet, Route("loginWithOffice365Code")]
+    [HttpGet, Route("msLogin")]
     public void LoginWithOffice365Code([FromQuery]string code){
         log.Info($"Received code from office365: {code}");
     }
