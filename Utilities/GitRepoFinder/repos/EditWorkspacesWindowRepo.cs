@@ -55,6 +55,12 @@ public class EditWorkspacesWindowRepo
             itemRow.HorizontalGroup(h =>
             {
                 var ws = itemRow.DataContext as models.WorkspaceModel;
+
+                // This can be null if you delete a workspace
+                if( ws == null ){
+                    return; 
+                }
+
                 h.Button("Delete", async () =>
                 {
                     await repos.WorkspacesRepo.RemoveWorkspace(ws.Path);

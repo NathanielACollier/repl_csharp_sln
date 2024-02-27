@@ -5,30 +5,28 @@ public static class WorkspacesRepo
 
     public static Task<List<string>> getAll()
     {
-        var tc = new TaskCompletionSource<List<string>>();
-
-        var settings = repos.settingsFile.read();
-        tc.SetResult(settings.workspaces);
-
-        return tc.Task;
+        return Task.Run(() => {
+            var settings = repos.settingsFile.read();
+            return settings.workspaces;
+        });
     }
 
     public static Task AddWorkspace(string workspacePath)
     {
-        var settings = repos.settingsFile.read();
-        settings.workspaces.Add(workspacePath);
-        repos.settingsFile.write(settings);
-        
-        return Task.CompletedTask;
+        return Task.Run(() => {
+            var settings = repos.settingsFile.read();
+            settings.workspaces.Add(workspacePath);
+            repos.settingsFile.write(settings);
+        });
     }
 
     public static Task RemoveWorkspace(string workspacePath)
     {
-        var settings = repos.settingsFile.read();
-        settings.workspaces.Remove(workspacePath);
-        repos.settingsFile.write(settings);
-        
-        return Task.CompletedTask;
+        return Task.Run(() => {
+            var settings = repos.settingsFile.read();
+            settings.workspaces.Remove(workspacePath);
+            repos.settingsFile.write(settings);
+        });
     }
 
 
