@@ -59,6 +59,12 @@ Command Placeholders - Can be used in the Args textbox
             itemRow.HorizontalGroup(h =>
             {
                 var cmd = itemRow.DataContext as models.FolderCommandModel;
+
+                // when delete happens the DataContext is becoming null and breaking this
+                if( cmd == null ){
+                    return;
+                }
+
                 h.Button("Delete", async () =>
                     {
                         await repos.CommandsRepo.Remove(cmd);

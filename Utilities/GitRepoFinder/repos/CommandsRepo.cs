@@ -36,11 +36,12 @@ public static class CommandsRepo
 
     public static Task Remove(models.FolderCommandModel command)
     {
-        var settings = repos.settingsFile.read();
-        settings.commands.Remove(command);
-        repos.settingsFile.write(settings);
+        return Task.Run(() => {
+            var settings = repos.settingsFile.read();
+            settings.commands.Remove(command);
+            repos.settingsFile.write(settings);
         
-        return Task.CompletedTask;
+        });
     }
 
     public static async Task RefreshCommandListCache()
