@@ -21,8 +21,16 @@ public class GeneralController : ControllerBase
 
 
     [HttpGet, Route("msLogin")]
-    public void LoginWithOffice365Code([FromQuery]string code){
+    public async void LoginWithOffice365Code([FromQuery]string code,
+                    [FromQuery]string state 
+    ){
         log.Info($"Received code from office365: {code}");
+
+        // state will be our base64 encoded data
+        var stateObj = repositories.MicrosoftLogin.ReadState(stateBase64Encoded: state);
+
+        string token = await repositories.MicrosoftLogin.GetTokenFromCode(code: code);
+        log.Info($"Received Token: {token}");
     }
     
     

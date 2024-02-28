@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Extensions;
 
 namespace aspnetCore_MicrosoftLoginWithoutLibraryHelp.repositories;
@@ -71,5 +72,15 @@ public static class MicrosoftLogin
     }
 
 
+    public static lib.MSLoginSaveState ReadState(string stateBase64Encoded){
+        byte[] data = System.Convert.FromBase64String(stateBase64Encoded);
+        string jsonText = System.Text.Encoding.UTF8.GetString(data);
+        var state = System.Text.Json.JsonSerializer.Deserialize<lib.MSLoginSaveState>(json: jsonText);
+        return state;
+    }
 
+    public static async Task<string> GetTokenFromCode(string code)
+    {
+        
+    }
 }
