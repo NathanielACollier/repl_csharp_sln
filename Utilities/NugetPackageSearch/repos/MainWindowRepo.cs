@@ -48,6 +48,7 @@ public class MainWindowRepo
                     await runNugetSearch();
                 });
         })
+        .Table<models.Nuget.NugetPackageInfo>(itemsModelFieldName: nameof(model.Packages))
         .Display(onDisplay: async (__f) =>
         {
             nuget = await repos.NugetPackage.Create();
@@ -58,6 +59,7 @@ public class MainWindowRepo
     {
         try
         {
+            model.Packages.Clear();
             if (string.IsNullOrWhiteSpace(model.searchTerm))
             {
                 return;
@@ -66,12 +68,16 @@ public class MainWindowRepo
             var results = await nuget.GetPackagesAsync(searchTerm: model.searchTerm,
                 includePrerelease: false,
                 exactMatch: false);
-            
-            
+
+            foreach (var r in results)
+            {
+                var pkgInfo = new models.Nuget.NugetPackageInfo(r);
+                model.Packages.Add(pkgInfo);
+            }
         }
         catch (Exception ex)
         {
-            
+            repos.ErrorWindowRepo.run(parentForm: myForm, exception: ex);
         }
     }
 }
