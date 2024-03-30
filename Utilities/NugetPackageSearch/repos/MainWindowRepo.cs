@@ -30,14 +30,14 @@ public class MainWindowRepo
         myForm.DataContext = model;
 
         myForm.Title = $"Nuget Package Search v{model.Version}";
-
-        nuget = await repos.NugetPackage.Create();
-
-        await buildAndDisplayUI();
+        
+        
+        
+        buildAndDisplayUI();
     }
 
 
-    private async Task buildAndDisplayUI()
+    private void buildAndDisplayUI()
     {
         myForm.HorizontalGroup(hg =>
         {
@@ -48,7 +48,10 @@ public class MainWindowRepo
                     await runNugetSearch();
                 });
         })
-        .Display();
+        .Display(onDisplay: async (__f) =>
+        {
+            nuget = await repos.NugetPackage.Create();
+        });
     }
 
     private async Task runNugetSearch()

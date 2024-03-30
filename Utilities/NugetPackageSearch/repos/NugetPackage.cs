@@ -38,7 +38,7 @@ public class NugetPackage
     }
     
     private Task Init()
-    {
+    { 
         return Task.Run(() =>
         {
             var settings = new NuGet.Configuration.Settings(root: getNugetRootPath());
@@ -46,7 +46,6 @@ public class NugetPackage
             
             provider = new models.Nuget.CommandLineSourceRepositoryProvider(packageProvier);
         });
-
     }
     
     public async Task<IReadOnlyList<IPackageSearchMetadata>> GetPackagesAsync(string searchTerm, bool includePrerelease, bool exactMatch)
