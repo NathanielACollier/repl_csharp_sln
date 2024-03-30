@@ -36,12 +36,12 @@ public class NugetPackageInfo : nac.ViewModelBase.ViewModelBase
 
     public NugetPackageInfo(IPackageSearchMetadata nugetSearchMeta)
     {
-        this.Id = nugetSearchMeta.Identity.Id;
-        this.Version = nugetSearchMeta.Identity.Version.ToString();
+        this.Id = nugetSearchMeta.Identity?.Id ?? "";
+        this.Version = nugetSearchMeta.Identity?.Version?.ToString() ?? "";
 
         this.Description = nugetSearchMeta.Description;
         this.DownloadCount = nugetSearchMeta.DownloadCount;
-        this.ProjectUrl = nugetSearchMeta.ProjectUrl.AbsoluteUri;
+        this.ProjectUrl = nugetSearchMeta.ProjectUrl?.AbsoluteUri ?? "";
     }
 
 
