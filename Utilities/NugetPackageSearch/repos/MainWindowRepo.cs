@@ -1,11 +1,25 @@
 namespace NugetPackageSearch.repos;
 
-public static class MainWindowRepo
+public class MainWindowRepo
 {
-    private static nac.Forms.Form myForm;
-    private static models.MainWindowModel model;
+    private nac.Forms.Form myForm;
+    private models.MainWindowModel model;
+    private repos.NugetPackage nuget;
+
+    private MainWindowRepo()
+    {
+        
+    }
+
+    public static async Task<MainWindowRepo> CreateAndRun()
+    {
+        var window = new MainWindowRepo();
+        await window.run();
+
+        return window;
+    }
     
-    public static async Task run()
+    private async Task run()
     {
         myForm = nac.Forms.Form.NewForm();
 
@@ -14,11 +28,13 @@ public static class MainWindowRepo
 
         myForm.Title = $"Nuget Package Search v{model.Version}";
 
+        nuget = await repos.NugetPackage.Create();
+
         await buildAndDisplayUI();
     }
 
 
-    private static async Task buildAndDisplayUI()
+    private async Task buildAndDisplayUI()
     {
         myForm.HorizontalGroup(hg =>
         {
