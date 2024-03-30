@@ -17,6 +17,9 @@ public class NugetPackage
 
     private async Task Init()
     {
+        var settings = new NuGet.Configuration.Settings();
+        var packageProvier = new NuGet.Configuration.PackageSourceProvider(settings);
+        
         
     }
     
