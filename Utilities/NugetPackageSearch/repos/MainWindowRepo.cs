@@ -1,3 +1,6 @@
+using System;
+using System.Threading.Tasks;
+
 namespace NugetPackageSearch.repos;
 
 public class MainWindowRepo
@@ -42,9 +45,30 @@ public class MainWindowRepo
                 .TextBoxFor(nameof(model.searchTerm))
                 .Button("Search", async () =>
                 {
-
+                    await runNugetSearch();
                 });
         })
         .Display();
+    }
+
+    private async Task runNugetSearch()
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.searchTerm))
+            {
+                return;
+            }
+
+            var results = await nuget.GetPackagesAsync(searchTerm: model.searchTerm,
+                includePrerelease: false,
+                exactMatch: false);
+            
+            
+        }
+        catch (Exception ex)
+        {
+            
+        }
     }
 }
