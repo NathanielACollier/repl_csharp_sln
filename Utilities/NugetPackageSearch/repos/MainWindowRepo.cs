@@ -12,11 +12,23 @@ public static class MainWindowRepo
         model = new models.MainWindowModel();
         myForm.DataContext = model;
 
-        myForm.Title = $"Git Repo Finder v{model.Version}";
+        myForm.Title = $"Nuget Package Search v{model.Version}";
 
         await buildAndDisplayUI();
     }
-    
-    
-    
+
+
+    private static async Task buildAndDisplayUI()
+    {
+        myForm.HorizontalGroup(hg =>
+        {
+            hg.Text("Nuget Package: ")
+                .TextBoxFor(nameof(model.searchTerm))
+                .Button("Search", async () =>
+                {
+
+                });
+        })
+        .Display();
+    }
 }
