@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Avalonia.Input;
 
 namespace NugetPackageSearch.repos;
 
@@ -42,7 +43,13 @@ public class MainWindowRepo
         myForm.HorizontalGroup(hg =>
         {
             hg.Text("Nuget Package: ")
-                .TextBoxFor(nameof(model.searchTerm))
+                .TextBoxFor(nameof(model.searchTerm), onKeyPress: async keyArg =>
+                {
+                    if (keyArg.Key == Key.Enter)
+                    {
+                        await runNugetSearch();
+                    }
+                })
                 .Button("Search", async () =>
                 {
                     await runNugetSearch();
