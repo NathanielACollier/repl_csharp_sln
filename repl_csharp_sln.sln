@@ -111,6 +111,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnetCore_MicrosoftLoginWi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetPackageSearch", "Utilities\NugetPackageSearch\NugetPackageSearch.csproj", "{B175B3FD-63C6-40B1-A5E7-BB5D9576E233}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharpWebview", "SharpWebview", "{25A18B7A-9AB6-43E2-9AEC-02B8A63C1A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWebview_Test001", "Test\WebBrowser\SharpWebview\SharpWebview_Test001\SharpWebview_Test001.csproj", "{58DED0B0-D2D1-4334-9A09-BEB4877A5CF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -245,6 +249,10 @@ Global
 		{B175B3FD-63C6-40B1-A5E7-BB5D9576E233}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B175B3FD-63C6-40B1-A5E7-BB5D9576E233}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B175B3FD-63C6-40B1-A5E7-BB5D9576E233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58DED0B0-D2D1-4334-9A09-BEB4877A5CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58DED0B0-D2D1-4334-9A09-BEB4877A5CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58DED0B0-D2D1-4334-9A09-BEB4877A5CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58DED0B0-D2D1-4334-9A09-BEB4877A5CF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -296,6 +304,8 @@ Global
 		{72FA31B9-812D-41EB-8F3A-256229F34FD1} = {99CB7799-DC3F-4792-B561-0529E1B6A6F3}
 		{A7816DA9-17A9-4486-AA05-D09D8F153245} = {99CB7799-DC3F-4792-B561-0529E1B6A6F3}
 		{B175B3FD-63C6-40B1-A5E7-BB5D9576E233} = {7C05CBAA-DC1F-4C88-AA68-A6D75FB4FDBA}
+		{25A18B7A-9AB6-43E2-9AEC-02B8A63C1A00} = {0F02CA9E-53D8-4254-8786-A512C030A203}
+		{58DED0B0-D2D1-4334-9A09-BEB4877A5CF9} = {25A18B7A-9AB6-43E2-9AEC-02B8A63C1A00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F73E925-277D-47A3-B8DA-6B406F5CE3AD}
