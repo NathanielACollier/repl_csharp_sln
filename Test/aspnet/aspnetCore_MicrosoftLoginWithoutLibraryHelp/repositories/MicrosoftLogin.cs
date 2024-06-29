@@ -81,6 +81,6 @@ public static class MicrosoftLogin
 
     public static async Task<string> GetTokenFromCode(string code)
     {
-        
+        throw new NotImplementedException();
     }
 }
