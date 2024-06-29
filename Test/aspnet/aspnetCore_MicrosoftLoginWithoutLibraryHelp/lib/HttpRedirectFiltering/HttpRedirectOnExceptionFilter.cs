@@ -14,7 +14,12 @@ public class HttpRedirectOnExceptionFilter : IActionFilter, IOrderedFilter
     {
         if (context.Exception is HttpRedirectException exception)
         {
-            context.Result = new RedirectResult(url: exception.Url);
+            context.Result = new JsonResult(new
+            {
+                loginUrl = exception.Url
+            }) { StatusCode = 500 };
+            
+            //context.Result = new RedirectResult(url: exception.Url);
             context.ExceptionHandled = true;
         }
     }

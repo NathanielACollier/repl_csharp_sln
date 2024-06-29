@@ -16,7 +16,13 @@
 <script type="text/javascript">
     
     fetch('api/General/Hello')
-    .then(resp => resp.text())
+    .then(async resp => {
+        if (resp.status == 500){
+            let err = await resp.json();
+            window.location.href = err.loginUrl;
+        }
+        return resp.text()
+    })
     .then(respStr=> {
         let div1 = document.getElementById("div1");
         div1.innerText = respStr;
