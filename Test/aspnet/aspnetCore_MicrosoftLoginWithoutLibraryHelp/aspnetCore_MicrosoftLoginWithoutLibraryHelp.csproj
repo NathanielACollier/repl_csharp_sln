@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="nac.http" Version="1.0.1" />
     <PackageReference Include="nac.Logging" Version="1.0.3" />
     <PackageReference Include="nac.utilities" Version="1.0.4" />
   </ItemGroup>

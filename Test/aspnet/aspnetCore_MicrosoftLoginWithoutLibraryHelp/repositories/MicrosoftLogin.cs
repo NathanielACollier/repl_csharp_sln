@@ -81,6 +81,20 @@ public static class MicrosoftLogin
 
     public static async Task<string> GetTokenFromCode(string code)
     {
-        throw new NotImplementedException();
+        string tenant = "common"; // your appID has to be multi tentant to use the common tenant
+        var entraSettings = readEntraSettings();
+        var http = new nac.http.HttpClient($"https://login.microsoftonline.com/{tenant}/", useWindowsAuth: false);
+
+        dynamic result = await http.PostFormUrlEncodeAsync<object>("oauth2/token", new Dictionary<string, string>
+        {
+            {"grant_type", "authorization_code"},
+            {"client_id", entraSettings.appID},
+            {"client_secret",entraSettings.clientSecret},
+            {"resource", graphScope},
+            {"code", code},
+            {"redirect_url", ""}
+        });
+
+        return result.access_token;
     }
 }
