@@ -69,7 +69,7 @@ public static class MainWindowRepo
                     }).Button("Filter", async () =>
                     {
                         FilterRepos();
-                    }).TextBoxFor(nameof(model.filterText), onKeyPress: (key) =>
+                    }).TextBoxFor(nameof(model.filterText), onKeyPress: async (key) =>
                     {
                         // filter the repos if they hit enter in the textbox
                         if (key.Key == Key.Return && key.KeyModifiers == KeyModifiers.None)
