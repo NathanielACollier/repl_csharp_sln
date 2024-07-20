@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Markup.Declarative" Version="11.0.11" />
+  </ItemGroup>
+
 </Project>
