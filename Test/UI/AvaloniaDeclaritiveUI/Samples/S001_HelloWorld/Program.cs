@@ -1,8 +1,23 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Declarative;
+using S001_HelloWorld;
+
+var lifetime = new ClassicDesktopStyleApplicationLifetime { Args = args, ShutdownMode = ShutdownMode.OnLastWindowClose };
+
+AppBuilder.Configure<Application>()
+    .UsePlatformDetect()
+    .AfterSetup(b => b.Instance?.Styles.Add(new FluentTheme()))
+    .SetupWithLifetime(lifetime);
 
 
-/*
-Keep going with this
-https://sourcegraph.com/github.com/AvaloniaUI/Avalonia.Markup.Declarative/-/blob/src/Samples/AvaloniaImgTool/App.cs
-*/
+lifetime.MainWindow = new Window()
+    .Title("Avalonia markup samples")
+    .Content(new MainView());
+
+#if DEBUG
+    lifetime.MainWindow.AttachDevTools();
+#endif
+
+lifetime.Start(args);
