@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.11" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.0.11" />
     <PackageReference Include="Avalonia.Markup.Declarative" Version="11.0.11" />
   </ItemGroup>
 

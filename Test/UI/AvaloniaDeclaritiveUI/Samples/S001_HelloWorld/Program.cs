@@ -8,7 +8,7 @@ var lifetime = new ClassicDesktopStyleApplicationLifetime { Args = args, Shutdow
 
 AppBuilder.Configure<Application>()
     .UsePlatformDetect()
-    .AfterSetup(b => b.Instance?.Styles.Add(new FluentTheme()))
+    .AfterSetup(b => b.Instance?.Styles.Add(new Avalonia.Themes.Simple.SimpleTheme()))
     .SetupWithLifetime(lifetime);
 
 
