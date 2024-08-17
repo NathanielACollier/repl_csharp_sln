@@ -1,7 +1,7 @@
 
 
 using System.Drawing;
-using PhotinoNET;
+using Photino.NET;
 
 var window = new PhotinoWindow()
     .SetTitle("Browser Test Window")
