@@ -34,7 +34,7 @@ async Task<byte[]> DownloadFile(IPage page, string urlToDownload){
 
     var downloadEvent = page.WaitForDownloadAsync();
 
-    Task.WaitAll(downloadEvent,
+    await Task.WhenAll(downloadEvent,
         page.ClickAsync("a", options: new PageClickOptions{
              Modifiers = new[]{ KeyboardModifier.Alt }
         })
