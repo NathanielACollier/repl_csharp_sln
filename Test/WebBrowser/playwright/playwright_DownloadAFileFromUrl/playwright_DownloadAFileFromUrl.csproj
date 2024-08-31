@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.Playwright" Version="1.46.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\lib\commonUtilitiesLib\commonUtilitiesLib.csproj" />
+  </ItemGroup>
+
 </Project>

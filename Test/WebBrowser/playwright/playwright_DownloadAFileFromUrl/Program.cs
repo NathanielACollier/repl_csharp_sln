@@ -16,7 +16,7 @@ async Task downloadFileTest(IPage page)
 
     var fileData = await DownloadFile(page, "https://www.rd.usda.gov/media/file/download/ffb-daily-rates.pdf");
 
-    System.IO.File.WriteAllBytes("file.pdf", fileData);
+    commonUtilitiesLib.File.WriteAllBytes("file.pdf", fileData);
 }
 
 
@@ -28,7 +28,7 @@ async Task<byte[]> DownloadFile(IPage page, string urlToDownload){
             </body>
         </html>
     ";
-    System.IO.File.WriteAllText("test.html", htmlText);
+    commonUtilitiesLib.File.WriteAllText("test.html", htmlText);
 
     await page.SetContentAsync(html: htmlText);
 
