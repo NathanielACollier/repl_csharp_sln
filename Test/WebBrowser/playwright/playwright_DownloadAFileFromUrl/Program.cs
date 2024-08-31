@@ -64,7 +64,10 @@ async Task useBrowser(Func<Microsoft.Playwright.IBrowser, Microsoft.Playwright.I
                             Channel = "chrome"
                         }))
         {
-            var page = await browser.NewPageAsync();
+            var context = await browser.NewContextAsync(options: new BrowserNewContextOptions{
+                AcceptDownloads = true
+            });
+            var page = await context.NewPageAsync();
             try
             {
                 await onNewPageAvailable(browser, page);
