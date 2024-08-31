@@ -15,6 +15,8 @@ async Task downloadFileTest(IPage page)
     */
 
     var fileData = await DownloadFile(page, "https://www.rd.usda.gov/media/file/download/ffb-daily-rates.pdf");
+
+    System.IO.File.WriteAllBytes("file.pdf", fileData);
 }
 
 
@@ -26,10 +28,24 @@ async Task<byte[]> DownloadFile(IPage page, string urlToDownload){
             </body>
         </html>
     ";
+    System.IO.File.WriteAllText("test.html", htmlText);
 
     await page.SetContentAsync(html: htmlText);
 
-    // use this method: https://trycatchdebug.net/news/1273806/playwright-pdf-download
+    var downloadEvent = page.WaitForDownloadAsync();
+
+    Task.WaitAll(downloadEvent,
+        page.ClickAsync("a", options: new PageClickOptions{
+             Modifiers = new[]{ KeyboardModifier.Alt }
+        })
+    );
+
+    var stream = await downloadEvent.Result.CreateReadStreamAsync();
+    using (var ms = new System.IO.MemoryStream()) {
+        stream.Seek(0, SeekOrigin.Begin);
+        stream.CopyTo(ms);
+        return ms.ToArray();
+    }
 }
 
 async Task useBrowser(Func<Microsoft.Playwright.IBrowser, Microsoft.Playwright.IPage, Task> onNewPageAvailable)
