@@ -34,6 +34,10 @@ async Task<byte[]> DownloadFile(IPage page, string urlToDownload){
 
     var downloadEvent = page.WaitForDownloadAsync();
 
+    /*
+    Look at this link where they use an Alt click to try and force the download
+    https://github.com/microsoft/playwright-python/issues/675
+    */
     await Task.WhenAll(downloadEvent,
         page.ClickAsync("a", options: new PageClickOptions{
              Modifiers = new[]{ KeyboardModifier.Alt }
