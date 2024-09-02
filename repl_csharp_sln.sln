@@ -125,6 +125,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "playwright", "playwright", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "playwright_DownloadAFileFromUrl", "Test\WebBrowser\playwright\playwright_DownloadAFileFromUrl\playwright_DownloadAFileFromUrl.csproj", "{CB5E5637-D450-46A9-A6D4-8FEEC7F3EA8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "playwright_001HelloWorld", "Test\WebBrowser\playwright\playwright_001HelloWorld\playwright_001HelloWorld.csproj", "{7A17AE55-19AC-4C58-811A-ADCF258B842A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -271,6 +273,10 @@ Global
 		{CB5E5637-D450-46A9-A6D4-8FEEC7F3EA8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB5E5637-D450-46A9-A6D4-8FEEC7F3EA8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB5E5637-D450-46A9-A6D4-8FEEC7F3EA8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A17AE55-19AC-4C58-811A-ADCF258B842A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A17AE55-19AC-4C58-811A-ADCF258B842A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A17AE55-19AC-4C58-811A-ADCF258B842A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A17AE55-19AC-4C58-811A-ADCF258B842A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -329,6 +335,7 @@ Global
 		{2EF4A67A-800D-4FE0-9D05-9BD78286EED6} = {AE9118EE-5266-4062-AE65-71FB03162C29}
 		{9BF226DB-5E72-484A-B3C4-B33B06CCA6CD} = {0F02CA9E-53D8-4254-8786-A512C030A203}
 		{CB5E5637-D450-46A9-A6D4-8FEEC7F3EA8E} = {9BF226DB-5E72-484A-B3C4-B33B06CCA6CD}
+		{7A17AE55-19AC-4C58-811A-ADCF258B842A} = {9BF226DB-5E72-484A-B3C4-B33B06CCA6CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F73E925-277D-47A3-B8DA-6B406F5CE3AD}
