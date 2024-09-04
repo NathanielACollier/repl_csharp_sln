@@ -29,16 +29,9 @@ app.UseRouting();
 app.MapControllers();
 app.MapRazorPages();
 
-// har logging stuff
-var harEntries = new List<nac.http.logging.har.model.Entry>();
-nac.http.logging.har.LoggingHandler.isEnabled = true;
-nac.http.logging.har.LoggingHandler.onMessage += (_s, _args) =>
-{
-    harEntries.Add(_args);
-};
+var harLogManager = new nac.http.logging.har.lib.HARLogManager("http.har");
+
 
 app.Run();
 
-// when website is done save the har entries
-string harFileJSON = nac.http.logging.har.lib.utility.BuildHARFileJSON(harEntries);
-System.IO.File.WriteAllText("http.har", harFileJSON);
+harLogManager.Dispose();
