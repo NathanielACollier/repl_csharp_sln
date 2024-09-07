@@ -29,7 +29,8 @@ public class GeneralController : ControllerBase
         // state will be our base64 encoded data
         var stateObj = repositories.MicrosoftLogin.ReadState(stateBase64Encoded: state);
 
-        string token = await repositories.MicrosoftLogin.GetTokenFromCode(code: code);
+        string token = await repositories.MicrosoftLogin.GetTokenFromCode(code: code,
+                                                originalUrlCodeObtainedFor: stateObj.urlCodeObtainedFor);
         log.Info($"Received Token: {token}");
     }
     

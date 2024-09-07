@@ -29,7 +29,8 @@ public static class MicrosoftLogin
 
         string loginUrl = FormMicrosoftLoginUrl(redirectUrl: loginCodeUrl.ToString(),
         state: new lib.MSLoginSaveState{
-            OriginalUrl = urlAttempted
+            OriginalUrl = urlAttempted,
+            urlCodeObtainedFor = loginCodeUrl.ToString()
         });
 
         log.Info($"Microsoft Login URL is: {loginUrl}");
@@ -79,7 +80,8 @@ public static class MicrosoftLogin
         return state;
     }
 
-    public static async Task<string> GetTokenFromCode(string code)
+    public static async Task<string> GetTokenFromCode(string code,
+                                                string originalUrlCodeObtainedFor)
     {
         string tenant = "common"; // your appID has to be multi tentant to use the common tenant
         var entraSettings = readEntraSettings();
@@ -92,7 +94,7 @@ public static class MicrosoftLogin
             {"client_secret",entraSettings.clientSecret},
             {"resource", graphScope},
             {"code", code},
-            {"redirect_url", ""}
+            {"redirect_uri", originalUrlCodeObtainedFor}
         });
 
         return result.access_token;
