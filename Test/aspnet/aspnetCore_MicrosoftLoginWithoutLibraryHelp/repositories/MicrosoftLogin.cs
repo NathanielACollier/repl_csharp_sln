@@ -19,6 +19,12 @@ public static class MicrosoftLogin
 
     public static void RedirectIfNotLoggedIn(Microsoft.AspNetCore.Http.HttpContext httpContext)
     {
+        bool forceAccountSelectionPrompt = false;
+        if (httpContext.Request.Cookies.TryGetValue("forceAccountSelect", out string forceAccountSelectStr))
+        {
+            forceAccountSelectionPrompt = Convert.ToBoolean(forceAccountSelectStr);
+        }
+        
         string urlAttempted = httpContext.Request.GetEncodedUrl();
         log.Info($"Attempting to go to URL: {urlAttempted}");
 
@@ -27,10 +33,14 @@ public static class MicrosoftLogin
         loginCodeUrl.ClearQuery();
         log.Info($"Redirect to Microsoft Login, and have them send code to: {loginCodeUrl}");
 
-        string loginUrl = FormMicrosoftLoginUrl(redirectUrl: loginCodeUrl.ToString(),
-        state: new lib.MSLoginSaveState{
-            OriginalUrl = urlAttempted,
-            urlCodeObtainedFor = loginCodeUrl.ToString()
+        string loginUrl = FormMicrosoftLoginUrl(new MicrosoftLoginUrlOptions
+        {
+            RedirectUrl = loginCodeUrl.ToString(),
+            State = new lib.MSLoginSaveState{
+                OriginalUrl = urlAttempted,
+                urlCodeObtainedFor = loginCodeUrl.ToString()
+            },
+            forceSelectAccount = forceAccountSelectionPrompt
         });
 
         log.Info($"Microsoft Login URL is: {loginUrl}");
@@ -44,7 +54,16 @@ public static class MicrosoftLogin
         );
     }
 
-    private static string FormMicrosoftLoginUrl(string redirectUrl, lib.MSLoginSaveState state){
+
+    public class MicrosoftLoginUrlOptions
+    {
+        public string RedirectUrl { get; set; }
+        public lib.MSLoginSaveState State { get; set; }
+        public bool forceSelectAccount { get; set; }
+    }
+    
+
+    private static string FormMicrosoftLoginUrl(MicrosoftLoginUrlOptions options){
         string tenant = "common"; // your appID has to be multi tentant to use the common tenant
         var entraSettings = readEntraSettings();
 
@@ -56,11 +75,16 @@ public static class MicrosoftLogin
         loginUrl.AddQueryParametersFromDictionary(new Dictionary<string,string>{
             {"client_id", entraSettings.appID},
             {"response_type", "code"},
-            {"redirect_uri", redirectUrl},
+            {"redirect_uri", options.RedirectUrl},
             {"response_mode", "query"},
             {"scope", graphScope},
-            {"state", CreateMSLoginState(state)}
+            {"state", CreateMSLoginState(options.State)}
         });
+
+        if (options.forceSelectAccount)
+        {
+            loginUrl.AddQuery("prompt", "select_account");
+        }
 
         return loginUrl.ToString();
     }
