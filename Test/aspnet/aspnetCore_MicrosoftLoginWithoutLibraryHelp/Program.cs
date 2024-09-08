@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using lib= aspnetCore_MicrosoftLoginWithoutLibraryHelp.lib;
 
 var log = new nac.Logging.Logger();
+var harLogManager = new nac.http.logging.har.lib.HARLogManager("http.har");
+
 // show logging
 nac.Logging.Appenders.ColoredConsole.Setup();
 log.Info("Website starting...");
@@ -29,9 +31,5 @@ app.UseRouting();
 app.MapControllers();
 app.MapRazorPages();
 
-var harLogManager = new nac.http.logging.har.lib.HARLogManager("http.har");
-
-
 app.Run();
 
-harLogManager.Dispose();
