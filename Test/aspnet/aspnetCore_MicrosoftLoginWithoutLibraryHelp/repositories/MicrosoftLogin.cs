@@ -19,10 +19,11 @@ public static class MicrosoftLogin
 
     public static void RedirectIfNotLoggedIn(Microsoft.AspNetCore.Http.HttpContext httpContext)
     {
-        bool forceAccountSelectionPrompt = false;
-        if (httpContext.Request.Cookies.TryGetValue("forceAccountSelect", out string forceAccountSelectStr))
+        var cookieHandler = new repositories.LocalCookiesRepo(httpContext);
+
+        if (cookieHandler.office365token != null)
         {
-            forceAccountSelectionPrompt = Convert.ToBoolean(forceAccountSelectStr);
+            return; // we are already logged in
         }
         
         string urlAttempted = httpContext.Request.GetEncodedUrl();
@@ -40,7 +41,7 @@ public static class MicrosoftLogin
                 OriginalUrl = urlAttempted,
                 urlCodeObtainedFor = loginCodeUrl.ToString()
             },
-            forceSelectAccount = forceAccountSelectionPrompt
+            forceSelectAccount = cookieHandler.forceAccountSelect ?? false
         });
 
         log.Info($"Microsoft Login URL is: {loginUrl}");
