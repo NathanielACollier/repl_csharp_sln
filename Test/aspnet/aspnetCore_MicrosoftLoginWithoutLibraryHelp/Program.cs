@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using lib= aspnetCore_MicrosoftLoginWithoutLibraryHelp.lib;
 
 var log = new nac.Logging.Logger();
-var harLogManager = new nac.http.logging.har.lib.HARLogManager("http.har");
+var harLogManager = new nac.http.logging.har.lib.HARLogManager(commonUtilitiesLib.File.getOutputPath("http.har"));
 
 // show logging
 nac.Logging.Appenders.ColoredConsole.Setup();

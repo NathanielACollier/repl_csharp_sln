@@ -32,6 +32,8 @@ public class GeneralController : ControllerBase
         string token = await repositories.MicrosoftLogin.GetTokenFromCode(code: code,
                                                 originalUrlCodeObtainedFor: stateObj.urlCodeObtainedFor);
         log.Info($"Received Token: {token}");
+        
+        
     }
     
     

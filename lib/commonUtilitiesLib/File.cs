@@ -16,7 +16,7 @@ public static class File
         System.IO.File.WriteAllText(filePath, fileTextContents);
     }
 
-    private static string getOutputPath(string fileName){
+    public static string getOutputPath(string fileName){
         string outDir = System.IO.Path.Combine(
             Directory.getRootDirectory(),
             "output"

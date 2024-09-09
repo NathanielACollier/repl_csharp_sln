@@ -116,7 +116,7 @@ public static class MicrosoftLogin
             {"grant_type", "authorization_code"},
             {"client_id", entraSettings.appID},
             {"client_secret",entraSettings.clientSecret},
-            {"resource", graphScope},
+            {"scope", graphScope},
             {"code", code},
             {"redirect_uri", originalUrlCodeObtainedFor}
         });
