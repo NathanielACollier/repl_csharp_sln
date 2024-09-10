@@ -22,7 +22,7 @@ public class GeneralController : ControllerBase
         
         var user = await repositories.GraphAPIRepo.GetUser(token: cookieHandler.office365token);
 
-        return Content("Hello World!", "application/text");
+        return Content($"Hello World! {user}", "application/text");
     }
 
 
