@@ -27,7 +27,7 @@ public class GeneralController : ControllerBase
 
 
     [HttpGet, Route("msLogin")]
-    public async Task<IResult> LoginWithOffice365Code([FromQuery]string code,
+    public async Task<IActionResult> LoginWithOffice365Code([FromQuery]string code,
                     [FromQuery]string state 
     ){
         log.Info($"Received code from office365: {code}");
@@ -39,7 +39,11 @@ public class GeneralController : ControllerBase
                                                 originalUrlCodeObtainedFor: stateObj.urlCodeObtainedFor);
         log.Info($"Received Token: {token}");
 
-        HttpContext.Response.Redirect(stateObj.OriginalUrl);
+        var cookieHandler = new repositories.LocalCookiesRepo(HttpContext);
+        cookieHandler.office365token = token; // set the cookie then redirect back to who called us
+        
+
+        return Redirect(stateObj.OriginalUrl);
     }
     
     
