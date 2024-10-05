@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="nac.http" Version="1.0.7" />
+      <PackageReference Include="nac.http" Version="1.0.8" />
       <PackageReference Include="nac.Logging" Version="1.0.6" />
     </ItemGroup>
 
