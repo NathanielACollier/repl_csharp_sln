@@ -1,4 +1,5 @@
 ﻿
+using System.IO.Compression;
 using nac.http.model;
 
 var log = new nac.Logging.Logger();
@@ -49,10 +50,12 @@ http.AddDefaultRequestHeader("Upgrade-Insecure-Requests",
 
 try
 {
-    string rusHtml =
-        await http.GetJSONAsync<string>("https://www.rd.usda.gov/page/rural-utilities-loan-interest-rates");
+    byte[] rusHtmlData =
+        await http.GetJSONAsync<byte[]>("https://www.rd.usda.gov/page/rural-utilities-loan-interest-rates");
 
-    log.Info($"\n---\nHTML\n---\n{rusHtml}");
+    string htmlText = GetHtmlFromGzip(rusHtmlData);
+    
+    log.Info($"\n---\nHTML\n---\n{htmlText}");
 }
 catch (Exception ex)
 {
@@ -61,3 +64,24 @@ catch (Exception ex)
 
 
 log.Info("Application stopped");
+
+
+
+string GetHtmlFromGzip(byte[] data)
+{
+    using (var httpDataGzipped = new System.IO.MemoryStream(data))
+    {
+        using (var gzipStream = new System.IO.Compression.GZipStream(httpDataGzipped, CompressionMode.Decompress))
+        {
+            using (var uncompressedOutStream = new System.IO.MemoryStream())
+            {
+                gzipStream.CopyTo(uncompressedOutStream);
+
+                byte[] uncompressedData = uncompressedOutStream.ToArray();
+
+                string utf8Text = System.Text.Encoding.UTF8.GetString(uncompressedData);
+                return utf8Text;
+            }
+        }
+    }
+}
