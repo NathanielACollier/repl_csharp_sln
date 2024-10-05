@@ -127,6 +127,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "playwright_DownloadAFileFro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "playwright_001HelloWorld", "Test\WebBrowser\playwright\playwright_001HelloWorld\playwright_001HelloWorld.csproj", "{7A17AE55-19AC-4C58-811A-ADCF258B842A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "httpClient", "httpClient", "{FE0B2079-075F-4B25-AAE6-054109E12F9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RUSFedReserveWebScrapping", "network\httpClient\RUSFedReserveWebScrapping\RUSFedReserveWebScrapping.csproj", "{52401BB6-1D62-4EF3-A0A5-878193740001}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -277,6 +281,10 @@ Global
 		{7A17AE55-19AC-4C58-811A-ADCF258B842A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A17AE55-19AC-4C58-811A-ADCF258B842A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A17AE55-19AC-4C58-811A-ADCF258B842A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52401BB6-1D62-4EF3-A0A5-878193740001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52401BB6-1D62-4EF3-A0A5-878193740001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52401BB6-1D62-4EF3-A0A5-878193740001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52401BB6-1D62-4EF3-A0A5-878193740001}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -336,6 +344,8 @@ Global
 		{9BF226DB-5E72-484A-B3C4-B33B06CCA6CD} = {0F02CA9E-53D8-4254-8786-A512C030A203}
 		{CB5E5637-D450-46A9-A6D4-8FEEC7F3EA8E} = {9BF226DB-5E72-484A-B3C4-B33B06CCA6CD}
 		{7A17AE55-19AC-4C58-811A-ADCF258B842A} = {9BF226DB-5E72-484A-B3C4-B33B06CCA6CD}
+		{FE0B2079-075F-4B25-AAE6-054109E12F9B} = {EDF3E74C-7B27-483A-AE6F-D6D2DD04C926}
+		{52401BB6-1D62-4EF3-A0A5-878193740001} = {FE0B2079-075F-4B25-AAE6-054109E12F9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F73E925-277D-47A3-B8DA-6B406F5CE3AD}
