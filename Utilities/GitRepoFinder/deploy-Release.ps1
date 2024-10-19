@@ -1,6 +1,11 @@
-﻿param(
-    [string]$runtimeConfig = "win-x64"
-)
+﻿
+# default it to windows
+$runtimeConfig = "win-x64"
+
+if ($IsLinux) {
+    $runtimeConfig = "linux-x64"
+}
+
 $projectFileInfo = Get-ChildItem -Path $PSScriptRoot | where { $_.Extension -eq ".csproj"} | select -First 1
 
 $deployDir = [system.io.directory]::CreateDirectory(  [System.IO.Path]::Combine([system.environment]::GetFolderPath("userprofile"), "programs", [system.io.path]::GetFileNameWithoutExtension($projectFileInfo.Name) ))
