@@ -5,6 +5,7 @@ $runtimeConfig = "win-x64"
 if ($IsLinux) {
     $runtimeConfig = "linux-x64"
 }
+Write-Host -ForegroundColor Blue -Object "Using runtime [$runtimeConfig]"
 
 $projectFileInfo = Get-ChildItem -Path $PSScriptRoot | where { $_.Extension -eq ".csproj"} | select -First 1
 
