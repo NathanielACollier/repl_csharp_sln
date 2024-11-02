@@ -131,6 +131,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "httpClient", "httpClient", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RUSFedReserveWebScrapping", "network\httpClient\RUSFedReserveWebScrapping\RUSFedReserveWebScrapping.csproj", "{52401BB6-1D62-4EF3-A0A5-878193740001}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDefaultWebBrowser", "Test\WebBrowser\OpenDefaultWebBrowser\OpenDefaultWebBrowser.csproj", "{EC92A50E-D372-43F7-B68C-B1B7AC8F9DD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -285,6 +287,10 @@ Global
 		{52401BB6-1D62-4EF3-A0A5-878193740001}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52401BB6-1D62-4EF3-A0A5-878193740001}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52401BB6-1D62-4EF3-A0A5-878193740001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC92A50E-D372-43F7-B68C-B1B7AC8F9DD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC92A50E-D372-43F7-B68C-B1B7AC8F9DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC92A50E-D372-43F7-B68C-B1B7AC8F9DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC92A50E-D372-43F7-B68C-B1B7AC8F9DD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -346,6 +352,7 @@ Global
 		{7A17AE55-19AC-4C58-811A-ADCF258B842A} = {9BF226DB-5E72-484A-B3C4-B33B06CCA6CD}
 		{FE0B2079-075F-4B25-AAE6-054109E12F9B} = {EDF3E74C-7B27-483A-AE6F-D6D2DD04C926}
 		{52401BB6-1D62-4EF3-A0A5-878193740001} = {FE0B2079-075F-4B25-AAE6-054109E12F9B}
+		{EC92A50E-D372-43F7-B68C-B1B7AC8F9DD2} = {0F02CA9E-53D8-4254-8786-A512C030A203}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F73E925-277D-47A3-B8DA-6B406F5CE3AD}
