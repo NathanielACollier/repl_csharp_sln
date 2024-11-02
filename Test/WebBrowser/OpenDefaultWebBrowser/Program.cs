@@ -5,11 +5,20 @@ using System.Runtime.InteropServices;
 OpenBrowser("https://www.google.com");
 
 
+/*
+ Maintain notes on what you encounter with this here
+ + Original code is from: https://github.com/dotnet/runtime/issues/17938
+ */
+
 System.Diagnostics.Process OpenBrowser(string url)
 {
     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
     {
-        return Process.Start(new ProcessStartInfo("cmd", $"/c start {url}"));
+        url = url.Replace("&", "^&");
+        return Process.Start(new ProcessStartInfo("cmd", $"/c start {url}")
+        {
+            CreateNoWindow = true
+        });
     }
     
     if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
