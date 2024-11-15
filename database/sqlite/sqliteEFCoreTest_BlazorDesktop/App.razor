@@ -1,7 +1,9 @@
 <div>
 
     <div>
-        Row Count: @rows.Count Last row: ID: @lastRow?.Id; Date: @lastRow?.Date <button class="btn btn-primary" @onclick="onClick_AddRow">Add</button>
+        Row Count: @rows.Count Last row: ID: @lastRow?.Id; Date: @lastRow?.Date 
+        <button class="btn btn-primary" @onclick="onClick_AddRow">Add</button>
+        <button class="btn btn-danger" @onclick="onClick_ClearRows">Clear</button>
     </div>
     
     <table class="table">
@@ -34,7 +36,7 @@
     
     protected override async void OnInitialized()
     {
-        await addRow();
+        addRow();
     }
 
     void refreshDisplay(db.TestContext context)
@@ -49,7 +51,7 @@
         StateHasChanged(); // trigger UI update manually
     }
 
-    async Task addRow()
+    void addRow()
     {
         using (var conn = new db.TestContext())
         {
@@ -60,12 +62,27 @@
             conn.SaveChanges();
 
             refreshDisplay(conn);
-        
+        }
+    }
+
+    void clearRows()
+    {
+        using (var conn = new db.TestContext())
+        {
+            conn.Test.RemoveRange(conn.Test);
+            conn.SaveChanges();
+
+            refreshDisplay(conn);
         }
     }
 
     async void onClick_AddRow(object e)
     {
-        await addRow();
+        addRow();
+    }
+
+    void onClick_ClearRows()
+    {
+        clearRows();
     }
 }
