@@ -9,12 +9,21 @@
 
     <ItemGroup>
       <PackageReference Include="Photino.Blazor" Version="3.2.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14" />
     </ItemGroup>
 
     <ItemGroup>
         <Content Update="wwwroot\**">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\lib\commonUtilitiesLib\commonUtilitiesLib.csproj" />
     </ItemGroup>
     
     

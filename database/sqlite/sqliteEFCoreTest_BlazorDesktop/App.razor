@@ -1,23 +1,71 @@
 <div>
-    <h1>@message!</h1>
 
-    <p>Current count: @currentCount</p>
+    <div>
+        Row Count: @rows.Count Last row: ID: @lastRow?.Id; Date: @lastRow?.Date <button class="btn btn-primary" @onclick="onClick_AddRow">Add</button>
+    </div>
+    
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in rows)
+            {
+                <tr>
+                    <td>@row.Id</td>
+                    <td>@row.Date</td>
+                    <td>@row.Message</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    
 </div>
 
 @code
 {
-    string message;
-    private int currentCount = 0;
+    db.Tables.TestTable lastRow;
+    List<db.Tables.TestTable> rows = new();
     
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
-        message = "Hello Photino.Blazor!";
+        await addRow();
     }
 
-    void IncrementCount(object e)
+    void refreshDisplay(db.TestContext context)
     {
-        currentCount++;
+        lastRow = context.Test.OrderByDescending(i => i.Id)
+            .FirstOrDefault();
+
+        // table rows
+        rows.Clear();
+        rows.AddRange(context.Test);
+        
+        StateHasChanged(); // trigger UI update manually
+    }
+
+    async Task addRow()
+    {
+        using (var conn = new db.TestContext())
+        {
+            conn.Test.Add(new db.Tables.TestTable
+            {
+                Message = "Test Entry: " + Guid.NewGuid().ToString("N")
+            });
+            conn.SaveChanges();
+
+            refreshDisplay(conn);
+        
+        }
+    }
+
+    async void onClick_AddRow(object e)
+    {
+        await addRow();
     }
 }
