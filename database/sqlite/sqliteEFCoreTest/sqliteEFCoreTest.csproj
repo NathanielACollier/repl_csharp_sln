@@ -16,7 +16,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14" />
-      <PackageReference Include="nac.Forms" Version="2.3.9" />
+      <PackageReference Include="nac.Forms" Version="2.3.10" />
       <PackageReference Include="nac.ViewModelBase" Version="1.0.1" />
     </ItemGroup>
     <ItemGroup>
