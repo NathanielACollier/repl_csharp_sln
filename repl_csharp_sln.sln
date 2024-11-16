@@ -135,6 +135,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDefaultWebBrowser", "Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqliteEFCoreTest_BlazorDesktop", "database\sqlite\sqliteEFCoreTest_BlazorDesktop\sqliteEFCoreTest_BlazorDesktop.csproj", "{82EA5138-0EFB-4F12-B3AF-0820407F02AF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "oauth", "oauth", "{777D8505-66FC-483C-8B0A-47F470DC5200}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosoftLoginConsoleApp", "Test\oauth\MicrosoftLoginConsoleApp\MicrosoftLoginConsoleApp.csproj", "{588D4268-71C2-4FBF-A049-221ABDE361BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -297,6 +301,10 @@ Global
 		{82EA5138-0EFB-4F12-B3AF-0820407F02AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82EA5138-0EFB-4F12-B3AF-0820407F02AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82EA5138-0EFB-4F12-B3AF-0820407F02AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{588D4268-71C2-4FBF-A049-221ABDE361BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588D4268-71C2-4FBF-A049-221ABDE361BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588D4268-71C2-4FBF-A049-221ABDE361BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588D4268-71C2-4FBF-A049-221ABDE361BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -360,6 +368,8 @@ Global
 		{52401BB6-1D62-4EF3-A0A5-878193740001} = {FE0B2079-075F-4B25-AAE6-054109E12F9B}
 		{EC92A50E-D372-43F7-B68C-B1B7AC8F9DD2} = {0F02CA9E-53D8-4254-8786-A512C030A203}
 		{82EA5138-0EFB-4F12-B3AF-0820407F02AF} = {C64C0822-F628-4BDE-B2BF-CF20FE31E8D6}
+		{777D8505-66FC-483C-8B0A-47F470DC5200} = {828B3AA9-4B53-48DE-9698-CB28DEB054E8}
+		{588D4268-71C2-4FBF-A049-221ABDE361BB} = {777D8505-66FC-483C-8B0A-47F470DC5200}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F73E925-277D-47A3-B8DA-6B406F5CE3AD}
