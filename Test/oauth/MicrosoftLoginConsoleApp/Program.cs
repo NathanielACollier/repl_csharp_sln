@@ -63,7 +63,9 @@ async Task run()
     string token = await GetMicrosoftBearerTokenFromOauthCode(oauthCodeResult.Code);
     log.Info($"Got back token from Microsoft.  Token size: {token.Length}");
     
-    
+    log.Info("Retrieving user info");
+    var currentUser = await GetCurrentUserViaGraphAPI(token);
+    log.Info($"Current user is: {currentUser}");
 }
 
 nac.WebServer.WebServerManager startWebServerToHandleOauthRedirect(){
@@ -146,6 +148,23 @@ async Task<string> GetMicrosoftBearerTokenFromOauthCode(string code)
     return token;
 }
 
+
+
+async Task<string> GetCurrentUserViaGraphAPI(string token)
+{
+    var http = new nac.http.HttpClient(baseUrl: "https://graph.microsoft.com/", args: new nac.http.model.HttpClientConfigurationOptions
+    {
+        useWindowsAuth = false,
+        useBearerTokenAuthentication = true,
+        bearerToken = token
+    });
+    
+    var response = await http.GetJSONAsync<System.Text.Json.Nodes.JsonNode>("/v1.0/me");
+
+    string upn= response["userPrincipalName"].Deserialize<string>();
+
+    return upn;
+}
 
 
 
