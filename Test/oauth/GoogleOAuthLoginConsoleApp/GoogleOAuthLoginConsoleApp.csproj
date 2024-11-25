@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    
+    <ItemGroup>
+        <PackageReference Include="nac.http" Version="1.0.8" />
+        <PackageReference Include="nac.Logging" Version="1.0.6" />
+        <PackageReference Include="nac.utilities" Version="1.0.5" />
+        <PackageReference Include="nac.WebServer" Version="1.0.5" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\lib\commonUtilitiesLib\commonUtilitiesLib.csproj" />
+    </ItemGroup>
+
+</Project>

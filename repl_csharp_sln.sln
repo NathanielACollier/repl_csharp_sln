@@ -139,6 +139,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "oauth", "oauth", "{777D8505
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosoftLoginConsoleApp", "Test\oauth\MicrosoftLoginConsoleApp\MicrosoftLoginConsoleApp.csproj", "{588D4268-71C2-4FBF-A049-221ABDE361BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleOAuthLoginConsoleApp", "Test\oauth\GoogleOAuthLoginConsoleApp\GoogleOAuthLoginConsoleApp.csproj", "{80962623-4314-4DED-B64C-1B9F6BF905EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -305,6 +307,10 @@ Global
 		{588D4268-71C2-4FBF-A049-221ABDE361BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{588D4268-71C2-4FBF-A049-221ABDE361BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{588D4268-71C2-4FBF-A049-221ABDE361BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80962623-4314-4DED-B64C-1B9F6BF905EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80962623-4314-4DED-B64C-1B9F6BF905EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80962623-4314-4DED-B64C-1B9F6BF905EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80962623-4314-4DED-B64C-1B9F6BF905EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -370,6 +376,7 @@ Global
 		{82EA5138-0EFB-4F12-B3AF-0820407F02AF} = {C64C0822-F628-4BDE-B2BF-CF20FE31E8D6}
 		{777D8505-66FC-483C-8B0A-47F470DC5200} = {828B3AA9-4B53-48DE-9698-CB28DEB054E8}
 		{588D4268-71C2-4FBF-A049-221ABDE361BB} = {777D8505-66FC-483C-8B0A-47F470DC5200}
+		{80962623-4314-4DED-B64C-1B9F6BF905EE} = {777D8505-66FC-483C-8B0A-47F470DC5200}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F73E925-277D-47A3-B8DA-6B406F5CE3AD}
