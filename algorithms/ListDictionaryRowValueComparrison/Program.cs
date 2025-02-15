@@ -26,7 +26,7 @@ var listA = new List<Dictionary<string, object>>
     {
         { "Prop1", 35 },
         { "Prop2", "Hello" },
-        { "Prop3", now },
+        { "Prop3", now.AddDays(3) },
         { "Prop4", 33.6666 }
     }
 };
@@ -45,7 +45,7 @@ var listB = new List<Dictionary<string, object>>
         { "Prop1", 34 },
         { "Prop2", "Hello" },
         { "Prop3", now },
-        { "Prop4", 33.6666 }
+        { "Prop4", 33.6676 }
     },
     new Dictionary<string, object>
     {
