@@ -1,0 +1,95 @@
+<Solution>
+  <Folder Name="/AdventOfCode/" />
+  <Folder Name="/AdventOfCode/2020/">
+    <Project Path="AdventOfCode/2020/DEC_01/DEC_01.csproj" />
+  </Folder>
+  <Folder Name="/algorithms/">
+    <Project Path="algorithms/json dynamic deserialize/json dynamic deserialize.csproj" />
+    <Project Path="algorithms/ListDictionaryRowValueComparrison/ListDictionaryRowValueComparrison.csproj" />
+  </Folder>
+  <Folder Name="/charts/" />
+  <Folder Name="/charts/plotly/">
+    <Project Path="charts/plotly/_01_basicChartDIsplay/_01_basicChartDIsplay.csproj" />
+    <Project Path="charts/plotly/_02_PlotlyOutputToConsole/_02_PlotlyOutputToConsole.csproj" />
+  </Folder>
+  <Folder Name="/database/" />
+  <Folder Name="/database/sqlite/">
+    <Project Path="database/sqlite/sqliteEFCoreTest/sqliteEFCoreTest.csproj" />
+    <Project Path="database/sqlite/sqliteEFCoreTest_BlazorDesktop/sqliteEFCoreTest_BlazorDesktop.csproj" />
+  </Folder>
+  <Folder Name="/lib/">
+    <Project Path="lib/commonUtilitiesLib/commonUtilitiesLib.csproj" />
+    <Project Path="lib/testCommonUtilitiesLib/testCommonUtilitiesLib.csproj" />
+  </Folder>
+  <Folder Name="/network/" />
+  <Folder Name="/network/curl/">
+    <Project Path="network/curl/curl_01_basicPInvokeTest/curl_01_basicPInvokeTest.csproj" />
+  </Folder>
+  <Folder Name="/network/httpClient/">
+    <Project Path="network/httpClient/RUSFedReserveWebScrapping/RUSFedReserveWebScrapping.csproj" />
+  </Folder>
+  <Folder Name="/Test/">
+    <Project Path="Test/Test Readline/Test Readline.csproj" />
+    <Project Path="Test/Tests_MSTest/Tests_MSTest.csproj" />
+  </Folder>
+  <Folder Name="/Test/aspnet/">
+    <Project Path="Test/aspnet/aspnetCore_MicrosoftLoginTest/aspnetCore_MicrosoftLoginTest.csproj" />
+    <Project Path="Test/aspnet/aspnetCore_MicrosoftLoginWithoutLibraryHelp/aspnetCore_MicrosoftLoginWithoutLibraryHelp.csproj" />
+    <Project Path="Test/aspnet/aspnetCore_RazorPages_HelloWorld/aspnetCore_RazorPages_HelloWorld.csproj" />
+    <Project Path="Test/aspnet/aspnetCore_WebAPI_01HelloWorld/aspnetCore_WebAPI_01HelloWorld.csproj" />
+  </Folder>
+  <Folder Name="/Test/blazor.desktop/">
+    <Project Path="Test/blazor.desktop/blazor.desktop.1.Hello-World/blazor.desktop.Hello-World.csproj" />
+    <Project Path="Test/blazor.desktop/blazor.desktop.2.Photino.Hello-World/blazor.desktop.2.Photino.Hello-World.csproj" />
+  </Folder>
+  <Folder Name="/Test/blazor.server/">
+    <Project Path="Test/blazor.server/_1_BlazorServer_HelloWorld/_1_BlazorServer_HelloWorld.csproj" />
+    <Project Path="Test/blazor.server/_2_BlazorServer_Routing/_2_BlazorServer_Routing.csproj" />
+    <Project Path="Test/blazor.server/_3_BlazorServer_ControlTesting/_3_BlazorServer_ControlTesting.csproj" />
+  </Folder>
+  <Folder Name="/Test/oauth/">
+    <Project Path="Test/oauth/GoogleOAuthLoginConsoleApp/GoogleOAuthLoginConsoleApp.csproj" />
+    <Project Path="Test/oauth/MicrosoftLoginConsoleApp/MicrosoftLoginConsoleApp.csproj" />
+  </Folder>
+  <Folder Name="/Test/PDF/">
+    <Project Path="Test/PDF/PDF Viewer Via Image/PDF Viewer Via Image.csproj" />
+  </Folder>
+  <Folder Name="/Test/UI/">
+    <Project Path="Test/UI/Avalonia Datagrid Testing1/Avalonia Datagrid Testing1.csproj" />
+    <Project Path="Test/UI/Avalonia.ItemsControl.SimpleTesT.AddItemWithButton/Avalonia.ItemsControl.SimpleTesT.AddItemWithButton.csproj" />
+    <Project Path="Test/UI/Avalonia_DataGrid_CellTemplateTesting/Avalonia_DataGrid_CellTemplateTesting.csproj" />
+    <Project Path="Test/UI/simple nacForms Test/simple nacForms Test.csproj" />
+  </Folder>
+  <Folder Name="/Test/UI/AvaloniaDeclaritiveUI/" />
+  <Folder Name="/Test/UI/AvaloniaDeclaritiveUI/Samples/">
+    <Project Path="Test/UI/AvaloniaDeclaritiveUI/Samples/S001_HelloWorld/S001_HelloWorld.csproj" />
+  </Folder>
+  <Folder Name="/Test/WebBrowser/">
+    <Project Path="Test/WebBrowser/OpenDefaultWebBrowser/OpenDefaultWebBrowser.csproj" />
+  </Folder>
+  <Folder Name="/Test/WebBrowser/Photino/">
+    <Project Path="Test/WebBrowser/Photino/_01_Photino_WebBrowser_BasicTest/_01_Photino_WebBrowser_BasicTest.csproj" />
+  </Folder>
+  <Folder Name="/Test/WebBrowser/playwright/">
+    <Project Path="Test/WebBrowser/playwright/playwright_001HelloWorld/playwright_001HelloWorld.csproj" />
+    <Project Path="Test/WebBrowser/playwright/playwright_DownloadAFileFromUrl/playwright_DownloadAFileFromUrl.csproj" />
+  </Folder>
+  <Folder Name="/Test/WebBrowser/puppeteerSharp/">
+    <Project Path="Test/WebBrowser/puppeteerSharp/_01_PuppeteerSharpTest01/_01_PuppeteerSharpTest01.csproj" />
+    <Project Path="Test/WebBrowser/puppeteerSharp/_02_PuppeteerFindRunningChromeInstance/_02_PuppeteerFindRunningChromeInstance.csproj" />
+  </Folder>
+  <Folder Name="/Test/WebBrowser/SharpWebview/">
+    <Project Path="Test/WebBrowser/SharpWebview/SharpWebview_Test001/SharpWebview_Test001.csproj" />
+  </Folder>
+  <Folder Name="/Utilities/">
+    <Project Path="Utilities/GitRepoFinder/GitRepoFinder.csproj" />
+    <Project Path="Utilities/NugetPackageSearch/NugetPackageSearch.csproj" />
+  </Folder>
+  <Folder Name="/Utilities/Folder_Comparison/">
+    <Project Path="Utilities/Folder_Comparison/Filename without Ext compare/Filename without Ext compare.csproj" />
+    <Project Path="Utilities/Folder_Comparison/Rename every file in folder/Rename every file in folder.csproj" />
+  </Folder>
+  <Folder Name="/Utilities/WindowsOnly/">
+    <Project Path="Utilities/WindowsOnly/WindowsClipboardManager/WindowsClipboardManager.csproj" />
+  </Folder>
+</Solution>
