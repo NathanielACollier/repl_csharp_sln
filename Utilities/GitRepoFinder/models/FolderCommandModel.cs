@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+
 namespace GitRepoFinder.models;
 
 public class FolderCommandModel : nac.ViewModelBase.ViewModelBase
@@ -19,5 +21,11 @@ public class FolderCommandModel : nac.ViewModelBase.ViewModelBase
     {
         get { return GetValue(() => Arguments); }
         set { SetValue(() => Arguments, value);}
+    }
+
+
+    public ObservableCollection<models.FolderCommandEnvironmentVariableModel> EnvironmentVariables
+    {
+        get { return GetValue(() => EnvironmentVariables); }
     }
 }

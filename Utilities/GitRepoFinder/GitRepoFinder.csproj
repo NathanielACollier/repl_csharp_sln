@@ -22,7 +22,7 @@
         <!-- this dotnet bundle is for building the macos App -->
         <PackageReference Include="Dotnet.Bundle" Version="*" />
         <!-- Regular packages that are needed for application-->
-        <PackageReference Include="nac.Forms" Version="2.3.8" />
+        <PackageReference Include="nac.Forms" Version="2.3.22" />
         <PackageReference Include="nac.ViewModelBase" Version="1.0.1" />
     </ItemGroup>
 
