@@ -32,8 +32,26 @@ public static class EditCommandEnvironVarsWindowRepo
 
     private static void buildAndDisplayUI()
     {
-        
-        
+        myForm.HorizontalGroup(hg =>
+            {
+                hg.Text("Environment Variables")
+                    .Button("Add", async () =>
+                    {
+                        model.EnvironmentVariables.Add(new models.FolderCommandEnvironmentVariableModel());
+                    });
+            })
+            .List<models.FolderCommandEnvironmentVariableModel>(itemSourcePropertyName: nameof(model.EnvironmentVariables), 
+                populateItemRow: environVarRow =>
+                {
+                    environVarRow.HorizontalGroup(hg =>
+                    {
+                        hg.Text("Key: ")
+                            .TextBoxFor(nameof(models.FolderCommandEnvironmentVariableModel.Key))
+                            .Text("Value: ")
+                            .TextBoxFor(nameof(models.FolderCommandEnvironmentVariableModel.Value));
+                    });
+                });
+
     }
     
 }
