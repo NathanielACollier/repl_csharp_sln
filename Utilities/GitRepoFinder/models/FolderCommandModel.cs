@@ -27,5 +27,6 @@ public class FolderCommandModel : nac.ViewModelBase.ViewModelBase
     public ObservableCollection<models.FolderCommandEnvironmentVariableModel> EnvironmentVariables
     {
         get { return GetValue(() => EnvironmentVariables); }
+        set { SetValue(() => EnvironmentVariables, value); } // set is required for json deserialize from file (The UI will work without this)
     }
 }
