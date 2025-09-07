@@ -74,7 +74,7 @@ Command Placeholders - Can be used in the Args textbox
                     .TextBoxFor(nameof(cmd.Description), style: new Style{width = 50})
                     .Button("Env vars", async () =>
                     {
-                        await repos.EditCommandEnvironVarsWindowRepo.run(cmd);
+                        await repos.EditCommandEnvironVarsWindowRepo.run(myForm, cmd);
                     })
                     .Text("Exe: ")
                     .TextBoxFor(nameof(cmd.ExePath), style: new Style { width = 400 })
