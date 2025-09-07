@@ -155,7 +155,7 @@ public static class MainWindowRepo
 
             foreach (var ev in evList)
             {
-                procStartInfo.EnvironmentVariables.Add(ev.Key, ev.Value);
+                procStartInfo.EnvironmentVariables[ev.Key] = ev.Value;
             }
             
             System.Diagnostics.Process.Start(procStartInfo);
