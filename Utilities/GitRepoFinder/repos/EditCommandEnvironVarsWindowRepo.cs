@@ -17,12 +17,6 @@ public static class EditCommandEnvironVarsWindowRepo
             myForm = _child;
             model = cmd;
             myForm.DataContext = model;
-            
-            // the json deserialize can cause this to be null so fix that
-            if (model.EnvironmentVariables == null)
-            {
-                model.EnvironmentVariables = new();
-            }
 
             myForm.Title = $"Edit Environment Variables";
         

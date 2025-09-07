@@ -148,8 +148,17 @@ public static class MainWindowRepo
             });
             
             repos.log.Info($"Running command: EXE[{command.ExePath}] Arguments[{commandArguments}]");
+
+            var procStartInfo = new System.Diagnostics.ProcessStartInfo(command.ExePath, commandArguments);
+
+            var evList = command.EnvironmentVariables.Where(ev => !string.IsNullOrWhiteSpace(ev.Key));
+
+            foreach (var ev in evList)
+            {
+                procStartInfo.EnvironmentVariables.Add(ev.Key, ev.Value);
+            }
             
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(command.ExePath, commandArguments));
+            System.Diagnostics.Process.Start(procStartInfo);
         }
         catch (Exception ex)
         {
