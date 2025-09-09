@@ -160,9 +160,10 @@ public static class MainWindowRepo
                 if (!string.IsNullOrWhiteSpace(originalValue) &&
                     string.Equals(ev.Key, "path", StringComparison.OrdinalIgnoreCase))
                 {
-                    evValue = originalValue + ":" + ev.Value;
+                    evValue = ev.Value + ":" + originalValue;
                 }
                 procStartInfo.EnvironmentVariables[ev.Key] = evValue;
+                log.Info($"Set Environment Variable: {ev.Key}={evValue}");
             }
             
             System.Diagnostics.Process.Start(procStartInfo);
