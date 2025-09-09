@@ -23,6 +23,7 @@
         <PackageReference Include="Dotnet.Bundle" Version="*" />
         <!-- Regular packages that are needed for application-->
         <PackageReference Include="nac.Forms" Version="2.3.22" />
+        <PackageReference Include="nac.Logging" Version="1.0.10" />
         <PackageReference Include="nac.ViewModelBase" Version="1.0.1" />
     </ItemGroup>
 

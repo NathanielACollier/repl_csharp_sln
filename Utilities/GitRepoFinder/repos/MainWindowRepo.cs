@@ -9,10 +9,13 @@ public static class MainWindowRepo
 {
     private static nac.Forms.Form myForm;
     private static models.MainWindowModel model;
+    private static nac.Logging.Logger log = new();
 
 
     public static async Task run()
     {
+        nac.Logging.Appenders.RollingFile.Setup();
+        
         myForm = nac.Forms.Form.NewForm();
 
         model = new models.MainWindowModel();
@@ -147,7 +150,7 @@ public static class MainWindowRepo
                 folderpath = repo.Path
             });
             
-            repos.log.Info($"Running command: EXE[{command.ExePath}] Arguments[{commandArguments}]");
+            log.Info($"Running command: EXE[{command.ExePath}] Arguments[{commandArguments}]");
 
             var procStartInfo = new System.Diagnostics.ProcessStartInfo(command.ExePath, commandArguments);
 
