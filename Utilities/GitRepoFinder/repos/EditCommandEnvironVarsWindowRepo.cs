@@ -45,7 +45,12 @@ public static class EditCommandEnvironVarsWindowRepo
                 {
                     environVarRow.HorizontalGroup(hg =>
                     {
-                        hg.Text("Key: ")
+                        hg.Button("Delete", onClick: async () =>
+                            {
+                                var envVarEntry = hg.DataContext as models.FolderCommandEnvironmentVariableModel;
+                                model.EnvironmentVariables.Remove(envVarEntry);
+                            })
+                            .Text("Key: ")
                             .TextBoxFor(nameof(models.FolderCommandEnvironmentVariableModel.Key))
                             .Text("Value: ")
                             .TextBoxFor(nameof(models.FolderCommandEnvironmentVariableModel.Value));
