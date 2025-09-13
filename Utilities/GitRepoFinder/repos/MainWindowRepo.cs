@@ -10,20 +10,30 @@ public static class MainWindowRepo
     private static nac.Forms.Form myForm;
     private static models.MainWindowModel model;
     private static nac.Logging.Logger log = new();
+    private static repos.GitRepoAnalysisThreadedRepo gitAnalysisThread;
 
 
     public static async Task run()
     {
         nac.Logging.Appenders.RollingFile.Setup();
-        
-        myForm = nac.Forms.Form.NewForm();
 
-        model = new models.MainWindowModel();
-        myForm.DataContext = model;
+        gitAnalysisThread = new();
+        gitAnalysisThread.Start();
+        try
+        {
+            myForm = nac.Forms.Form.NewForm();
 
-        myForm.Title = $"Git Repo Finder v{model.Version}";
+            model = new models.MainWindowModel();
+            myForm.DataContext = model;
 
-        await buildAndDisplayUI();
+            myForm.Title = $"Git Repo Finder v{model.Version}";
+
+            await buildAndDisplayUI();
+        }
+        finally
+        {
+            gitAnalysisThread.Stop();
+        }
     }
 
     private static async Task buildAndDisplayUI()
