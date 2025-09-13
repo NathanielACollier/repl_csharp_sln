@@ -21,6 +21,7 @@
     <ItemGroup>
         <!-- this dotnet bundle is for building the macos App -->
         <PackageReference Include="Dotnet.Bundle" Version="*" />
+        <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
         <!-- Regular packages that are needed for application-->
         <PackageReference Include="nac.Forms" Version="2.3.22" />
         <PackageReference Include="nac.Logging" Version="1.0.10" />
