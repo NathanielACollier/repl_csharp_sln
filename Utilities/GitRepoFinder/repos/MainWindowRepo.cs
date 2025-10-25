@@ -15,9 +15,12 @@ public static class MainWindowRepo
 
     public static async Task run()
     {
-        nac.Logging.Appenders.RollingFile.Setup();
+        nac.Logging.Appenders.RollingFile.Setup(filePath: System.IO.Path.Combine(
+            Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+            "logs/log.txt"
+            ));
 
-        gitAnalysisThread = new();
+        gitAnalysisThread = new(); ;
         gitAnalysisThread.Start();
         try
         {

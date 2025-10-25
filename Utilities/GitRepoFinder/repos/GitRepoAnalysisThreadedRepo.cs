@@ -4,6 +4,7 @@ namespace GitRepoFinder.repos;
 
 public class GitRepoAnalysisThreadedRepo
 {
+    private static nac.Logging.Logger log = new();
     private bool stopRunning = false;
     private System.Threading.Thread myThread;
     private List<string> gitRepoList = new();
@@ -24,6 +25,7 @@ public class GitRepoAnalysisThreadedRepo
     {
         this.myThread = new System.Threading.Thread(async () =>
         {
+            log.Info("Starting git repo analysis thread");
             await runGitAnalysisLoopInThread();
         });
         
