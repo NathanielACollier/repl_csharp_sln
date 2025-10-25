@@ -27,4 +27,15 @@ remove-item ([system.io.path]::Combine($deployDir.FullName, "*")) -Recurse -Forc
 # remove everything from publish folder except the app
 get-ChildItem -Path ($deployDir.FullName) | where { -not($_.Extension  -eq ".app") } | remove-item -Force -Recurse
 
-#& ./deploy-Release.ps1 -runtimeConfig "osx-x64"
+# build the dmg file for uploading to github Release
+$appFile = get-ChildItem -Path($deployDir.FullName) | where { $_.Extension -eq ".app"} | select -First 1
+$appName = [system.io.path]::GetFileNameWithoutExtension($appFile.FullName)
+$dmgPath = [system.io.path]::combine($deployDir.FullName, $appName + ".dmg")
+
+& hdiutil @("create", "-verbose",
+          "-srcfolder", ($appFile.FullName),
+          "-volname", $appName,
+          "-ov", $dmgPath,
+          "-format", "UDZO" 
+        )
+        
