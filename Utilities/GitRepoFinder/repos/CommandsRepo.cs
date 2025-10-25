@@ -70,7 +70,7 @@ public static class CommandsRepo
 
         var procStartInfo = new System.Diagnostics.ProcessStartInfo(command.ExePath, commandArguments);
 
-        var evList = command.EnvironmentVariables.Where(ev => !string.IsNullOrWhiteSpace(ev.Key));
+        var evList = command.EnvironmentVariables?.Where(ev => !string.IsNullOrWhiteSpace(ev.Key)) ?? [];
 
         foreach (var ev in evList)
         {
