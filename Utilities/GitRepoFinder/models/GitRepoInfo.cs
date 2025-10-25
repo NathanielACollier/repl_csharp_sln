@@ -28,7 +28,13 @@ public class GitRepoInfo : nac.ViewModelBase.ViewModelBase
         get { return GetValue(() => branchName); }
         set { SetValue(() => branchName, value);}
     }
-    
+
+
+    public string remoteStatus
+    {
+        get { return GetValue(() => remoteStatus);  }
+        set { SetValue( () => remoteStatus, value);}
+    }
     
     
     

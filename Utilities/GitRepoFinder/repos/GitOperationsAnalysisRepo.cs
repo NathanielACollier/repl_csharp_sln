@@ -30,6 +30,21 @@ public class GitOperationsAnalysisRepo
 
                 result.uncommitedFileCount = fileCount;
                 result.branchName = repo.Head.FriendlyName;
+                result.remoteStatus = "";
+
+                if (repo.Head.IsTracking)
+                {
+                    var track = repo.Head.TrackingDetails;
+                    if (track.AheadBy == 0 &&
+                        track.BehindBy == 0)
+                    {
+                        result.remoteStatus = "Sync";
+                    }
+                    else
+                    {
+                        result.remoteStatus = $"Up: {track.AheadBy}; Down: {track.BehindBy}";
+                    }
+                }
             }
 
             return result;

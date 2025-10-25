@@ -131,6 +131,11 @@ public static class MainWindowRepo
                         {
                             Header = "Uncommited",
                             modelBindingPropertyName = nameof(models.GitRepoInfo.UncommitedCount)
+                        },
+                        new nac.Forms.model.Column
+                        {
+                            Header = "Remote",
+                            modelBindingPropertyName = nameof(models.GitRepoInfo.remoteStatus)
                         }
                     });
         }, style: new Style{isVisibleModelName = nameof(model.doneGitRepoLoad)})
@@ -155,6 +160,7 @@ public static class MainWindowRepo
 
         targetRepo.UncommitedCount = e.uncommitedFileCount;
         targetRepo.branchName = e.branchName;
+        targetRepo.remoteStatus = e.remoteStatus;
     }
 
     private static nac.Forms.model.MenuItem[] generateMenuItemsForAllFolderComppands(GitRepoInfo repo)
