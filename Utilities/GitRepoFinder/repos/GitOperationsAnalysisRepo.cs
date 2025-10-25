@@ -27,6 +27,8 @@ public class GitOperationsAnalysisRepo
                 int fileCount = status.Added.Count() +
                                 status.Modified.Count() +
                                 status.Untracked.Count();
+
+                result.uncommitedFileCount = fileCount;
             }
 
             return result;
