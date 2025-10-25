@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+
 namespace GitRepoFinder.models;
 
 public class FolderCommandModel : nac.ViewModelBase.ViewModelBase
@@ -19,5 +21,20 @@ public class FolderCommandModel : nac.ViewModelBase.ViewModelBase
     {
         get { return GetValue(() => Arguments); }
         set { SetValue(() => Arguments, value);}
+    }
+
+
+    public ObservableCollection<models.FolderCommandEnvironmentVariableModel> EnvironmentVariables
+    {
+        get { return GetValue(() => EnvironmentVariables); }
+        set
+        {
+            if (value == null)
+            {
+                value = new(); // skip null and make it be a new instance
+            }
+            
+            SetValue(() => EnvironmentVariables, value);
+        } // set is required for json deserialize from file (The UI will work without this)
     }
 }

@@ -9,18 +9,31 @@ public static class MainWindowRepo
 {
     private static nac.Forms.Form myForm;
     private static models.MainWindowModel model;
+    private static nac.Logging.Logger log = new();
+    private static repos.GitRepoAnalysisThreadedRepo gitAnalysisThread;
 
 
     public static async Task run()
     {
-        myForm = nac.Forms.Form.NewForm();
+        nac.Logging.Appenders.RollingFile.Setup();
 
-        model = new models.MainWindowModel();
-        myForm.DataContext = model;
+        gitAnalysisThread = new();
+        gitAnalysisThread.Start();
+        try
+        {
+            myForm = nac.Forms.Form.NewForm();
 
-        myForm.Title = $"Git Repo Finder v{model.Version}";
+            model = new models.MainWindowModel();
+            myForm.DataContext = model;
 
-        await buildAndDisplayUI();
+            myForm.Title = $"Git Repo Finder v{model.Version}";
+
+            await buildAndDisplayUI();
+        }
+        finally
+        {
+            gitAnalysisThread.Stop();
+        }
     }
 
     private static async Task buildAndDisplayUI()
@@ -108,6 +121,21 @@ public static class MainWindowRepo
                         {
                             Header = "Path",
                             modelBindingPropertyName = nameof(models.GitRepoInfo.Path)
+                        },
+                        new nac.Forms.model.Column
+                        {
+                            Header = "Branch",
+                            modelBindingPropertyName = nameof(models.GitRepoInfo.branchName)
+                        },
+                        new nac.Forms.model.Column
+                        {
+                            Header = "Uncommited",
+                            modelBindingPropertyName = nameof(models.GitRepoInfo.UncommitedCount)
+                        },
+                        new nac.Forms.model.Column
+                        {
+                            Header = "Remote",
+                            modelBindingPropertyName = nameof(models.GitRepoInfo.remoteStatus)
                         }
                     });
         }, style: new Style{isVisibleModelName = nameof(model.doneGitRepoLoad)})
@@ -115,7 +143,24 @@ public static class MainWindowRepo
         {
             await repos.CommandsRepo.RefreshCommandListCache();
             await RefreshGitRepos();
+            gitAnalysisThread.onGitRepoAnalysisFinished += GitAnalysisThreadOnonGitRepoAnalysisFinished;
         });
+    }
+    
+    private static void GitAnalysisThreadOnonGitRepoAnalysisFinished(object? sender, GitRepoAnalysisResultModel e)
+    {
+        var targetRepo =
+            model.gitRepos.FirstOrDefault(r =>
+                string.Equals(r.Path, e.gitRepoPath, StringComparison.OrdinalIgnoreCase));
+
+        if (targetRepo == null)
+        {
+            return;
+        }
+
+        targetRepo.UncommitedCount = e.uncommitedFileCount;
+        targetRepo.branchName = e.branchName;
+        targetRepo.remoteStatus = e.remoteStatus;
     }
 
     private static nac.Forms.model.MenuItem[] generateMenuItemsForAllFolderComppands(GitRepoInfo repo)
@@ -142,14 +187,7 @@ public static class MainWindowRepo
     {
         try
         {
-            string commandArguments = repos.StringFormat.OskarFormat(command.Arguments, new
-            {
-                folderpath = repo.Path
-            });
-            
-            repos.log.Info($"Running command: EXE[{command.ExePath}] Arguments[{commandArguments}]");
-            
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(command.ExePath, commandArguments));
+            repos.CommandsRepo.RunCommand(repo, command);
         }
         catch (Exception ex)
         {
@@ -198,6 +236,7 @@ public static class MainWindowRepo
             foreach (var r in repoList)
             {
                 model.gitRepos.Add(r);
+                gitAnalysisThread.AddRepoForAnalysis(r);
                 model.displayedGitRepos.Add(r);
             }
         }

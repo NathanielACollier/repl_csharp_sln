@@ -2,6 +2,8 @@
 
 public static class GitRepo
 {
+    private static nac.Logging.Logger log = new();
+    
     public static async Task<List<models.GitRepoInfo>> refreshGitRepos(IEnumerable<string> rootWorkspacePaths)
     {
         return await Task.Run(() =>
@@ -28,7 +30,7 @@ public static class GitRepo
             }
             catch (Exception ex)
             {
-                repos.log.Error($"Error refreshing git repos: {ex}");
+                log.Error($"Error refreshing git repos: {ex}");
             }
 
             return repoList;
