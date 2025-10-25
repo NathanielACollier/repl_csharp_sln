@@ -1,3 +1,5 @@
+using GitRepoFinder.models;
+
 namespace GitRepoFinder.repos;
 
 public class GitRepoAnalysisThreadedRepo
@@ -24,6 +26,13 @@ public class GitRepoAnalysisThreadedRepo
         {
             await runGitAnalysisLoopInThread();
         });
+        
+        this.myThread.Start();
+    }
+    
+    public void AddRepoForAnalysis(GitRepoInfo gitRepoInfo)
+    {
+        this.gitRepoList.Add(gitRepoInfo.Path);
     }
 
     private async Task runGitAnalysisLoopInThread()
@@ -39,6 +48,8 @@ public class GitRepoAnalysisThreadedRepo
 
                 await ProcessGitRepo(gitRepoPath);
             }
+
+            await Task.Delay(1000 * 5); // delay every 5 seconds I think
         } while (this.stopRunning == false);
     }
 
@@ -48,4 +59,6 @@ public class GitRepoAnalysisThreadedRepo
 
         this.onGitRepoAnalysisFinished?.Invoke(this, analysisResults);
     }
+
+
 }

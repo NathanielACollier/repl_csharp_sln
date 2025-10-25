@@ -121,6 +121,11 @@ public static class MainWindowRepo
                         {
                             Header = "Path",
                             modelBindingPropertyName = nameof(models.GitRepoInfo.Path)
+                        },
+                        new nac.Forms.model.Column
+                        {
+                            Header = "Uncommited",
+                            modelBindingPropertyName = nameof(models.GitRepoInfo.UncommitedCount)
                         }
                     });
         }, style: new Style{isVisibleModelName = nameof(model.doneGitRepoLoad)})
@@ -128,7 +133,22 @@ public static class MainWindowRepo
         {
             await repos.CommandsRepo.RefreshCommandListCache();
             await RefreshGitRepos();
+            gitAnalysisThread.onGitRepoAnalysisFinished += GitAnalysisThreadOnonGitRepoAnalysisFinished;
         });
+    }
+    
+    private static void GitAnalysisThreadOnonGitRepoAnalysisFinished(object? sender, GitRepoAnalysisResultModel e)
+    {
+        var targetRepo =
+            model.gitRepos.FirstOrDefault(r =>
+                string.Equals(r.Path, e.gitRepoPath, StringComparison.OrdinalIgnoreCase));
+
+        if (targetRepo == null)
+        {
+            return;
+        }
+
+        targetRepo.UncommitedCount = e.uncommitedFileCount;
     }
 
     private static nac.Forms.model.MenuItem[] generateMenuItemsForAllFolderComppands(GitRepoInfo repo)
@@ -204,6 +224,7 @@ public static class MainWindowRepo
             foreach (var r in repoList)
             {
                 model.gitRepos.Add(r);
+                gitAnalysisThread.AddRepoForAnalysis(r);
                 model.displayedGitRepos.Add(r);
             }
         }

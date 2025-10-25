@@ -14,4 +14,13 @@ public class GitRepoInfo : nac.ViewModelBase.ViewModelBase
         get { return GetValue(() => Path); }
         set { SetValue(() => Path, value);}
     }
+
+
+    public int UncommitedCount
+    {
+        get { return GetValue(() => UncommitedCount); }
+        set { SetValue(() => UncommitedCount, value);}
+    }
+    
+    
 }
