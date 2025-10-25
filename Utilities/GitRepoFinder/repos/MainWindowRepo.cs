@@ -124,6 +124,11 @@ public static class MainWindowRepo
                         },
                         new nac.Forms.model.Column
                         {
+                            Header = "Branch",
+                            modelBindingPropertyName = nameof(models.GitRepoInfo.branchName)
+                        },
+                        new nac.Forms.model.Column
+                        {
                             Header = "Uncommited",
                             modelBindingPropertyName = nameof(models.GitRepoInfo.UncommitedCount)
                         }
@@ -149,6 +154,7 @@ public static class MainWindowRepo
         }
 
         targetRepo.UncommitedCount = e.uncommitedFileCount;
+        targetRepo.branchName = e.branchName;
     }
 
     private static nac.Forms.model.MenuItem[] generateMenuItemsForAllFolderComppands(GitRepoInfo repo)

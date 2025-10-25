@@ -29,6 +29,7 @@ public class GitOperationsAnalysisRepo
                                 status.Untracked.Count();
 
                 result.uncommitedFileCount = fileCount;
+                result.branchName = repo.Head.FriendlyName;
             }
 
             return result;
