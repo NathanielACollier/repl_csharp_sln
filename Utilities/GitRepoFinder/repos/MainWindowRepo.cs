@@ -1,4 +1,5 @@
-﻿using Avalonia.Input;
+﻿using System.Runtime.CompilerServices;
+using Avalonia.Input;
 using GitRepoFinder.models;
 using nac.Forms;
 using nac.Forms.model;
@@ -140,16 +141,33 @@ public static class MainWindowRepo
                             Header = "Remote",
                             modelBindingPropertyName = nameof(models.GitRepoInfo.remoteStatus)
                         }
-                    });
+                    }, onVisibleRowsChanged: newRows =>
+                    {
+                        var repos = newRows.Select(r => r.DataContext as models.GitRepoInfo)
+                            .ToList();
+                        log.Info($"Repo visible list count: {repos.Count}");
+
+                        SetGitAnalysisToVisibleRepoList(reposList: repos);
+                    }
+                    );
         }, style: new Style{isVisibleModelName = nameof(model.doneGitRepoLoad)})
         .Display(onDisplay: async (_f) =>
         {
             await repos.CommandsRepo.RefreshCommandListCache();
             await RefreshGitRepos();
-            gitAnalysisThread.onGitRepoAnalysisFinished += GitAnalysisThreadOnonGitRepoAnalysisFinished;
         });
     }
-    
+
+    private static void SetGitAnalysisToVisibleRepoList(List<GitRepoInfo?> reposList)
+    {
+        gitAnalysisThread.Clear();
+
+        foreach (var repo in reposList)
+        {
+            gitAnalysisThread.AddRepoForAnalysis(repo);
+        }
+    }
+
     private static void GitAnalysisThreadOnonGitRepoAnalysisFinished(object? sender, GitRepoAnalysisResultModel e)
     {
         var targetRepo =
@@ -235,16 +253,17 @@ public static class MainWindowRepo
             model.repoCount = repoList.Count;
             model.repoDisplayCount = repoList.Count;
 
-
             foreach (var r in repoList)
             {
                 model.gitRepos.Add(r);
-                gitAnalysisThread.AddRepoForAnalysis(r);
                 model.displayedGitRepos.Add(r);
             }
+
+            await gitAnalysisThread.PerformOneTimeAnalysisOnRepoList(repoList);
         }
         catch (Exception ex)
         {
+            log.Error($"Exception: {ex}");
         }
         finally
         {
