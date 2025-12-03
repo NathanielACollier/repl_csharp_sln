@@ -21,7 +21,8 @@ public static class MainWindowRepo
             "logs/log.txt"
             ));
 
-        gitAnalysisThread = new(); ;
+        gitAnalysisThread = new();
+        gitAnalysisThread.onGitRepoAnalysisFinished += GitAnalysisThreadOnonGitRepoAnalysisFinished;
         gitAnalysisThread.Start();
         try
         {
