@@ -41,9 +41,11 @@ public class GitRepoAnalysisThreadedRepo
     {
         do
         {
-            foreach (string gitRepoPath in this.gitRepoList ?? new())
+            var iterationRepoList = this.gitRepoList.ToList() ?? [];
+            
+            foreach (string gitRepoPath in iterationRepoList)
             {
-                if (this.stopRunning)
+                if (this.stopRunning || this.gitRepoList.Count != iterationRepoList.Count)
                 {
                     break; // break out of loop if we need to stop running
                 }
@@ -63,4 +65,20 @@ public class GitRepoAnalysisThreadedRepo
     }
 
 
+    public void Clear()
+    {
+        this.gitRepoList.Clear();
+    }
+
+
+    public Task PerformOneTimeAnalysisOnRepoList(List<GitRepoInfo> repoList)
+    {
+        return Task.Run(async () =>
+        {
+            foreach (var repo in repoList)
+            {
+                await ProcessGitRepo(repo.Path);
+            }
+        });
+    }
 }
