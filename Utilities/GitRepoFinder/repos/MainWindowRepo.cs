@@ -16,10 +16,7 @@ public static class MainWindowRepo
 
     public static async Task run()
     {
-        nac.Logging.Appenders.RollingFile.Setup(filePath: System.IO.Path.Combine(
-            Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
-            "logs/log.txt"
-            ));
+        setupFileLogging();
 
         gitAnalysisThread = new();
         gitAnalysisThread.onGitRepoAnalysisFinished += GitAnalysisThreadOnonGitRepoAnalysisFinished;
@@ -39,6 +36,18 @@ public static class MainWindowRepo
         {
             gitAnalysisThread.Stop();
         }
+    }
+
+    private static void setupFileLogging()
+    {
+        string assemblyLocation = System.Environment.ProcessPath;
+        log.Info($"Exe path: {assemblyLocation}");
+        string assemblyFolder = System.IO.Path.GetDirectoryName(assemblyLocation);
+        log.Info($"Assembly folder: {assemblyFolder}");
+        string logFilePath = System.IO.Path.Combine(assemblyFolder, "logs", "log.txt");
+        log.Info($"Log file path: {logFilePath}");
+
+        nac.Logging.Appenders.RollingFile.Setup(filePath: logFilePath);
     }
 
     private static async Task buildAndDisplayUI()
