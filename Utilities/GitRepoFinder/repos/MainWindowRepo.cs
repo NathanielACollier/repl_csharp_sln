@@ -268,8 +268,6 @@ public static class MainWindowRepo
                 model.gitRepos.Add(r);
                 model.displayedGitRepos.Add(r);
             }
-
-            await gitAnalysisThread.PerformOneTimeAnalysisOnRepoList(repoList);
         }
         catch (Exception ex)
         {

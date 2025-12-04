@@ -50,7 +50,15 @@ public class GitRepoAnalysisThreadedRepo
                     break; // break out of loop if we need to stop running
                 }
 
-                await ProcessGitRepo(gitRepoPath);
+                try
+                {
+                    await ProcessGitRepo(gitRepoPath);
+                }
+                catch (Exception ex)
+                {
+                    log.Error($"Failed to process git repo: {gitRepoPath}.   Exception: {ex}");
+                }
+                
             }
 
             await Task.Delay(1000 * 5); // delay every 5 seconds I think
