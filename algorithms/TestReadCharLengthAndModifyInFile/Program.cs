@@ -7,6 +7,7 @@ Console.WriteLine("Application Started");
 string targetFilePath = commonUtilitiesLib.File.getOutputPath("FilePositionReadWrite_Test1.txt");
 
 string product = repos.FileCharPositionRepo.Read(path: targetFilePath, startPos: 65, length: 10);
+Console.WriteLine($"Product is {product}");
 
 /*
 repos.FileCharPositionRepo.Write(filePath: targetFilePath, startPosition: 65, length: 10, "Chicago Cubs");
