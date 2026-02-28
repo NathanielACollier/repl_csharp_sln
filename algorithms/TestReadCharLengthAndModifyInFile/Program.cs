@@ -26,71 +26,45 @@ void Write(string filePath, int startPosition, int length, string newTextToWrite
         using (var writer = new StreamWriter(targetStream, System.Text.Encoding.UTF8))
         {
             int currentCharPosition = 0;
-            int charsToWrite = newTextToWrite.Length;
             bool writingNewText = false;
             int newTextIndex = 0;
-
-            // Read and process characters one by one
+            
+            // Read character by character
             while (true)
             {
                 int charCode = reader.Read();
-                if (charCode == -1) break; // End of file
-
-                if (currentCharPosition == startPosition - 1) // 1-based to 0-based
+                if (charCode == -1) break;
+                
+                char currentChar = (char)charCode;
+                
+                // Check if we should start writing new text
+                if (currentCharPosition == startPosition - 1)
                 {
-                    // Start writing new text
                     writingNewText = true;
                     newTextIndex = 0;
                 }
-
+                
+                // Write appropriate character
                 if (writingNewText)
                 {
-                    if (newTextIndex < newTextToWrite.Length)
+                    writer.Write(newTextToWrite[newTextIndex]);
+                    newTextIndex++;
+                    
+                    // We've written all new text, so stop replacement
+                    if (newTextIndex >= newTextToWrite.Length)
                     {
-                        // Write character from new text
-                        writer.Write(newTextToWrite[newTextIndex]);
-                        newTextIndex++;
-                    }
-                    else
-                    {
-                        // Skip original character (we've written enough)
-                        // Continue to next character
+                        writingNewText = false;
                     }
                 }
                 else
                 {
-                    // Copy original character
-                    writer.Write((char)charCode);
+                    writer.Write(currentChar);
                 }
-
+                
                 currentCharPosition++;
-
-                // If we've written all new text and skipped the original content
-                if (writingNewText && newTextIndex >= newTextToWrite.Length)
-                {
-                    // Skip the original characters that were replaced
-                    int charsToSkip = length - newTextToWrite.Length;
-                    for (int i = 0; i < charsToSkip && !reader.EndOfStream; i++)
-                    {
-                        reader.Read(); // Skip
-                        currentCharPosition++;
-                    }
-
-                    writingNewText = false;
-                }
-            }
-
-            // Handle case where newText is longer than original content
-            if (writingNewText && newTextIndex < newTextToWrite.Length)
-            {
-                // Write remaining new text
-                for (int i = newTextIndex; i < newTextToWrite.Length; i++)
-                {
-                    writer.Write(newTextToWrite[i]);
-                }
             }
         }
-
+        
         // Atomic replacement
         File.Delete(filePath);
         File.Move(tempPath, filePath);
