@@ -7,6 +7,9 @@
     <Project Path="algorithms/json dynamic deserialize/json dynamic deserialize.csproj" />
     <Project Path="algorithms/ListDictionaryRowValueComparrison/ListDictionaryRowValueComparrison.csproj" />
   </Folder>
+  <Folder Name="/algorithms/FilePositionReadAndWrite/">
+    <Project Path="algorithms/TestReadCharLengthAndModifyInFile/TestReadCharLengthAndModifyInFile.csproj" />
+  </Folder>
   <Folder Name="/charts/" />
   <Folder Name="/charts/plotly/">
     <Project Path="charts/plotly/_01_basicChartDIsplay/_01_basicChartDIsplay.csproj" />

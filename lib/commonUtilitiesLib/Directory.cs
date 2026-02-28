@@ -9,8 +9,7 @@ namespace commonUtilitiesLib
 
         public static string getRootDirectory()
         {
-            string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string dirPath = System.IO.Path.GetDirectoryName(exePath);
+            string dirPath = AppContext.BaseDirectory;
 
             // find parent that is key
             string key = "repl_csharp_sln";
