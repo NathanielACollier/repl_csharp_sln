@@ -31,12 +31,26 @@ public static class FileCharPositionRepo
 
     public static void Write(string filePath, int startPosition, int length, string newTextToWrite)
     {
+        Write(filePath: filePath,
+            replacementsInputArg:[
+                new models.SetPositionWithTextInfoModel
+                {
+                    Text = newTextToWrite,
+                    Length = length,
+                    StartPosition = startPosition
+                }
+            ]);
+    }
+
+    public static void Write(string filePath, IEnumerable<models.SetPositionWithTextInfoModel> replacementsInputArg)
+    {
         string tempPath = filePath + ".tmp";
 
         try
         {
-            newTextToWrite = repos.TextUtilityRepo.EnsureTextIsLength(text: newTextToWrite, length: length);
-
+            var replacementsQueue = new System.Collections.Generic.Queue<models.SetPositionWithTextInfoModel>(
+                replacementsInputArg.OrderBy(r => r.StartPosition)
+            );
 
             using (var sourceStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             using (var targetStream = new FileStream(tempPath, FileMode.Create, FileAccess.Write))
@@ -46,6 +60,7 @@ public static class FileCharPositionRepo
                 int currentCharPosition = 0;
                 bool writingNewText = false;
                 int newTextIndex = 0;
+                models.SetPositionWithTextInfoModel currentNewText = DequeueWithFixes(replacementsQueue);
 
                 // Read character by character
                 while (true)
@@ -56,7 +71,7 @@ public static class FileCharPositionRepo
                     char currentChar = (char)charCode;
 
                     // Check if we should start writing new text
-                    if (currentCharPosition == startPosition - 1)
+                    if (currentNewText != null && currentCharPosition == currentNewText.StartPosition - 1)
                     {
                         writingNewText = true;
                         newTextIndex = 0;
@@ -65,13 +80,15 @@ public static class FileCharPositionRepo
                     // Write appropriate character
                     if (writingNewText)
                     {
-                        writer.Write(newTextToWrite[newTextIndex]);
+                        writer.Write(currentNewText.Text[newTextIndex]);
                         newTextIndex++;
 
                         // We've written all new text, so stop replacement
-                        if (newTextIndex >= newTextToWrite.Length)
+                        if (newTextIndex >= currentNewText.Text.Length)
                         {
                             writingNewText = false;
+                            // grab the next one from the queue
+                            currentNewText = DequeueWithFixes(replacementsQueue);
                         }
                     }
                     else
@@ -94,8 +111,21 @@ public static class FileCharPositionRepo
             throw;
         }
     }
-    
-    
+
+
+
+    private static models.SetPositionWithTextInfoModel DequeueWithFixes(
+        System.Collections.Generic.Queue<models.SetPositionWithTextInfoModel> queue)
+    {
+        if (queue.Count < 1)
+        {
+            return null;
+        }
+        
+        var newText = queue.Dequeue();
+        newText.Text = repos.TextUtilityRepo.EnsureTextIsLength(text: newText.Text, length: newText.Length);
+        return newText;
+    }
     
     
     

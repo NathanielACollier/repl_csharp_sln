@@ -9,6 +9,7 @@ string product = repos.FileCharPositionRepo.Read(path: targetFilePath, startPos:
 
 repos.FileCharPositionRepo.Write(filePath: targetFilePath, startPosition: 65, length: 10, "Chicago Cubs");
 repos.FileCharPositionRepo.Write(filePath: targetFilePath, startPosition: 122, length: 2, "RE");
+repos.FileCharPositionRepo.Write(filePath: targetFilePath, startPosition: 124, length: 12, "Apple Sauce");
 
 Console.WriteLine("Application Done");
 
