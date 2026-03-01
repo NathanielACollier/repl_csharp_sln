@@ -4,24 +4,59 @@ public static class FileCharPositionRepo
 {
     public static string Read(string path, int startPos, int length)
     {
+        var position = new models.SetPositionWithTextInfoModel
+        {
+            StartPosition = startPos,
+            Length = length,
+            Text = ""
+        };
+
+        var positionList = new List<models.SetPositionWithTextInfoModel>();
+        positionList.Add(position);
+
+        Read(path: path, textPositionsToRead: positionList);
+        return position.Text;
+    }
+
+
+    public static void Read(string path, IEnumerable<models.SetPositionWithTextInfoModel> textPositionsToRead)
+    {
+        var textPositionsQueue = new System.Collections.Generic.Queue<models.SetPositionWithTextInfoModel>(
+            textPositionsToRead.OrderBy(r => r.StartPosition)
+        );
+
+        long currentCharPos = 0;
+        
         using (var fs = new System.IO.FileStream(path: path, mode: FileMode.Open, access: FileAccess.ReadWrite))
         using (var reader = new System.IO.StreamReader(fs, System.Text.Encoding.UTF8))
         {
-            SeekCharacterPosition(reader, startPos);
+            while (true)
+            {
+                var currentTextPosition = DequeueWithFixes(textPositionsQueue);
+                if (currentTextPosition == null)
+                {
+                    break;
+                }
+                
+                SeekCharacterPosition(reader, lastCharPos: currentCharPos,
+                    positionToReadTo: currentTextPosition.StartPosition);
+                currentCharPos = currentTextPosition.StartPosition;
 
-            // Read the specified number of characters
-            char[] buffer = new char[length];
-            int charsRead = reader.Read(buffer, 0, length);
+                // Read the specified number of characters
+                char[] buffer = new char[currentTextPosition.Length];
+                int charsRead = reader.Read(buffer, 0, currentTextPosition.Length);
+                currentCharPos += currentTextPosition.Length;
 
-            return new string(buffer, 0, charsRead);
+                currentTextPosition.Text = new string(buffer, 0, charsRead);
+            }
         }
     }
 
 
-    private static void SeekCharacterPosition(StreamReader streamReader, int characterPosition)
+    private static void SeekCharacterPosition(StreamReader streamReader, long lastCharPos, long positionToReadTo)
     {
         // Skip to the starting position (startPos is 1-based, so we seek to startPos-1)
-        for (int i = 0; i < characterPosition - 1; i++)
+        for (long i = lastCharPos; i < positionToReadTo - 1; i++)
         {
             if (streamReader.Peek() == -1) break;
             streamReader.Read();
@@ -32,7 +67,7 @@ public static class FileCharPositionRepo
     public static void Write(string filePath, int startPosition, int length, string newTextToWrite)
     {
         Write(filePath: filePath,
-            replacementsInputArg:[
+            textPositionsToWriteList:[
                 new models.SetPositionWithTextInfoModel
                 {
                     Text = newTextToWrite,
@@ -42,14 +77,16 @@ public static class FileCharPositionRepo
             ]);
     }
 
-    public static void Write(string filePath, IEnumerable<models.SetPositionWithTextInfoModel> replacementsInputArg)
+    
+    
+    public static void Write(string filePath, IEnumerable<models.SetPositionWithTextInfoModel> textPositionsToWriteList)
     {
         string tempPath = filePath + ".tmp";
 
         try
         {
             var replacementsQueue = new System.Collections.Generic.Queue<models.SetPositionWithTextInfoModel>(
-                replacementsInputArg.OrderBy(r => r.StartPosition)
+                textPositionsToWriteList.OrderBy(r => r.StartPosition)
             );
 
             using (var sourceStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
