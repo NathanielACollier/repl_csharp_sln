@@ -45,7 +45,7 @@ public static class FileCharPositionRepo
                 // Read the specified number of characters
                 char[] buffer = new char[currentTextPosition.Length];
                 int charsRead = reader.Read(buffer, 0, currentTextPosition.Length);
-                currentCharPos += currentTextPosition.Length;
+                currentCharPos += currentTextPosition.Length - 1;
 
                 currentTextPosition.Text = new string(buffer, 0, charsRead);
             }
