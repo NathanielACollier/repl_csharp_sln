@@ -64,6 +64,9 @@
   <Folder Name="/Test/UI/AvaloniaDeclaritiveUI/Samples/">
     <Project Path="Test/UI/AvaloniaDeclaritiveUI/Samples/S001_HelloWorld/S001_HelloWorld.csproj" />
   </Folder>
+  <Folder Name="/Test/UI/MAUI/">
+    <Project Path="Test/UI/MAUI/MAUIApp001_HelloWorld/MAUIApp001_HelloWorld.csproj" />
+  </Folder>
   <Folder Name="/Test/WebBrowser/">
     <Project Path="Test/WebBrowser/OpenDefaultWebBrowser/OpenDefaultWebBrowser.csproj" />
   </Folder>
