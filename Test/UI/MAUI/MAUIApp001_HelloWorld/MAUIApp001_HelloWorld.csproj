@@ -11,8 +11,5 @@
     <PackageReference Include="CommunityToolkit.Maui" Version="14.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages/" />
-  </ItemGroup>
 
 </Project>
