@@ -3,6 +3,12 @@ using System;
 using CommunityToolkit.Maui.Markup;
 using static CommunityToolkit.Maui.Markup.GridRowsColumns;
 
+
+/*
+Don't know why this doesn't compile.    I was following this, need more info to get this to compile
+https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/markup/markup
+*/
+
 namespace MAUIApp001_HelloWorld.Pages;
 
 class SampleContentPage : ContentPage
