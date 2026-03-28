@@ -1,0 +1,26 @@
+{
+  "name": "C# + Ollama Dev",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "remoteUser": "root",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "github.copilot",
+        "github.copilot-chat"
+      ]
+    }
+  },
+
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+
+  "postCreateCommand": "dotnet --info",
+
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ]
+}
